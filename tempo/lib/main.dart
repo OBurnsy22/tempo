@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'tempo',
       themeMode: ThemeMode.dark,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.grey,
       ),
       home: navigator(),
     );
@@ -59,6 +59,7 @@ class navigatorState extends State<navigator>{
     return Scaffold(
       body: PageView(
         controller: _controller,
+        //disables scrolling left/right
         physics: NeverScrollableScrollPhysics(),
         children: _pages,
       ),

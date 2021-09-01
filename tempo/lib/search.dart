@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
-import 'search.dart';
+
 
 class searchHome extends StatefulWidget {
 
@@ -14,7 +13,6 @@ class searchHomeState extends State<searchHome> with AutomaticKeepAliveClientMix
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Colors.yellow,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

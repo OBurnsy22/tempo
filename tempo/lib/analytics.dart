@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'main.dart';
-import 'search.dart';
+
 
 class analyticsHome extends StatefulWidget {
 
@@ -15,7 +13,6 @@ class analyticsHomeState extends State<analyticsHome> with AutomaticKeepAliveCli
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Colors.cyan,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
