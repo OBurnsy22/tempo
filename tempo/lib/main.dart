@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:tempo/search.dart';
 import 'analytics.dart';
 import 'cards.dart';
+import 'login.dart';
+import 'globals.dart' as globals;
 
 void main() {
   runApp(MyApp());
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: navigator(),
+      home: globals.signedIn == false ? login() : navigator(),
     );
   }
 }
