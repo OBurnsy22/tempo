@@ -5,8 +5,11 @@ import 'analytics.dart';
 import 'cards.dart';
 import 'login.dart';
 import 'globals.dart' as globals;
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
