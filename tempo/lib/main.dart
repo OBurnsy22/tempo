@@ -28,6 +28,9 @@ class MyApp extends StatelessWidget {
 }
 
 class navigator extends StatefulWidget {
+  final Future<void> logout;
+
+  navigator({Key key, @required this.logout}) : super(key: key);
 
   @override
   navigatorState createState() => navigatorState();
@@ -37,6 +40,7 @@ class navigatorState extends State<navigator>{
   PageController _controller;
   var _selectedPageIndex;
   List<Widget> _pages;
+
 
   @override
   void initState() {
@@ -62,6 +66,26 @@ class navigatorState extends State<navigator>{
   Widget build(BuildContext context) {
 
     return Scaffold(
+      appBar: AppBar(
+
+      ),
+      drawer: Drawer(
+          child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                ListTile(
+                  title: const Text('Settings'),
+                  onTap: () {
+
+                  },
+                ),
+                ListTile(
+                  title: const Text('Logout'),
+                  onTap: () => widget.logout,
+                )
+              ]
+          )
+      ),
       body: PageView(
         controller: _controller,
         //disables scrolling left/right
@@ -88,4 +112,6 @@ class navigatorState extends State<navigator>{
       ),
     );
   }
+
+
 }

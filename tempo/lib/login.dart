@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -37,12 +36,13 @@ class loginState extends State<login> {
               textColor: Colors.black,
               child: Text('Login with Google'),
             ),
+            /*
             MaterialButton(
-              onPressed: () => Authentication().signOut(),
+              onPressed: () => googleSignOut(),
               color: Colors.white,
               textColor: Colors.black,
               child: Text('Logout with Google')
-            )
+            )*/
           ],
         ),
       ),
@@ -56,7 +56,8 @@ class loginState extends State<login> {
       if (user != null) {
         print(user.uid);
         setState(() {
-          globals.user=user;
+          globals.user = user;
+          globals.signedIn = true;
         });
       }
     });
@@ -66,12 +67,11 @@ class loginState extends State<login> {
   //function called before google sign in, to catch
   //any potential sign in erros
   Future<void> singInErrorCatcher() async {
-    print("In google sign in");
     try{
       await googleSignIn();
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => navigator()),
+        MaterialPageRoute(builder: (context) => navigator(logout: googleSignOut())),
       );
     } catch(error) {
       print(error);
@@ -98,11 +98,21 @@ class loginState extends State<login> {
     // Once signed in, return the UserCredential
     setState(() {
       globals.signedIn = true;
+      //globals.user = googleUser as User;
     });
 
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
-
+  //signs out current user and returns them to homepage
+  Future<void> googleSignOut() async {
+    print("in google sign out");
+    await FirebaseAuth.instance.signOut();
+    await GoogleSignIn().signOut();
+    setState(() {
+      globals.user = null;
+      globals.signedIn = false;
+    });
+  }
 
 }
