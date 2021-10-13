@@ -9,8 +9,10 @@ class cardsHome extends StatefulWidget {
 }
 
 class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin<cardsHome> {
-  final form_key = GlobalKey<FormState>();
-  String _folder;
+  final folder_form_key = GlobalKey<FormState>();
+  final card_form_key = GlobalKey<FormState>();
+  String _folder; //might want to change this to an array
+  String _card;   //might want to change this to an array
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +54,12 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
                         ),
                         Align(
                             alignment: Alignment.centerRight,
-                            child: Icon(
-                              Icons.add_outlined,
-                              size: 40,
+                            child: GestureDetector(
+                              onTap: AddCardForm,
+                              child: Icon(
+                                Icons.add_outlined,
+                                size: 40,
+                              )
                             )
                         )
                       ],
@@ -73,22 +78,28 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
   /*
     Use showDialog to return the form
     https://stackoverflow.com/questions/54480641/flutter-how-to-create-forms-in-popup
-
-
    */
 
-  Form AddFolderForm() {
-    return Form(
-        key: form_key,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: input() + buttons()
-        )
+  Future<void> AddFolderForm() {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Add A Folder"),
+          content: Form(
+              key: folder_form_key,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: folderInput() + folderButtons()
+              )
+          ),
+        );
+      }
     );
   }
 
   //input for AddFolderForm()
-  List<Widget> input() {
+  List<Widget> folderInput() {
     return [
       TextFormField(
         key :Key("input_key"),
@@ -109,7 +120,7 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
   }
 
   //buttons for AddFolderForm
-  List<Widget> buttons() {
+  List<Widget> folderButtons() {
     return [
       Container(
           width: 250.0,
@@ -126,7 +137,7 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
               ),
             ),
             key: Key("submit_key"),
-            onPressed: validateForm,
+            onPressed: folderValidation,
             child: Text(
               "Create Class",
               style: TextStyle(
@@ -139,8 +150,93 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
   }
 
   //validates form for creating a folder
-  bool validateForm(){
-    final form = form_key.currentState;
+  bool folderValidation(){
+    final form = folder_form_key.currentState;
+    if(form.validate()){
+      form.save();
+      setState(() {
+        //CREATE DATA HERE
+        //firebaseCreateClass();
+      });
+      return true;
+    }
+    return false;
+  }
+
+
+  //form for creating cards
+  Future<void> AddCardForm() {
+    return showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Add A Card"),
+            content: Form(
+                key: card_form_key,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: cardInput() + cardButtons()
+                )
+            ),
+          );
+        }
+    );
+  }
+
+  //input for AddCardForm()
+  List<Widget> cardInput() {
+    return [
+      TextFormField(
+        key :Key("input_key"),
+        onSaved: (String cardName) {
+          //save here
+          _card = cardName;
+        },
+        validator: (String cardName) {
+          //ensure a folder name was entered
+          if ((cardName.isEmpty)) {
+            return 'Please enter text';
+          }
+
+          return null;
+        },
+      )
+    ];
+  }
+
+  //buttons for AddFolderForm
+  List<Widget> cardButtons() {
+    return [
+      Container(
+          width: 250.0,
+          height: 50.0,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              onPrimary: Color(0xFFE0F7FA),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(32.0),
+              ),
+              side: BorderSide(
+                width: 3,
+                color: Colors.cyan.shade800,
+              ),
+            ),
+            key: Key("submit_key"),
+            onPressed: cardValidation,
+            child: Text(
+              "Create Card",
+              style: TextStyle(
+                fontSize: 22,
+              ),
+            ),
+          )
+      ),
+    ];
+  }
+
+  //validates form for creating a card
+  bool cardValidation(){
+    final form = card_form_key.currentState;
     if(form.validate()){
       form.save();
       setState(() {
