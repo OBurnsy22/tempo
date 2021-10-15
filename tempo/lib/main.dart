@@ -7,6 +7,7 @@ import 'login.dart';
 import 'globals.dart' as globals;
 import 'package:firebase_core/firebase_core.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -28,9 +29,8 @@ class MyApp extends StatelessWidget {
 }
 
 class navigator extends StatefulWidget {
-  final Future<void> logout;
 
-  navigator({Key key, @required this.logout}) : super(key: key);
+  navigator({Key key}) : super(key: key);
 
   @override
   navigatorState createState() => navigatorState();
@@ -81,7 +81,10 @@ class navigatorState extends State<navigator>{
                 ),
                 ListTile(
                   title: const Text('Logout'),
-                  onTap: () => widget.logout,
+                  onTap: () {
+
+
+                  },
                 )
               ]
           )

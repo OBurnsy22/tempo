@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'firebase.dart' as fb;
 
 
 class cardsHome extends StatefulWidget {
@@ -139,7 +140,7 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
             key: Key("submit_key"),
             onPressed: folderValidation,
             child: Text(
-              "Create Class",
+              "Create Folder",
               style: TextStyle(
                 fontSize: 22,
               ),
@@ -155,8 +156,8 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
     if(form.validate()){
       form.save();
       setState(() {
-        //CREATE DATA HERE
-        //firebaseCreateClass();
+        //add new folder to firebase
+        fb.fireDatabase().firebaseCreate(_folder, "folder");
       });
       return true;
     }
@@ -240,8 +241,9 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
     if(form.validate()){
       form.save();
       setState(() {
-        //CREATE DATA HERE
-        //firebaseCreateClass();
+        //create new card in firebase
+        //add new folder to firebase
+        fb.fireDatabase().firebaseCreate(_card, "card");
       });
       return true;
     }

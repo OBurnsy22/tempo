@@ -71,7 +71,7 @@ class loginState extends State<login> {
       await googleSignIn();
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => navigator(logout: googleSignOut())),
+        MaterialPageRoute(builder: (context) => navigator()),
       );
     } catch(error) {
       print(error);
@@ -110,6 +110,7 @@ class loginState extends State<login> {
     await FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
     setState(() {
+      print("In set state for google sign out");
       globals.user = null;
       globals.signedIn = false;
     });
