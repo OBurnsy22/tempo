@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase.dart' as fb;
 
 
@@ -14,73 +15,90 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
   final card_form_key = GlobalKey<FormState>();
   String _folder; //might want to change this to an array
   String _card;   //might want to change this to an array
+  bool data_retrieved = false;
+  List<QueryDocumentSnapshot> user_data = [];
 
   @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget> [
-            Container(
-              width: MediaQuery.of(context).size.width * 0.85,
-              height: MediaQuery.of(context).size.height * 0.80,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.black,
-                  width: 3,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-                color: Colors.green,
-              ),
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: FractionallySizedBox(
-                  widthFactor: 1,
-                  heightFactor: 0.07,
-                  child: Container(
-                    color: Colors.yellow,
-                    child: Row(
-                      children: <Widget> [
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: GestureDetector(
-                            onTap: AddFolderForm,
-                            child: Icon(
-                              Icons.create_new_folder_outlined,
-                              size: 40,
-                            ),
-                          )
-                        ),
-                        Align(
-                            alignment: Alignment.centerRight,
-                            child: GestureDetector(
-                              onTap: AddCardForm,
-                              child: Icon(
-                                Icons.add_outlined,
-                                size: 40,
-                              )
-                            )
-                        )
-                      ],
-                    ),
-                  )
-                ),
-              )
-            )
-          ],
-        ),
-      ),
-    );
+  void initState() async {
+    await retrieveData();
+    setState(() {
+      data_retrieved = true;
+    });
   }
 
 
-  /*
-    Use showDialog to return the form
-    https://stackoverflow.com/questions/54480641/flutter-how-to-create-forms-in-popup
-   */
+  Future<void> retrieveData() async {
+    user_data = await fb.fireDatabase().retrieveUserData();
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    if(data_retrieved){
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget> [
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.85,
+                  height: MediaQuery.of(context).size.height * 0.80,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 3,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    color: Colors.green,
+                  ),
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: FractionallySizedBox(
+                        widthFactor: 1,
+                        heightFactor: 0.07,
+                        child: Container(
+                          color: Colors.yellow,
+                          child: Row(
+                            children: <Widget> [
+                              Align(
+                                  alignment: Alignment.centerRight,
+                                  child: GestureDetector(
+                                    onTap: AddFolderForm,
+                                    child: Icon(
+                                      Icons.create_new_folder_outlined,
+                                      size: 40,
+                                    ),
+                                  )
+                              ),
+                              Align(
+                                  alignment: Alignment.centerRight,
+                                  child: GestureDetector(
+                                      onTap: AddCardForm,
+                                      child: Icon(
+                                        Icons.add_outlined,
+                                        size: 40,
+                                      )
+                                  )
+                              )
+                            ],
+                          ),
+                        )
+                    ),
+                  )
+              )
+            ],
+          ),
+        ),
+      );
+    } else { //data hasn't been retrieved yet so return progress indicator
+      return CircularProgressIndicator(
+        backgroundColor: Color(0xFFE0F7FA),
+      );
+    }
+  }
+
+
+
+  // form for adding folders
   Future<void> AddFolderForm() {
     return showDialog<void>(
       context: context,
@@ -113,7 +131,6 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
           if ((folderName.isEmpty)) {
             return 'Please enter text';
           }
-
           return null;
         },
       )

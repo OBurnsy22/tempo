@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'globals.dart' as globals;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'main.dart';
+import 'google_auth.dart';
 
 
 class login extends StatefulWidget {
@@ -36,13 +37,6 @@ class loginState extends State<login> {
               textColor: Colors.black,
               child: Text('Login with Google'),
             ),
-            /*
-            MaterialButton(
-              onPressed: () => googleSignOut(),
-              color: Colors.white,
-              textColor: Colors.black,
-              child: Text('Logout with Google')
-            )*/
           ],
         ),
       ),
@@ -68,7 +62,8 @@ class loginState extends State<login> {
   //any potential sign in erros
   Future<void> singInErrorCatcher() async {
     try{
-      await googleSignIn();
+      await googleAuth().googleSignIn();
+      globals.signedIn = true;
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => navigator()),
@@ -78,6 +73,7 @@ class loginState extends State<login> {
     }
   }
 
+  /*
   //signs the user in through google
   Future<UserCredential> googleSignIn() async {  //look at firebase auth for reference
     // Trigger the authentication flow
@@ -114,6 +110,6 @@ class loginState extends State<login> {
       globals.user = null;
       globals.signedIn = false;
     });
-  }
+  } */
 
 }

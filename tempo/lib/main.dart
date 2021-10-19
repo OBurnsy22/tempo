@@ -6,6 +6,7 @@ import 'cards.dart';
 import 'login.dart';
 import 'globals.dart' as globals;
 import 'package:firebase_core/firebase_core.dart';
+import 'google_auth.dart';
 
 
 void main() async {
@@ -81,10 +82,7 @@ class navigatorState extends State<navigator>{
                 ),
                 ListTile(
                   title: const Text('Logout'),
-                  onTap: () {
-
-
-                  },
+                  onTap: () => googleAuth().googleSignOut(context),
                 )
               ]
           )

@@ -9,7 +9,6 @@ class fireDatabase {
   //Creates a class for the specified user in firebase
   //adopt this to work with cards and folders
   Future<void> firebaseCreate(String name, String type) async {
-    print("In firebase create");
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     //print(globals.user.uid);
     print(globals.user.email);
@@ -46,8 +45,29 @@ class fireDatabase {
   }
 
   //example of how to retrieve data from firebase
+    Future<List<QueryDocumentSnapshot>> retrieveUserData() async{
+      List<QueryDocumentSnapshot> user_data = [];
+      QuerySnapshot snap = await FirebaseFirestore.instance.collection(globals.user.email).get();
+      //loops through all documents, appending their names to the myDocs list
+      snap.docs.forEach((element) {
+        print(element.get("test"));
+        /*
+        var icon = element.get("classIcon");
+        user_data.add(element);*/
+      });
+      print(user_data.length);
+      return user_data;
+    /*
+    print(allClasses.length);
+    setState(() {
+      classesRetrieved = true;
+    });*/
+  }
+
+
+  //use this function to retrieve all data from firebase
   /*
-    Future<void> retrieveClasses() async{
+  Future<void> retrieveClasses() async{
     QuerySnapshot snap = await FirebaseFirestore.instance.collection(globals.user.email).get();
     //loops through all documents, appending their names to the myDocs list
     snap.docs.forEach((element) {
@@ -59,6 +79,6 @@ class fireDatabase {
     setState(() {
       classesRetrieved = true;
     });
-  }
-   */
+  }*/
+
 }
