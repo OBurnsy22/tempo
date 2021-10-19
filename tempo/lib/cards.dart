@@ -86,6 +86,28 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
                         )
                     ),
                   )
+              ),
+              Expanded(
+                  child: Container (
+                    child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.84,
+                        //add height HERE
+                        child: ListView.builder(
+                            itemCount: user_data.length,
+                            itemBuilder: (context, index) {
+                              QueryDocumentSnapshot data = user_data[index];
+                              return Card(
+                                  child: ListTile(
+                                      title: Text(data.get("test")),
+                                      onTap: () {
+                                        // NAVIGATE TO NEW VIEW HERE
+                                      }
+                                  )
+                              );
+                            }
+                        )
+                    ),
+                  )
               )
             ],
           ),
