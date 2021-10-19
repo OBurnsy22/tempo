@@ -19,16 +19,18 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
   List<QueryDocumentSnapshot> user_data = [];
 
   @override
-  void initState() async {
-    await retrieveData();
-    setState(() {
-      data_retrieved = true;
-    });
+  void initState() {
+    super.initState();
+    retrieveData();
   }
 
 
   Future<void> retrieveData() async {
     user_data = await fb.fireDatabase().retrieveUserData();
+    print(user_data.length);
+    setState(() {
+      data_retrieved = true;
+    });
   }
 
   @override

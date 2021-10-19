@@ -50,18 +50,9 @@ class fireDatabase {
       QuerySnapshot snap = await FirebaseFirestore.instance.collection(globals.user.email).get();
       //loops through all documents, appending their names to the myDocs list
       snap.docs.forEach((element) {
-        print(element.get("test"));
-        /*
-        var icon = element.get("classIcon");
-        user_data.add(element);*/
+        user_data.add(element);
       });
-      print(user_data.length);
       return user_data;
-    /*
-    print(allClasses.length);
-    setState(() {
-      classesRetrieved = true;
-    });*/
   }
 
 
