@@ -3,18 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase.dart' as fb;
 
-
 class cardsHome extends StatefulWidget {
-
   @override
   cardsHomeState createState() => cardsHomeState();
 }
 
-class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin<cardsHome> {
+class cardsHomeState extends State<cardsHome>
+    with AutomaticKeepAliveClientMixin<cardsHome> {
   final folder_form_key = GlobalKey<FormState>();
   final card_form_key = GlobalKey<FormState>();
   String _folder; //might want to change this to an array
-  String _card;   //might want to change this to an array
+  String _card; //might want to change this to an array
   bool data_retrieved = false;
   List<QueryDocumentSnapshot> user_data = [];
 
@@ -23,7 +22,6 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
     super.initState();
     retrieveData();
   }
-
 
   Future<void> retrieveData() async {
     user_data = await fb.fireDatabase().retrieveUserData();
@@ -35,124 +33,102 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
 
   @override
   Widget build(BuildContext context) {
-    if(data_retrieved){
+    if (data_retrieved) {
       return Scaffold(
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget> [
-              Stack(
-                clipBehavior: Clip.antiAlias,
-                children: <Widget> [
-                  Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.height * 0.80,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 3,
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                        color: Colors.green,
-                      ),
-                      child: Expanded(
-                          child: SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.84,
-                              //add height HERE
-                              child: ListView.builder(
-                                  itemCount: user_data.length,
-                                  itemBuilder: (context, index) {
-                                    QueryDocumentSnapshot data = user_data[index];
-                                    return Card(
-                                        child: ListTile(
-                                            title: Text(data.get("test")),
-                                            onTap: () {
-                                              // NAVIGATE TO NEW VIEW HERE
-                                            }
-                                        )
-                                    );
-                                  }
-                              )
-                          )
-                      )
-                  ),
-                  Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      child: Align(
-                        alignment: Alignment.topCenter,
-                        child: FractionallySizedBox(
-                            widthFactor: 1,
-                            heightFactor: 0.07,
-                            child: Container(
-                              color: Colors.yellow,
-                              child: Row(
-                                children: <Widget> [
-                                  Align(
-                                      alignment: Alignment.centerRight,
-                                      child: GestureDetector(
-                                        onTap: AddFolderForm,
-                                        child: Icon(
-                                          Icons.create_new_folder_outlined,
-                                          size: 40,
-                                        ),
-                                      )
-                                  ),
-                                  Align(
-                                      alignment: Alignment.centerRight,
-                                      child: GestureDetector(
-                                          onTap: AddCardForm,
-                                          child: Icon(
-                                            Icons.add_outlined,
-                                            size: 40,
-                                          )
-                                      )
-                                  )
-                                ],
+            children: <Widget>[
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.85,
+                  height: MediaQuery.of(context).size.height * 0.06,
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Row(
+                      children: <Widget>[
+                        Align(
+                            alignment: Alignment.centerRight,
+                            child: GestureDetector(
+                              onTap: AddFolderForm,
+                              child: Icon(
+                                Icons.create_new_folder_outlined,
+                                size: 40,
                               ),
-                            )
-                        ),
-                      )
+                            )),
+                        Align(
+                            alignment: Alignment.centerRight,
+                            child: GestureDetector(
+                                onTap: AddCardForm,
+                                child: Icon(
+                                  Icons.add_outlined,
+                                  size: 40,
+                                )))
+                      ],
+                    ),
+                  )),
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.85,
+                  height: MediaQuery.of(context).size.height * 0.75,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 3,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    color: Colors.green,
                   ),
-                ],
-              ),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                          width: MediaQuery.of(context).size.width * 0.80,
+                          height: MediaQuery.of(context).size.height * 0.74,
+                          child: ListView.builder(
+                              itemCount: user_data.length,
+                              itemBuilder: (context, index) {
+                                QueryDocumentSnapshot data = user_data[index];
+                                return Card(
+                                    child: ListTile(
+                                        title: Text(data.get("test")),
+                                        onTap: () {
+                                          print("here");
+                                          // NAVIGATE TO NEW VIEW HERE
+                                        }));
+                              }))
+                    ],
+                  )),
             ],
           ),
         ),
       );
-    } else { //data hasn't been retrieved yet so return progress indicator
+    } else {
+      //data hasn't been retrieved yet so return progress indicator
       return CircularProgressIndicator(
         backgroundColor: Color(0xFFE0F7FA),
       );
     }
   }
 
-
-
   // form for adding folders
   Future<void> AddFolderForm() {
     return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Add A Folder"),
-          content: Form(
-              key: folder_form_key,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: folderInput() + folderButtons()
-              )
-          ),
-        );
-      }
-    );
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Add A Folder"),
+            content: Form(
+                key: folder_form_key,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: folderInput() + folderButtons())),
+          );
+        });
   }
 
   //input for AddFolderForm()
   List<Widget> folderInput() {
     return [
       TextFormField(
-        key :Key("input_key"),
+        key: Key("input_key"),
         onSaved: (String folderName) {
           //save here
           _folder = folderName;
@@ -193,15 +169,14 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
                 fontSize: 22,
               ),
             ),
-          )
-      ),
+          )),
     ];
   }
 
   //validates form for creating a folder
-  bool folderValidation(){
+  bool folderValidation() {
     final form = folder_form_key.currentState;
-    if(form.validate()){
+    if (form.validate()) {
       form.save();
       setState(() {
         //add new folder to firebase
@@ -211,7 +186,6 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
     }
     return false;
   }
-
 
   //form for creating cards
   Future<void> AddCardForm() {
@@ -224,19 +198,16 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
                 key: card_form_key,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: cardInput() + cardButtons()
-                )
-            ),
+                    children: cardInput() + cardButtons())),
           );
-        }
-    );
+        });
   }
 
   //input for AddCardForm()
   List<Widget> cardInput() {
     return [
       TextFormField(
-        key :Key("input_key"),
+        key: Key("input_key"),
         onSaved: (String cardName) {
           //save here
           _card = cardName;
@@ -278,15 +249,14 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
                 fontSize: 22,
               ),
             ),
-          )
-      ),
+          )),
     ];
   }
 
   //validates form for creating a card
-  bool cardValidation(){
+  bool cardValidation() {
     final form = card_form_key.currentState;
-    if(form.validate()){
+    if (form.validate()) {
       form.save();
       setState(() {
         //create new card in firebase
@@ -297,8 +267,6 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
     }
     return false;
   }
-
-
 
   @override
   bool get wantKeepAlive => true;
