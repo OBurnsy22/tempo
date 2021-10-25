@@ -41,74 +41,81 @@ class cardsHomeState extends State<cardsHome> with AutomaticKeepAliveClientMixin
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget> [
-              Container(
-                  width: MediaQuery.of(context).size.width * 0.85,
-                  height: MediaQuery.of(context).size.height * 0.80,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 3,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    color: Colors.green,
+              Stack(
+                clipBehavior: Clip.antiAlias,
+                children: <Widget> [
+                  Container(
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      height: MediaQuery.of(context).size.height * 0.80,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 3,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                        color: Colors.green,
+                      ),
+                      child: Expanded(
+                          child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.84,
+                              //add height HERE
+                              child: ListView.builder(
+                                  itemCount: user_data.length,
+                                  itemBuilder: (context, index) {
+                                    QueryDocumentSnapshot data = user_data[index];
+                                    return Card(
+                                        child: ListTile(
+                                            title: Text(data.get("test")),
+                                            onTap: () {
+                                              // NAVIGATE TO NEW VIEW HERE
+                                            }
+                                        )
+                                    );
+                                  }
+                              )
+                          )
+                      )
                   ),
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: FractionallySizedBox(
-                        widthFactor: 1,
-                        heightFactor: 0.07,
-                        child: Container(
-                          color: Colors.yellow,
-                          child: Row(
-                            children: <Widget> [
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: GestureDetector(
-                                    onTap: AddFolderForm,
-                                    child: Icon(
-                                      Icons.create_new_folder_outlined,
-                                      size: 40,
-                                    ),
-                                  )
-                              ),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: GestureDetector(
-                                      onTap: AddCardForm,
-                                      child: Icon(
-                                        Icons.add_outlined,
-                                        size: 40,
+                  Container(
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child: FractionallySizedBox(
+                            widthFactor: 1,
+                            heightFactor: 0.07,
+                            child: Container(
+                              color: Colors.yellow,
+                              child: Row(
+                                children: <Widget> [
+                                  Align(
+                                      alignment: Alignment.centerRight,
+                                      child: GestureDetector(
+                                        onTap: AddFolderForm,
+                                        child: Icon(
+                                          Icons.create_new_folder_outlined,
+                                          size: 40,
+                                        ),
+                                      )
+                                  ),
+                                  Align(
+                                      alignment: Alignment.centerRight,
+                                      child: GestureDetector(
+                                          onTap: AddCardForm,
+                                          child: Icon(
+                                            Icons.add_outlined,
+                                            size: 40,
+                                          )
                                       )
                                   )
-                              )
-                            ],
-                          ),
-                        )
-                    ),
-                  )
+                                ],
+                              ),
+                            )
+                        ),
+                      )
+                  ),
+                ],
               ),
-              Expanded(
-                  child: Container (
-                    child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.84,
-                        //add height HERE
-                        child: ListView.builder(
-                            itemCount: user_data.length,
-                            itemBuilder: (context, index) {
-                              QueryDocumentSnapshot data = user_data[index];
-                              return Card(
-                                  child: ListTile(
-                                      title: Text(data.get("test")),
-                                      onTap: () {
-                                        // NAVIGATE TO NEW VIEW HERE
-                                      }
-                                  )
-                              );
-                            }
-                        )
-                    ),
-                  )
-              )
             ],
           ),
         ),
