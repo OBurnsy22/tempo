@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase.dart' as fb;
+import 'cards_view.dart';
 
 class cardsHome extends StatefulWidget {
   @override
@@ -90,8 +91,10 @@ class cardsHomeState extends State<cardsHome>
                                     child: ListTile(
                                         title: Text(data.get("test")),
                                         onTap: () {
-                                          print("here");
-                                          // NAVIGATE TO NEW VIEW HERE
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => cardsView(card_: user_data[index]))
+                                          );
                                         }));
                               }))
                     ],
