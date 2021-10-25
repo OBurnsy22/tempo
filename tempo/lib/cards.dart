@@ -184,6 +184,8 @@ class cardsHomeState extends State<cardsHome>
       setState(() {
         //add new folder to firebase
         fb.fireDatabase().firebaseCreate(_folder, "folder");
+        data_retrieved = false;
+        retrieveData();
       });
       return true;
     }
@@ -265,6 +267,8 @@ class cardsHomeState extends State<cardsHome>
         //create new card in firebase
         //add new folder to firebase
         fb.fireDatabase().firebaseCreate(_card, "card");
+        data_retrieved = false;
+        retrieveData();
       });
       return true;
     }
