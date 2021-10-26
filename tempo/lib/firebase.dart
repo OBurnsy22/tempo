@@ -17,7 +17,7 @@ class fireDatabase {
     //append a pound and 5 digits to the end of class name, so users
     //can be enrolled in many classes with the same name
 
-    String classUniqueID = "_";
+    String classUniqueID = "";
     var rng = new Random();
     for (var i = 0; i < 4; i++) {//generates 0-9
       classUniqueID += rng.nextInt(10).toString();
