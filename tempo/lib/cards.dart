@@ -89,7 +89,7 @@ class cardsHomeState extends State<cardsHome>
                                 QueryDocumentSnapshot data = user_data[index];
                                 return Card(
                                     child: ListTile(
-                                        title: Text(data.get("test")),
+                                        title: Text(data.id),
                                         onTap: () {
                                           Navigator.push(
                                             context,
@@ -183,7 +183,7 @@ class cardsHomeState extends State<cardsHome>
       form.save();
       setState(() {
         //add new folder to firebase
-        fb.fireDatabase().firebaseCreate(_folder, "folder");
+        fb.fireDatabase().firebaseCreate(_folder, "f");
         data_retrieved = false;
         retrieveData();
       });
@@ -266,7 +266,7 @@ class cardsHomeState extends State<cardsHome>
       setState(() {
         //create new card in firebase
         //add new folder to firebase
-        fb.fireDatabase().firebaseCreate(_card, "card");
+        fb.fireDatabase().firebaseCreate(_card, "c");
         data_retrieved = false;
         retrieveData();
       });

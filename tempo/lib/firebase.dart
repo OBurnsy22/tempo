@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'globals.dart' as globals;
+import 'dart:math';
 
 class fireDatabase {
 
@@ -15,30 +16,20 @@ class fireDatabase {
 
     //append a pound and 5 digits to the end of class name, so users
     //can be enrolled in many classes with the same name
-    /*
-    String classUniqueID = "#";
+
+    String classUniqueID = "_";
     var rng = new Random();
-    for (var i = 0; i < 6; i++) {//generates 0-9
+    for (var i = 0; i < 4; i++) {//generates 0-9
       classUniqueID += rng.nextInt(10).toString();
     }
-    _class += classUniqueID;*/
+    classUniqueID;
 
     firestore
         .collection(globals.user.email)
-        .doc(type + "_" + name)
+        .doc(type + "_" + name + "_" + classUniqueID)
         .set({
       //set attributes here
-      /*
-      'name' : globals.user.displayName,
-      'isTeacher' : true,
-      'correctGuess' : 0,
-      'totalGuess' : 0,
-      'accuracy' : "%0",
-      'students' : [],
-      'similarEmails': _checkbox,
-      'gamesPlayed' : 0,
-      'classIcon':" "*/
-      'test': 'test',
+      //'test': 'test',
     })
         .then((value) => print("Successfully added to database"))
         .catchError((error) => print(error));
