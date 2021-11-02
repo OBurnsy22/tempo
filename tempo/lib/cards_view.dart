@@ -15,49 +15,80 @@ class cardsView extends StatefulWidget {
 
 class cardsViewState extends State<cardsView> {
   final rename_card_key = GlobalKey<FormState>();
+  Map<String, dynamic> workoutData;
+  List<bool> checkboxStatus = [];
 
   @override
   void initState() {
+    workoutData = widget.card_.data();
+    for(int i=0; i<workoutData.length; i++) {
+      checkboxStatus.add(false);
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Drawer(
-            child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  ListTile(
-                    title: const Text('Settings'),
-                    onTap: () {
-
-                    },
-                  ),
-                  ListTile(
-                    title: const Text('Logout'),
-                    onTap: () => googleAuth().googleSignOut(context),
-                  )
-                ]
-            )
-        ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Row(
-              children: [
-                // container showing the card name
-                Container(
-                  child: GestureDetector(
+            Container(
+                color: Colors.red,
+                child: GestureDetector(
                     onTap: changeCardNameForm,
                     child: Text(widget.card_.id)
-                  )
-                ),
-                // OPTIONS MENU
-
-              ],
+                )
             ),
+              Container(
+                color: Colors.red,
+                width: MediaQuery.of(context).size.width * 0.90,
+                height: MediaQuery.of(context).size.height * 0.90,
+                child: ListView.builder(
+                  /*
+                    Index 0 is the set count, index 1
+                    is the weight
+                   */
+                  itemCount: workoutData.length,
+                  itemBuilder: (context, index){
+                    List workouts = workoutData.keys.toList();
+                    List workoutsSetAndWeight = workoutData.values.toList();
+                    return Card(
+                      child: ListTile(
+                        leading: GestureDetector(
+                          child: Theme(
+                            data: Theme.of(context).copyWith(
+                              unselectedWidgetColor: Colors.blue,
+                            ),
+                            //make an array that each holds a bool value for the check status on each box
+                            child: Checkbox(
+                              activeColor: Colors.amberAccent,
+                              checkColor: Colors.red,
+                              value: checkboxStatus[index],
+                              onChanged: (bool status) {
+                                setState(() {
+                                  checkboxStatus[index] = status;
+                                });
+                              }
+                            )
+                          ),
+                        ),
+                        title: GestureDetector(
+                          child: Text(workouts[index]),
+                        ),
+                        subtitle: GestureDetector(
+                          child: Text(workoutsSetAndWeight[index][0]),
+                        ),
+                        trailing: GestureDetector(
+                          child: Text(workoutsSetAndWeight[index][1]),
+                        ),
+                      )
+                    );
+                  }
+                ),
+              )
           ]
         )
       )
