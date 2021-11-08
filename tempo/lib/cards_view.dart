@@ -21,8 +21,11 @@ class cardsViewState extends State<cardsView> {
   final set_count_rename = GlobalKey<FormState>();
   final change_weight_rename = GlobalKey<FormState>();
   Map<String, dynamic> workoutData;
+  List workouts;
+  List workoutsSetAndWeight;
   List<bool> checkboxStatus = [];
   String currentIdx;
+  String updatedValue;
 
   @override
   void initState() {
@@ -30,7 +33,16 @@ class cardsViewState extends State<cardsView> {
     for(int i=0; i<workoutData.length; i++) {
       checkboxStatus.add(false);
     }
+    workouts = workoutData.keys.toList();
+    workoutsSetAndWeight = workoutData.values.toList();
     super.initState();
+  }
+
+  void updateDataLists() {
+    setState(() {
+      workouts = workoutData.keys.toList();
+      workoutsSetAndWeight = workoutData.values.toList();
+    });
   }
 
   @override
@@ -63,8 +75,6 @@ class cardsViewState extends State<cardsView> {
                   itemCount: workoutData.length,
                   itemBuilder: (context, index){
                     print(workoutData);
-                    List workouts = workoutData.keys.toList();
-                    List workoutsSetAndWeight = workoutData.values.toList();
                     return Card(
                       child: ListTile(
                         leading: GestureDetector(
@@ -95,15 +105,15 @@ class cardsViewState extends State<cardsView> {
                         subtitle: GestureDetector(
                           child: Text(workoutsSetAndWeight[index][0]),
                           onDoubleTap: () {
-                            var idx = index.toString() + "[0]";
+                            var idx = index.toString();
                             print(idx);
                             changeSetCount(idx);
                           },
                         ),
                         trailing: GestureDetector(
-                          child: Text(workoutsSetAndWeight[index][1]),
+                          child: Text(workoutsSetAndWeight[index][1] + "lbs"),
                           onDoubleTap: () {
-                            var idx = index.toString() + "[1]";
+                            var idx = index.toString();
                             print(idx);
                             changeWeight(idx);
                           },
@@ -141,7 +151,7 @@ class cardsViewState extends State<cardsView> {
   }
 
 
-  /**************** FORM FUNCTIONS FOR RENAMING A WORKOUT ****************/
+  /**************** FORM FUNCTIONS FOR CHANGING WEIGHT ****************/
 
   //form to rename a card
   Future<void> changeWeight(String idx) {
@@ -170,6 +180,7 @@ class cardsViewState extends State<cardsView> {
         onSaved: (String weightInput) {
           //set the index so validation function can use it later
           currentIdx = idx;
+          updatedValue = weightInput;
         },
         validator: (String newName) {
           //ensure a folder name was entered
@@ -218,12 +229,19 @@ class cardsViewState extends State<cardsView> {
     if (form.validate()) {
       form.save();
       setState(() {
-        print("In validation with" + currentIdx);
-        //update the cards name in firebase
-        /*
-        fb.fireDatabase().firebaseCreate(_folder, "f");
-        data_retrieved = false;
-        retrieveData();*/
+        //get the value array for this key
+        var value_holder = workoutData[workouts[int.parse(currentIdx)]];
+
+        //weights are in index 1 so change that value
+        value_holder[1] = updatedValue;
+
+        //update the key/value pair in the map
+        workoutData[workouts[int.parse(currentIdx)]] = value_holder;
+
+        //synchronize the lists
+        updateDataLists();
+
+        //UPDATE IN FIREBASE
       });
       return true;
     }
@@ -231,9 +249,9 @@ class cardsViewState extends State<cardsView> {
   }
 
 
-  /**************** FORM FUNCTIONS FOR RENAMING A WORKOUT ****************/
+  /**************** FORM FUNCTIONS FOR SET COUNT ****************/
 
-  //form to rename a card
+  //form to change set count
   Future<void> changeSetCount(String idx) {
     return showDialog<void>(
         context: context,
@@ -252,7 +270,7 @@ class cardsViewState extends State<cardsView> {
     );
   }
 
-//input for changeCardNameForm()
+//input for changeSetCount()
   List<Widget> changeSetCountInput(String idx) {
     return [
       TextFormField(
@@ -260,6 +278,7 @@ class cardsViewState extends State<cardsView> {
         onSaved: (String setCountName) {
           //set the index so validation function can use it later
           currentIdx = idx;
+          updatedValue = setCountName;
         },
         validator: (String newName) {
           //ensure a folder name was entered
@@ -273,7 +292,7 @@ class cardsViewState extends State<cardsView> {
   }
 
 
-//buttons for changeCardNameForm()
+//buttons for changeSetCounts()
   List<Widget> changeSetCountButtons() {
     return [
       Container(
@@ -302,18 +321,21 @@ class cardsViewState extends State<cardsView> {
     ];
   }
 
-  //validates form for renaming a card
+  //changeSetCounts() validation
   bool setCountRenameValidation() {
     final form = set_count_rename.currentState;
     if (form.validate()) {
       form.save();
       setState(() {
-        print("In validation with" + currentIdx);
-        //update the cards name in firebase
-        /*
-        fb.fireDatabase().firebaseCreate(_folder, "f");
-        data_retrieved = false;
-        retrieveData();*/
+        //get the value array for this key
+        var value_holder = workoutData[workouts[int.parse(currentIdx)]];
+        //sets are in 0 so change that value
+        value_holder[0] = updatedValue;
+        //update the key/value pair in the map
+        workoutData[workouts[int.parse(currentIdx)]] = value_holder;
+        //synchronize the lists
+        updateDataLists();
+        //UPDATE IN FIREBASE
       });
       return true;
     }
@@ -322,9 +344,9 @@ class cardsViewState extends State<cardsView> {
 
 
 
-  /**************** FORM FUNCTIONS FOR RENAMING A WORKOUT ****************/
+  /**************** FORM FUNCTIONS FOR CHANGING WORKOUT NAME ****************/
 
-  //form to rename a card
+  //form to change workout name
   Future<void> changeWorkoutName(String idx) {
     return showDialog<void>(
         context: context,
@@ -343,13 +365,14 @@ class cardsViewState extends State<cardsView> {
     );
   }
 
-//input for changeCardNameForm()
+//input for changeWorkoutName()
   List<Widget> workoutNameInput(String idx) {
     return [
       TextFormField(
         key: Key("input_key"),
         onSaved: (String workoutName) {
           currentIdx = idx;
+          updatedValue = workoutName;
           //set the index so validation function can use it later
         },
         validator: (String newName) {
@@ -364,7 +387,7 @@ class cardsViewState extends State<cardsView> {
   }
 
 
-//buttons for changeCardNameForm()
+//buttons for changeWorkoutName()
   List<Widget> workoutNameButtons() {
     return [
       Container(
@@ -393,18 +416,24 @@ class cardsViewState extends State<cardsView> {
     ];
   }
 
-  //validates form for renaming a card
+  //changeWorkoutName() validation
   bool workoutNameValidation() {
     final form = workout_rename_key.currentState;
     if (form.validate()) {
       form.save();
       setState(() {
-        print("In validation with" + currentIdx);
-        //update the cards name in firebase
-        /*
-        fb.fireDatabase().firebaseCreate(_folder, "f");
-        data_retrieved = false;
-        retrieveData();*/
+        //get the corresponding value to this key
+        var value_holder = workoutData[workouts[int.parse(currentIdx)]];
+
+        //delete the key/value from the map
+        workoutData.remove(workouts[int.parse(currentIdx)]);
+
+        //insert new pair back into the map
+        workoutData[updatedValue] = value_holder;
+
+        updateDataLists();
+
+        //UPDATE IN FIREBASE
       });
       return true;
     }
