@@ -7,8 +7,13 @@ import 'dart:math';
 
 class fireDatabase {
 
-  //Creates a class for the specified user in firebase
-  //adopt this to work with cards and folders
+  Future<void> updateCollection(Map<String, dynamic> workoutData, String collectionName) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    firestore.collection(globals.user.email).doc(collectionName).set(workoutData);
+  }
+
+
   Future<void> firebaseCreate(String name, String type) async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     //print(globals.user.uid);
@@ -34,6 +39,7 @@ class fireDatabase {
         .then((value) => print("Successfully added to database"))
         .catchError((error) => print(error));
   }
+
 
   //example of how to retrieve data from firebase
     Future<List<QueryDocumentSnapshot>> retrieveUserData() async{

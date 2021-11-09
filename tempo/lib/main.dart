@@ -67,10 +67,8 @@ class navigatorState extends State<navigator>{
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
 
-      ),
-      drawer: Drawer(
+      /*drawer: Drawer(
           child: ListView(
               padding: EdgeInsets.zero,
               children: [
@@ -86,7 +84,7 @@ class navigatorState extends State<navigator>{
                 )
               ]
           )
-      ),
+      ),*/
       body: PageView(
         controller: _controller,
         //disables scrolling left/right

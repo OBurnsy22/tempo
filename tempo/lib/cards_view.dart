@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'google_auth.dart';
 import 'forms/cards_views_forms.dart';
 import 'plate_calculator.dart';
+import 'firebase.dart';
 
 
 class cardsView extends StatefulWidget {
@@ -50,9 +51,24 @@ class cardsViewState extends State<cardsView> {
     });
   }
 
+  void navigateBack() async {
+    fireDatabase().updateCollection(workoutData, widget.card_.id);
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 40,
+            automaticallyImplyLeading: false,
+          leading: GestureDetector(
+            onTap: navigateBack,
+            child: Icon(
+                Icons.arrow_back,
+            ),
+          ),
+        ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -84,7 +100,7 @@ class cardsViewState extends State<cardsView> {
               Container(
                 color: Colors.red,
                 width: MediaQuery.of(context).size.width * 0.90,
-                height: MediaQuery.of(context).size.height * 0.80,
+                height: MediaQuery.of(context).size.height * 0.78,
                 child: ListView.builder(
                   itemCount: workoutData.length,
                   itemBuilder: (context, index){
