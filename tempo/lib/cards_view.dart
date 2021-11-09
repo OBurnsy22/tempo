@@ -20,6 +20,8 @@ class cardsViewState extends State<cardsView> {
   final workout_rename_key = GlobalKey<FormState>();
   final set_count_rename = GlobalKey<FormState>();
   final change_weight_rename = GlobalKey<FormState>();
+  final add_workout_form = GlobalKey<FormState>();
+
   Map<String, dynamic> workoutData;
   List workouts;
   List workoutsSetAndWeight;
@@ -27,19 +29,22 @@ class cardsViewState extends State<cardsView> {
   String currentIdx;
   String updatedValue;
 
+  String newWorkoutName;
+  String newWorkoutSetCount;
+  String newWorkoutWeight;
+
   @override
   void initState() {
     workoutData = widget.card_.data();
-    for(int i=0; i<workoutData.length; i++) {
-      checkboxStatus.add(false);
-    }
-    workouts = workoutData.keys.toList();
-    workoutsSetAndWeight = workoutData.values.toList();
+    updateDataLists();
     super.initState();
   }
 
   void updateDataLists() {
     setState(() {
+      for(int i=0; i<workoutData.length; i++) {
+        checkboxStatus.add(false);
+      }
       workouts = workoutData.keys.toList();
       workoutsSetAndWeight = workoutData.values.toList();
     });
@@ -57,14 +62,23 @@ class cardsViewState extends State<cardsView> {
                 width: MediaQuery.of(context).size.width * 0.90,
                 //height: MediaQuery.of(context).size.height * 0.10,
                 color: Colors.blue,
-                child: Center(
-                  child: GestureDetector(
-                      onDoubleTap: changeCardNameForm,
-                      child: Text(
+                child: Row(
+                  children: <Widget> [
+                    GestureDetector(
+                        onDoubleTap: changeCardNameForm,
+                        child: Text(
                           widget.card_.id,
-                        style: TextStyle(fontSize: 25),
+                          style: TextStyle(fontSize: 25),
+                        )
+                    ),
+                    GestureDetector(
+                      onTap: addWorkoutForm,
+                      child: Icon(
+                        Icons.add_outlined,
+                        size: 40,
                       )
-                  )
+                    )
+                  ]
                 )
             ),
               Container(
@@ -148,6 +162,120 @@ class cardsViewState extends State<cardsView> {
         )
       )
     );
+  }
+
+
+  /**************** FORM FUNCTIONS FOR ADDING A WORKOUT ****************/
+
+  //form to add a workout
+  Future<void> addWorkoutForm() {
+    return showDialog<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text("Add Workout"),
+              content: Form(
+                  key: add_workout_form,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: addWorkoutInput() + addWorkoutButtons(),
+                  )
+              )
+          );
+        }
+    );
+  }
+
+//input for changeCardNameForm()
+  List<Widget> addWorkoutInput() {
+    return [
+      TextFormField(
+        key: Key("workout_name_key"),
+        decoration: InputDecoration(labelText: 'Workout Name'),
+        onSaved: (String workoutName) {
+          newWorkoutName = workoutName;
+        },
+        validator: (String workoutName) {
+          //ensure a workout name
+          if ((workoutName.isEmpty)) {
+            return 'Please enter text';
+          }
+          return null;
+        },
+      ),
+      TextFormField(
+        key: Key("set_count_key"),
+        decoration: InputDecoration(labelText: 'Set Count (optional)'),
+        onSaved: (String setCount) {
+          newWorkoutSetCount = setCount;
+        },
+        validator: (String setCount) {
+          return null;
+        },
+      ),
+      TextFormField(
+        key: Key("weight_key"),
+        decoration: InputDecoration(labelText: 'Weight (optional)'),
+        onSaved: (String weightInput) {
+          newWorkoutWeight = weightInput;
+        },
+        validator: (String weightInput) {
+          return null;
+        },
+      )
+    ];
+  }
+
+
+//buttons for changeCardNameForm()
+  List<Widget> addWorkoutButtons() {
+    return [
+      Container(
+          width: 250.0,
+          height: 50.0,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              onPrimary: Color(0xFFE0F7FA),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(32.0),
+              ),
+              side: BorderSide(
+                width: 3,
+                color: Colors.cyan.shade800,
+              ),
+            ),
+            key: Key("submit_key"),
+            onPressed: addWorkoutValidation,
+            child: Text(
+              "Add Workout",
+              style: TextStyle(
+                fontSize: 22,
+              ),
+            ),
+          )),
+    ];
+  }
+
+  //validates form for renaming a card
+  bool addWorkoutValidation() {
+    final form = add_workout_form.currentState;
+    if (form.validate()) {
+      form.save();
+      setState(() {
+        // create the value array
+        List value_holder = [newWorkoutSetCount, newWorkoutWeight];
+
+        // add to workout data
+        workoutData[newWorkoutName] = value_holder;
+
+        // Sync the map
+        updateDataLists();
+
+        // SYNC WITH FIREBASE
+      });
+      return true;
+    }
+    return false;
   }
 
 
@@ -439,7 +567,6 @@ class cardsViewState extends State<cardsView> {
     }
     return false;
   }
-
 
 
   /**************** FORM FUNCTIONS FOR RENAMING A CARD ****************/
