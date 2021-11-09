@@ -10,7 +10,12 @@ class fireDatabase {
   Future<void> updateCollection(Map<String, dynamic> workoutData, String collectionName) async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    firestore.collection(globals.user.email).doc(collectionName).set(workoutData);
+    try {
+      firestore.collection(globals.user.email).doc(collectionName).set(workoutData);
+    } catch(error) {
+      print("Exception caught in firebase updateCollection: $error");
+    }
+
   }
 
 

@@ -94,7 +94,12 @@ class cardsHomeState extends State<cardsHome>
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(builder: (context) => cardsView(card_: user_data[index]))
-                                          );
+                                          ).then((value)  {
+                                            setState(() {
+                                              data_retrieved = false;
+                                              retrieveData();
+                                            });
+                                          });
                                         }));
                               }))
                     ],
