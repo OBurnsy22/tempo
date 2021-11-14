@@ -9,10 +9,17 @@ class plateCalculatorState extends State<plateCalculator> {
   int weight;
   final change_starting_weight = GlobalKey<FormState>();
 
+  int fourtyFiveCount;
+  int thirtyFiveCount;
+  int twentyFiveCount;
+  int fifteenCount;
+  int tenCount;
+  int fiveCount;
 
   @override
   void initState() {
     weight = 45;
+    fourtyFiveCount = thirtyFiveCount = twentyFiveCount = fifteenCount = tenCount = fiveCount = 0;
     super.initState();
   }
 
@@ -54,6 +61,7 @@ class plateCalculatorState extends State<plateCalculator> {
                         ),
                         onTap: () {
                           subtract(45);
+                          fourtyFiveCount--;
                         }
                     )
                   )
@@ -80,10 +88,18 @@ class plateCalculatorState extends State<plateCalculator> {
                             ),
                             onTap: () {
                               add(45);
+                              fourtyFiveCount++;
                             }
                         )
                     )
                 ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(": " + fourtyFiveCount.toString(),
+                      style: TextStyle(
+                          fontSize: 20,
+                      )),
+                )
               ],
             ),
             Row(
@@ -102,6 +118,7 @@ class plateCalculatorState extends State<plateCalculator> {
                             ),
                             onTap: () {
                               subtract(35);
+                              thirtyFiveCount--;
                             }
                         )
                     )
@@ -128,10 +145,18 @@ class plateCalculatorState extends State<plateCalculator> {
                             ),
                             onTap: () {
                               add(35);
+                              thirtyFiveCount++;
                             }
                         )
                     )
                 ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(": " + thirtyFiveCount.toString(),
+                      style: TextStyle(
+                          fontSize: 20,
+                      )),
+                )
               ],
             ),
             Row(
@@ -150,6 +175,7 @@ class plateCalculatorState extends State<plateCalculator> {
                             ),
                             onTap: () {
                               subtract(25);
+                              twentyFiveCount--;
                             }
                         )
                     )
@@ -176,10 +202,18 @@ class plateCalculatorState extends State<plateCalculator> {
                             ),
                             onTap: () {
                               add(25);
+                              twentyFiveCount++;
                             }
                         )
                     )
                 ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(": " + twentyFiveCount.toString(),
+                      style: TextStyle(
+                          fontSize: 20,
+                      )),
+                )
               ],
             ),
             Row(
@@ -198,6 +232,7 @@ class plateCalculatorState extends State<plateCalculator> {
                             ),
                             onTap: () {
                               subtract(15);
+                              fifteenCount--;
                             }
                         )
                     )
@@ -224,10 +259,18 @@ class plateCalculatorState extends State<plateCalculator> {
                             ),
                             onTap: () {
                               add(15);
+                              fifteenCount++;
                             }
                         )
                     )
                 ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(": " + fifteenCount.toString(),
+                      style: TextStyle(
+                          fontSize: 20,
+                      )),
+                )
               ],
             ),
             Row(
@@ -246,6 +289,7 @@ class plateCalculatorState extends State<plateCalculator> {
                             ),
                             onTap: () {
                               subtract(10);
+                              tenCount--;
                             }
                         )
                     )
@@ -272,10 +316,18 @@ class plateCalculatorState extends State<plateCalculator> {
                             ),
                             onTap: () {
                               add(10);
+                              tenCount++;
                             }
                         )
                     )
                 ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(": " + tenCount.toString(),
+                      style: TextStyle(
+                          fontSize: 20,
+                      )),
+                )
               ],
             ),
             Row(
@@ -294,6 +346,7 @@ class plateCalculatorState extends State<plateCalculator> {
                             ),
                             onTap: () {
                               subtract(5);
+                              fiveCount--;
                             }
                         )
                     )
@@ -320,10 +373,18 @@ class plateCalculatorState extends State<plateCalculator> {
                             ),
                             onTap: () {
                               add(5);
+                              fiveCount++;
                             }
                         )
                     )
                 ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(": " + fiveCount.toString(),
+                      style: TextStyle(
+                          fontSize: 20,
+                      )),
+                )
               ],
             )
           ]
