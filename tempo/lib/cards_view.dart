@@ -5,6 +5,7 @@ import 'google_auth.dart';
 import 'forms/cards_views_forms.dart';
 import 'plate_calculator.dart';
 import 'firebase.dart';
+import 'timer.dart';
 
 
 class cardsView extends StatefulWidget {
@@ -33,6 +34,9 @@ class cardsViewState extends State<cardsView> {
   String newWorkoutName;
   String newWorkoutSetCount;
   String newWorkoutWeight;
+  String newCardName;
+
+  bool newDocument = false;
 
   @override
   void initState() {
@@ -52,7 +56,13 @@ class cardsViewState extends State<cardsView> {
   }
 
   void navigateBack() async {
-    fireDatabase().updateCollection(workoutData, widget.card_.id);
+
+    if(!newDocument) {
+      fireDatabase().updateCollection(workoutData, widget.card_.id);
+    } else {
+
+    }
+
     Navigator.pop(context);
   }
 
@@ -83,7 +93,7 @@ class cardsViewState extends State<cardsView> {
                     GestureDetector(
                         onDoubleTap: changeCardNameForm,
                         child: Text(
-                          widget.card_.id,
+                          widget.card_.id.substring(2, widget.card_.id.length-5),
                           style: TextStyle(fontSize: 25),
                         )
                     ),
@@ -611,8 +621,10 @@ class cardsViewState extends State<cardsView> {
     return [
       TextFormField(
         key: Key("input_key"),
-        onSaved: (String folderName) {
+        onSaved: (String newName) {
           //set the index so validation function can use it later
+          newCardName = newName;
+          newDocument = true;
         },
         validator: (String newName) {
           //ensure a folder name was entered
@@ -662,6 +674,7 @@ class cardsViewState extends State<cardsView> {
       form.save();
       setState(() {
         //update the cards name in firebase
+
         /*
         fb.fireDatabase().firebaseCreate(_folder, "f");
         data_retrieved = false;

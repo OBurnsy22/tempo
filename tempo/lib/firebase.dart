@@ -15,8 +15,9 @@ class fireDatabase {
     } catch(error) {
       print("Exception caught in firebase updateCollection: $error");
     }
-
   }
+
+
 
 
   Future<void> firebaseCreate(String name, String type) async {
@@ -49,11 +50,20 @@ class fireDatabase {
   //example of how to retrieve data from firebase
     Future<List<QueryDocumentSnapshot>> retrieveUserData() async{
       List<QueryDocumentSnapshot> user_data = [];
-      QuerySnapshot snap = await FirebaseFirestore.instance.collection(globals.user.email).get();
+      /*
+        NOTE: If a user doesn't have an existing collection it will hang here, so throw it in a
+        try catch block
+       */
+      try{
+        QuerySnapshot snap = await FirebaseFirestore.instance.collection(globals.user.email).get();
+        snap.docs.forEach((element) {
+          user_data.add(element);
+        });
+
+      } catch (e) {
+        print(e);
+      }
       //loops through all documents, appending their names to the myDocs list
-      snap.docs.forEach((element) {
-        user_data.add(element);
-      });
       return user_data;
   }
 

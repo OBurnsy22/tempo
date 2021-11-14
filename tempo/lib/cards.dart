@@ -89,7 +89,7 @@ class cardsHomeState extends State<cardsHome>
                                 QueryDocumentSnapshot data = user_data[index];
                                 return Card(
                                     child: ListTile(
-                                        title: Text(data.id),
+                                        title: Text(data.id.substring(2, data.id.length-5)),
                                         onTap: () {
                                           Navigator.push(
                                             context,

@@ -19,6 +19,9 @@ class plateCalculatorState extends State<plateCalculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 40,
+        ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
