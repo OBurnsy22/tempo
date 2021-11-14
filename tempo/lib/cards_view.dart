@@ -36,12 +36,15 @@ class cardsViewState extends State<cardsView> {
   String newWorkoutWeight;
   String newCardName;
 
+  String currentCardName;
+
   bool newDocument = false;
 
   @override
   void initState() {
     workoutData = widget.card_.data();
     updateDataLists();
+    currentCardName = widget.card_.id.substring(2, widget.card_.id.length-5);
     super.initState();
   }
 
@@ -56,13 +59,11 @@ class cardsViewState extends State<cardsView> {
   }
 
   void navigateBack() async {
-
     if(!newDocument) {
       fireDatabase().updateCollection(workoutData, widget.card_.id);
     } else {
-
+      fireDatabase().updateAndRenameCollection(workoutData, widget.card_.id, currentCardName);
     }
-
     Navigator.pop(context);
   }
 
@@ -93,7 +94,7 @@ class cardsViewState extends State<cardsView> {
                     GestureDetector(
                         onDoubleTap: changeCardNameForm,
                         child: Text(
-                          widget.card_.id.substring(2, widget.card_.id.length-5),
+                          currentCardName,
                           style: TextStyle(fontSize: 25),
                         )
                     ),
@@ -658,7 +659,7 @@ class cardsViewState extends State<cardsView> {
             key: Key("submit_key"),
             onPressed: folderValidation,
             child: Text(
-              "Create Folder",
+              "Rename Card",
               style: TextStyle(
                 fontSize: 22,
               ),
@@ -674,11 +675,7 @@ class cardsViewState extends State<cardsView> {
       form.save();
       setState(() {
         //update the cards name in firebase
-
-        /*
-        fb.fireDatabase().firebaseCreate(_folder, "f");
-        data_retrieved = false;
-        retrieveData();*/
+        currentCardName = newCardName;
       });
       return true;
     }

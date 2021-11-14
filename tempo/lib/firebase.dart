@@ -18,6 +18,18 @@ class fireDatabase {
   }
 
 
+  Future<void>updateAndRenameCollection(Map<String, dynamic> workoutData, String oldCollectionName, String newCollectionName) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    //add the leading and ending characters to the new collection name
+    newCollectionName = oldCollectionName.substring(0, 2) + newCollectionName + oldCollectionName.substring(oldCollectionName.length-5, oldCollectionName.length);
+
+    //create the new collection
+    firestore.collection(globals.user.email).doc(newCollectionName).set(workoutData);
+
+    //delete the old one
+    firestore.collection(globals.user.email).doc(oldCollectionName).delete();
+  }
 
 
   Future<void> firebaseCreate(String name, String type) async {
