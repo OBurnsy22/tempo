@@ -7,7 +7,6 @@ import 'plate_calculator.dart';
 import 'firebase.dart';
 import 'timer.dart';
 
-
 class cardsView extends StatefulWidget {
   final QueryDocumentSnapshot card_;
 
@@ -44,13 +43,13 @@ class cardsViewState extends State<cardsView> {
   void initState() {
     workoutData = widget.card_.data();
     updateDataLists();
-    currentCardName = widget.card_.id.substring(2, widget.card_.id.length-5);
+    currentCardName = widget.card_.id.substring(2, widget.card_.id.length - 5);
     super.initState();
   }
 
   void updateDataLists() {
     setState(() {
-      for(int i=0; i<workoutData.length; i++) {
+      for (int i = 0; i < workoutData.length; i++) {
         checkboxStatus.add(false);
       }
       workouts = workoutData.keys.toList();
@@ -59,10 +58,11 @@ class cardsViewState extends State<cardsView> {
   }
 
   void navigateBack() async {
-    if(!newDocument) {
+    if (!newDocument) {
       fireDatabase().updateCollection(workoutData, widget.card_.id);
     } else {
-      fireDatabase().updateAndRenameCollection(workoutData, widget.card_.id, currentCardName);
+      fireDatabase().updateAndRenameCollection(
+          workoutData, widget.card_.id, currentCardName);
     }
     Navigator.pop(context);
   }
@@ -72,69 +72,62 @@ class cardsViewState extends State<cardsView> {
     return Scaffold(
         appBar: AppBar(
           toolbarHeight: 40,
-            automaticallyImplyLeading: false,
+          automaticallyImplyLeading: false,
           leading: GestureDetector(
             onTap: navigateBack,
             child: Icon(
-                Icons.arrow_back,
+              Icons.arrow_back,
             ),
           ),
         ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-                width: MediaQuery.of(context).size.width * 0.90,
-                //height: MediaQuery.of(context).size.height * 0.10,
-                color: Colors.blue,
-                child: Row(
-                  children: <Widget> [
+        body: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.90,
+                  //height: MediaQuery.of(context).size.height * 0.10,
+                  color: Colors.blue,
+                  child: Row(children: <Widget>[
                     GestureDetector(
                         onDoubleTap: changeCardNameForm,
                         child: Text(
                           currentCardName,
                           style: TextStyle(fontSize: 25),
-                        )
-                    ),
+                        )),
                     GestureDetector(
-                      onTap: addWorkoutForm,
-                      child: Icon(
-                        Icons.add_outlined,
-                        size: 40,
-                      )
-                    )
-                  ]
-                )
-            ),
+                        onTap: addWorkoutForm,
+                        child: Icon(
+                          Icons.add_outlined,
+                          size: 40,
+                        ))
+                  ])),
               Container(
                 color: Colors.red,
                 width: MediaQuery.of(context).size.width * 0.90,
                 height: MediaQuery.of(context).size.height * 0.78,
                 child: ListView.builder(
-                  itemCount: workoutData.length,
-                  itemBuilder: (context, index){
-                    print(workoutData);
-                    return Card(
-                      child: ListTile(
+                    itemCount: workoutData.length,
+                    itemBuilder: (context, index) {
+                      print(workoutData);
+                      return Card(
+                          child: ListTile(
                         leading: GestureDetector(
                           child: Theme(
-                            data: Theme.of(context).copyWith(
-                              unselectedWidgetColor: Colors.blue,
-                            ),
-                            //make an array that each holds a bool value for the check status on each box
-                            child: Checkbox(
-                              activeColor: Colors.amberAccent,
-                              checkColor: Colors.red,
-                              value: checkboxStatus[index],
-                              onChanged: (bool status) {
-                                setState(() {
-                                  checkboxStatus[index] = status;
-                                });
-                              }
-                            )
-                          ),
+                              data: Theme.of(context).copyWith(
+                                unselectedWidgetColor: Colors.blue,
+                              ),
+                              //make an array that each holds a bool value for the check status on each box
+                              child: Checkbox(
+                                  activeColor: Colors.amberAccent,
+                                  checkColor: Colors.red,
+                                  value: checkboxStatus[index],
+                                  onChanged: (bool status) {
+                                    setState(() {
+                                      checkboxStatus[index] = status;
+                                    });
+                                  })),
                         ),
                         title: GestureDetector(
                           child: Text(workouts[index]),
@@ -159,12 +152,11 @@ class cardsViewState extends State<cardsView> {
                             changeWeight(idx);
                           },
                         ),
-                      )
-                    );
-                  }
-                ),
+                      ));
+                    }),
               ),
-            Container(
+
+              /*Container(
               color: Colors.green,
               width: MediaQuery.of(context).size.width * 0.90,
               height: MediaQuery.of(context).size.height * 0.08,
@@ -184,13 +176,36 @@ class cardsViewState extends State<cardsView> {
                   }
                 )
               )
-            )
-          ]
-        )
-      )
-    );
+            ),*/
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                      child: Icon(
+                        Icons.calculate,
+                        color: Colors.red,
+                        size: 50.0,
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => plateCalculator()));
+                      }),
+                  GestureDetector(
+                      child: Icon(
+                        Icons.timer,
+                        color: Colors.red,
+                        size: 50.0,
+                      ),
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => timer()));
+                      })
+                ],
+              )
+            ])));
   }
-
 
   /**************** FORM FUNCTIONS FOR ADDING A WORKOUT ****************/
 
@@ -206,11 +221,8 @@ class cardsViewState extends State<cardsView> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: addWorkoutInput() + addWorkoutButtons(),
-                  )
-              )
-          );
-        }
-    );
+                  )));
+        });
   }
 
 //input for changeCardNameForm()
@@ -252,7 +264,6 @@ class cardsViewState extends State<cardsView> {
       )
     ];
   }
-
 
 //buttons for changeCardNameForm()
   List<Widget> addWorkoutButtons() {
@@ -305,7 +316,6 @@ class cardsViewState extends State<cardsView> {
     return false;
   }
 
-
   /**************** FORM FUNCTIONS FOR CHANGING WEIGHT ****************/
 
   //form to rename a card
@@ -320,11 +330,8 @@ class cardsViewState extends State<cardsView> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: changeWeightInput(idx) + changeWeightButtons(),
-                  )
-              )
-          );
-        }
-    );
+                  )));
+        });
   }
 
 //input for changeCardNameForm()
@@ -347,7 +354,6 @@ class cardsViewState extends State<cardsView> {
       )
     ];
   }
-
 
 //buttons for changeCardNameForm()
   List<Widget> changeWeightButtons() {
@@ -403,7 +409,6 @@ class cardsViewState extends State<cardsView> {
     return false;
   }
 
-
   /**************** FORM FUNCTIONS FOR SET COUNT ****************/
 
   //form to change set count
@@ -417,12 +422,10 @@ class cardsViewState extends State<cardsView> {
                   key: set_count_rename,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: changeSetCountInput(idx) + changeSetCountButtons(),
-                  )
-              )
-          );
-        }
-    );
+                    children:
+                        changeSetCountInput(idx) + changeSetCountButtons(),
+                  )));
+        });
   }
 
 //input for changeSetCount()
@@ -445,7 +448,6 @@ class cardsViewState extends State<cardsView> {
       )
     ];
   }
-
 
 //buttons for changeSetCounts()
   List<Widget> changeSetCountButtons() {
@@ -497,8 +499,6 @@ class cardsViewState extends State<cardsView> {
     return false;
   }
 
-
-
   /**************** FORM FUNCTIONS FOR CHANGING WORKOUT NAME ****************/
 
   //form to change workout name
@@ -513,11 +513,8 @@ class cardsViewState extends State<cardsView> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: workoutNameInput(idx) + workoutNameButtons(),
-                  )
-              )
-          );
-        }
-    );
+                  )));
+        });
   }
 
 //input for changeWorkoutName()
@@ -540,7 +537,6 @@ class cardsViewState extends State<cardsView> {
       )
     ];
   }
-
 
 //buttons for changeWorkoutName()
   List<Widget> workoutNameButtons() {
@@ -595,7 +591,6 @@ class cardsViewState extends State<cardsView> {
     return false;
   }
 
-
   /**************** FORM FUNCTIONS FOR RENAMING A CARD ****************/
 
   //form to rename a card
@@ -610,11 +605,8 @@ class cardsViewState extends State<cardsView> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: renameCardInput() + renameCardButtons(),
-                  )
-              )
-          );
-        }
-    );
+                  )));
+        });
   }
 
 //input for changeCardNameForm()
@@ -637,7 +629,6 @@ class cardsViewState extends State<cardsView> {
       )
     ];
   }
-
 
 //buttons for changeCardNameForm()
   List<Widget> renameCardButtons() {
@@ -681,9 +672,4 @@ class cardsViewState extends State<cardsView> {
     }
     return false;
   }
-
 }
-
-
-
-
