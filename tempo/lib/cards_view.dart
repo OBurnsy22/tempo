@@ -180,28 +180,34 @@ class cardsViewState extends State<cardsView> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  GestureDetector(
+                  Container(
+                    margin: EdgeInsets.only(left: 12.0),
+                    child: GestureDetector(
                       child: Icon(
                         Icons.calculate,
-                        color: Colors.red,
-                        size: 50.0,
+                          color: Colors.red,
+                          size: 50.0,
                       ),
-                      onTap: () {
+                        onTap: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => plateCalculator()));
+                        context,
+                        MaterialPageRoute(
+                        builder: (context) => plateCalculator()));
                       }),
-                  GestureDetector(
-                      child: Icon(
-                        Icons.timer,
-                        color: Colors.red,
-                        size: 50.0,
-                      ),
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => timer()));
-                      })
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: 12.0),
+                    child: GestureDetector(
+                        child: Icon(
+                          Icons.timer,
+                          color: Colors.red,
+                          size: 50.0,
+                        ),
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => timer()));
+                        }),
+                  )
                 ],
               )
             ])));

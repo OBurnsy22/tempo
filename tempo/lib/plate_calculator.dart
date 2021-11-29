@@ -33,6 +33,7 @@ class plateCalculatorState extends State<plateCalculator> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget> [
+            /*
             GestureDetector(
               child: Text(
                   weight.toString(),
@@ -44,7 +45,7 @@ class plateCalculatorState extends State<plateCalculator> {
               onTap: () {
                 changeStartingWeight();
               }
-            ),
+            ),*/
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
