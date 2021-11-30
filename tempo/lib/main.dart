@@ -68,24 +68,6 @@ class navigatorState extends State<navigator>{
   Widget build(BuildContext context) {
 
     return Scaffold(
-
-      /*drawer: Drawer(
-          child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                ListTile(
-                  title: const Text('Settings'),
-                  onTap: () {
-
-                  },
-                ),
-                ListTile(
-                  title: const Text('Logout'),
-                  onTap: () => googleAuth().googleSignOut(context),
-                )
-              ]
-          )
-      ),*/
       body: PageView(
         controller: _controller,
         //disables scrolling left/right
@@ -93,15 +75,15 @@ class navigatorState extends State<navigator>{
         children: _pages,
       ),
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.cyan,
+        backgroundColor: Colors.grey.shade700,
         height: 50,
         animationDuration: Duration(milliseconds: 300),
         animationCurve: Curves.bounceInOut,
         index: _selectedPageIndex,
         items: <Widget> [
-          Icon(Icons.open_with, size: 30),
-          Icon(Icons.add, size: 30),
-          Icon(Icons.search, size: 30),
+          Icon(Icons.open_with, size: 30, color: Colors.deepOrange[300],),
+          Icon(Icons.add, size: 30, color: Colors.deepOrange[300],),
+          Icon(Icons.search, size: 30, color: Colors.deepOrange[300],),
         ],
         onTap: (index) {
           setState(() {

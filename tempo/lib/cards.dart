@@ -36,6 +36,9 @@ class cardsHomeState extends State<cardsHome>
   Widget build(BuildContext context) {
     if (data_retrieved) {
       return Scaffold(
+        resizeToAvoidBottomInset: false, //attempt to make the keyboard stop overflowing pixels
+
+        backgroundColor: Colors.grey.shade700,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -54,6 +57,7 @@ class cardsHomeState extends State<cardsHome>
                               child: Icon(
                                 Icons.create_new_folder_outlined,
                                 size: 40,
+                                color: Colors.deepOrange[300]
                               ),
                             )),
                         Align(
@@ -63,6 +67,7 @@ class cardsHomeState extends State<cardsHome>
                                 child: Icon(
                                   Icons.add_outlined,
                                   size: 40,
+                                    color: Colors.deepOrange[300]
                                 )))
                       ],
                     ),
@@ -76,7 +81,7 @@ class cardsHomeState extends State<cardsHome>
                       width: 3,
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
-                    color: Colors.deepOrange[600],
+                    color: Colors.deepOrange[300],
                   ),
                   child: Row(
                     children: <Widget>[
@@ -88,19 +93,29 @@ class cardsHomeState extends State<cardsHome>
                               itemBuilder: (context, index) {
                                 QueryDocumentSnapshot data = user_data[index];
                                 return Card(
-                                    child: ListTile(
-                                        title: Text(data.id.substring(2, data.id.length-5)),
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder: (context) => cardsView(card_: user_data[index]))
-                                          ).then((value)  {
-                                            setState(() {
-                                              data_retrieved = false;
-                                              retrieveData();
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Colors.black,
+                                          width: 2,
+                                        ),
+                                        borderRadius: BorderRadius.all(Radius.circular(2))
+                                      ),
+                                      child: ListTile(
+                                          title: Text(data.id.substring(2, data.id.length-5)),
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(builder: (context) => cardsView(card_: user_data[index]))
+                                            ).then((value)  {
+                                              setState(() {
+                                                data_retrieved = false;
+                                                retrieveData();
+                                              });
                                             });
-                                          });
-                                        }));
+                                          })
+                                    )
+                                  );
                               }))
                     ],
                   )),
@@ -123,11 +138,16 @@ class cardsHomeState extends State<cardsHome>
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text("Add A Folder"),
-            content: Form(
-                key: folder_form_key,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: folderInput() + folderButtons())),
+            content: Container(
+              width: MediaQuery.of(context).size.width * 0.80,
+              height: MediaQuery.of(context).size.height * 0.20,
+              child: Form(
+                  key: folder_form_key,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: folderInput() + folderButtons())),
+            )
+
           );
         });
   }
@@ -158,15 +178,19 @@ class cardsHomeState extends State<cardsHome>
       Container(
           width: 250.0,
           height: 50.0,
+          padding: EdgeInsets.only(
+            top: 10,
+          ),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              onPrimary: Color(0xFFE0F7FA),
+              primary: Colors.deepOrange[300],
+              //onPrimary: Color(0xFFE0F7FA),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(32.0),
               ),
               side: BorderSide(
                 width: 3,
-                color: Colors.cyan.shade800,
+                color: Colors.black,
               ),
             ),
             key: Key("submit_key"),
@@ -204,11 +228,15 @@ class cardsHomeState extends State<cardsHome>
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text("Add A Card"),
-            content: Form(
-                key: card_form_key,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: cardInput() + cardButtons())),
+            content: Container(
+              width: MediaQuery.of(context).size.width * 0.80,
+              height: MediaQuery.of(context).size.height * 0.20,
+              child: Form(
+                  key: card_form_key,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: cardInput() + cardButtons()))
+            ),
           );
         });
   }
@@ -240,15 +268,18 @@ class cardsHomeState extends State<cardsHome>
       Container(
           width: 250.0,
           height: 50.0,
+          padding: EdgeInsets.only(
+            top: 10,
+          ),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              onPrimary: Color(0xFFE0F7FA),
+              primary: Colors.deepOrange[300],
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(32.0),
               ),
               side: BorderSide(
                 width: 3,
-                color: Colors.cyan.shade800,
+                color: Colors.black,
               ),
             ),
             key: Key("submit_key"),

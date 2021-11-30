@@ -222,12 +222,17 @@ class cardsViewState extends State<cardsView> {
         builder: (BuildContext context) {
           return AlertDialog(
               title: Text("Add Workout"),
-              content: Form(
-                  key: add_workout_form,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: addWorkoutInput() + addWorkoutButtons(),
-                  )));
+              content: Container(
+                width: MediaQuery.of(context).size.width * 0.80,
+                height: MediaQuery.of(context).size.height * 0.35,
+                child: Form(
+                    key: add_workout_form,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: addWorkoutInput() + addWorkoutButtons(),
+                    ))
+              )
+            );
         });
   }
 
@@ -277,15 +282,18 @@ class cardsViewState extends State<cardsView> {
       Container(
           width: 250.0,
           height: 50.0,
+          padding: EdgeInsets.only(
+            top: 10,
+          ),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              onPrimary: Color(0xFFE0F7FA),
+              primary: Colors.deepOrange[300],
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(32.0),
               ),
               side: BorderSide(
                 width: 3,
-                color: Colors.cyan.shade800,
+                color: Colors.black,
               ),
             ),
             key: Key("submit_key"),
@@ -331,12 +339,17 @@ class cardsViewState extends State<cardsView> {
         builder: (BuildContext context) {
           return AlertDialog(
               title: Text("Change Weight"),
-              content: Form(
-                  key: change_weight_rename,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: changeWeightInput(idx) + changeWeightButtons(),
-                  )));
+              content: Container(
+                width: MediaQuery.of(context).size.width * 0.80,
+                height: MediaQuery.of(context).size.height * 0.20,
+                child: Form(
+                    key: change_weight_rename,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: changeWeightInput(idx) + changeWeightButtons(),
+                    ))
+              )
+          );
         });
   }
 
@@ -367,15 +380,18 @@ class cardsViewState extends State<cardsView> {
       Container(
           width: 250.0,
           height: 50.0,
+          padding: EdgeInsets.only(
+            top: 10,
+          ),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              onPrimary: Color(0xFFE0F7FA),
+              primary: Colors.deepOrange[300],
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(32.0),
               ),
               side: BorderSide(
                 width: 3,
-                color: Colors.cyan.shade800,
+                color: Colors.black,
               ),
             ),
             key: Key("submit_key"),
@@ -424,13 +440,18 @@ class cardsViewState extends State<cardsView> {
         builder: (BuildContext context) {
           return AlertDialog(
               title: Text("Change Set Count"),
-              content: Form(
-                  key: set_count_rename,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children:
-                        changeSetCountInput(idx) + changeSetCountButtons(),
-                  )));
+              content: Container(
+                width: MediaQuery.of(context).size.width * 0.80,
+                height: MediaQuery.of(context).size.height * 0.20,
+                child: Form(
+                    key: set_count_rename,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children:
+                      changeSetCountInput(idx) + changeSetCountButtons(),
+                    ))
+              )
+            );
         });
   }
 
@@ -461,15 +482,18 @@ class cardsViewState extends State<cardsView> {
       Container(
           width: 250.0,
           height: 50.0,
+          padding: EdgeInsets.only(
+            top: 10,
+          ),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              onPrimary: Color(0xFFE0F7FA),
+              primary: Colors.deepOrange[300],
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(32.0),
               ),
               side: BorderSide(
                 width: 3,
-                color: Colors.cyan.shade800,
+                color: Colors.black,
               ),
             ),
             key: Key("submit_key"),
@@ -514,12 +538,17 @@ class cardsViewState extends State<cardsView> {
         builder: (BuildContext context) {
           return AlertDialog(
               title: Text("Rename Workout"),
-              content: Form(
-                  key: workout_rename_key,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: workoutNameInput(idx) + workoutNameButtons(),
-                  )));
+              content: Container(
+                width: MediaQuery.of(context).size.width * 0.80,
+                height: MediaQuery.of(context).size.height * 0.20,
+                child: Form(
+                    key: workout_rename_key,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: workoutNameInput(idx) + workoutNameButtons(),
+                    ))
+              )
+            );
         });
   }
 
@@ -550,15 +579,18 @@ class cardsViewState extends State<cardsView> {
       Container(
           width: 250.0,
           height: 50.0,
+          padding: EdgeInsets.only(
+            top: 10,
+          ),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              onPrimary: Color(0xFFE0F7FA),
+              primary: Colors.deepOrange[300],
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(32.0),
               ),
               side: BorderSide(
                 width: 3,
-                color: Colors.cyan.shade800,
+                color: Colors.black,
               ),
             ),
             key: Key("submit_key"),
@@ -606,12 +638,17 @@ class cardsViewState extends State<cardsView> {
         builder: (BuildContext context) {
           return AlertDialog(
               title: Text("Rename Card"),
-              content: Form(
-                  key: rename_card_key,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: renameCardInput() + renameCardButtons(),
-                  )));
+              content: Container(
+                width: MediaQuery.of(context).size.width * 0.80,
+                height: MediaQuery.of(context).size.height * 0.20,
+                child:Form(
+                    key: rename_card_key,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: renameCardInput() + renameCardButtons(),
+                    ))
+              )
+            );
         });
   }
 
@@ -642,15 +679,18 @@ class cardsViewState extends State<cardsView> {
       Container(
           width: 250.0,
           height: 50.0,
+          padding: EdgeInsets.only(
+            top: 10,
+          ),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              onPrimary: Color(0xFFE0F7FA),
+              primary: Colors.deepOrange[300],
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(32.0),
               ),
               side: BorderSide(
                 width: 3,
-                color: Colors.cyan.shade800,
+                color: Colors.black,
               ),
             ),
             key: Key("submit_key"),
