@@ -36,8 +36,13 @@ class plateCalculatorState extends State<plateCalculator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey.shade700,
         appBar: AppBar(
           toolbarHeight: 40,
+            backgroundColor: Colors.white,
+            iconTheme: IconThemeData(
+              color: Colors.deepOrange[300],
+            )
         ),
       body: Center(
         child: Column(
@@ -60,7 +65,8 @@ class plateCalculatorState extends State<plateCalculator> {
 
             /* LABELS */
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Align(
                   alignment: Alignment.centerLeft,
@@ -85,7 +91,7 @@ class plateCalculatorState extends State<plateCalculator> {
                       bottom: 20,
                     ),
                     child: Text(
-                      "Weight Count:",
+                      "Count:",
                       style: TextStyle(
                         fontSize: 20,
                       ),
@@ -97,196 +103,224 @@ class plateCalculatorState extends State<plateCalculator> {
 
             /* FOURTY FIVE */
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //weight
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: Text(
-                      "45",
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),
-                    ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  height: 100,
+                  child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Text(
+                          "45",
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),
+                        ),
+                      )
                   )
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    //add box decoration here for the border
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.green,
-                        width: 6,
-                      )
-                    ),
-                    child: Row(
-                      children: [
-                        //minus sign align left
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                if(fourtyFiveCount-1 >= 0)
-                                  {
-                                    subtract(45);
-                                    fourtyFiveCount--;
-                                    fourtyFiveTotal-=45;
-                                  }
-                              },
-                              child: Text("-",
-                                  style: TextStyle(
-                                    fontSize: 30,
-                                  )),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.50,
+                  height: 100,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      //add box decoration here for the border
+                        decoration: BoxDecoration(
+                            border: Border(
+                              top: BorderSide(width: 3.0, color: Colors.deepOrange[300]),
+                                bottom: BorderSide(width: 1.5, color: Colors.deepOrange[300])
                             )
-                          )
                         ),
-                        //current count sign in the middle
-                        Align(
-                          alignment: Alignment.center,
-                          child: Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: Text(fourtyFiveCount.toString(),
-                                style: TextStyle(
-                                  fontSize: 30,
-                                )),
-                          )
-                        ),
+                        child: Row(
+                          children: [
+                            //minus sign align left
+                            Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                    padding: EdgeInsets.all(20.0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        if(fourtyFiveCount-1 >= 0)
+                                        {
+                                          subtract(45);
+                                          fourtyFiveCount--;
+                                          fourtyFiveTotal-=45;
+                                        }
+                                      },
+                                      child: Text("-",
+                                          style: TextStyle(
+                                            fontSize: 30,
+                                          )),
+                                    )
+                                )
+                            ),
+                            //current count sign in the middle
+                            Align(
+                                alignment: Alignment.center,
+                                child: Padding(
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Text(
+                                      fourtyFiveCount.toString(),
+                                      style: TextStyle(
+                                        fontSize: 30,
+                                      )),
+                                )
+                            ),
 
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Padding(
-                            padding: EdgeInsets.all(20.0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  add(45);
-                                  fourtyFiveCount++;
-                                  fourtyFiveTotal+=45;
-                                },
-                                child: Text("+",
-                                    style: TextStyle(
-                                      fontSize: 30,
-                                    )),
-                              )
-                          )
-                        ),
-                      ],
-                    )
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: Padding(
+                                    padding: EdgeInsets.all(20.0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        add(45);
+                                        fourtyFiveCount++;
+                                        fourtyFiveTotal+=45;
+                                      },
+                                      child: Text("+",
+                                          style: TextStyle(
+                                            fontSize: 30,
+                                          )),
+                                    )
+                                )
+                            ),
+                          ],
+                        )
+                    ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: Text(
-                      fourtyFiveTotal.toString(),
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),
-                    ),
-                  )
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  height: 100,
+                  child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Text(
+                          fourtyFiveTotal.toString(),
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),
+                        ),
+                      )
+                  ),
                 ),
               ],
             ),
 
             /* THIRTY FIVE */
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //weight
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Text(
-                        "35",
-                        style: TextStyle(
-                          fontSize: 30,
-                        ),
-                      ),
-                    )
+                SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    height: 100,
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.all(20.0),
+                          child: Text(
+                            "35",
+                            style: TextStyle(
+                              fontSize: 30,
+                            ),
+                          ),
+                        )
+                    ),
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    //add box decoration here for the border
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.green,
-                            width: 6,
-                          )
-                      ),
-                      child: Row(
-                        children: [
-                          //minus sign align left
-                          Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                  padding: EdgeInsets.all(20.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      if(thirtyFiveCount-1 >= 0)
-                                      {
-                                        subtract(35);
-                                        thirtyFiveCount--;
-                                        thirtyFiveTotal-=35;
-                                      }
-                                    },
-                                    child: Text("-",
-                                        style: TextStyle(
-                                          fontSize: 30,
-                                        )),
-                                  )
-                              )
-                          ),
-                          //current count sign in the middle
-                          Align(
-                              alignment: Alignment.center,
-                              child: Padding(
-                                padding: EdgeInsets.all(20.0),
-                                child: Text(thirtyFiveCount.toString(),
-                                    style: TextStyle(
-                                      fontSize: 30,
-                                    )),
-                              )
-                          ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.50,
+                  height: 100,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      //add box decoration here for the border
+                        decoration: BoxDecoration(
+                            border: Border(
+                                top: BorderSide(width: 1.5, color: Colors.deepOrange[300]),
+                              bottom: BorderSide(width: 1.5, color: Colors.deepOrange[300]),
 
-                          Align(
-                              alignment: Alignment.centerRight,
-                              child: Padding(
-                                  padding: EdgeInsets.all(20.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      add(35);
-                                      thirtyFiveCount++;
-                                      thirtyFiveTotal+=35;
-                                    },
-                                    child: Text("+",
-                                        style: TextStyle(
-                                          fontSize: 30,
-                                        )),
-                                  )
-                              )
-                          ),
-                        ],
-                      )
-                  ),
-                ),
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Text(
-                        thirtyFiveTotal.toString(),
-                        style: TextStyle(
-                          fontSize: 30,
+                            )
                         ),
-                      ),
-                    )
+                        child: Row(
+                          children: [
+                            //minus sign align left
+                            Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                    padding: EdgeInsets.all(20.0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        if(thirtyFiveCount-1 >= 0)
+                                        {
+                                          subtract(35);
+                                          thirtyFiveCount--;
+                                          thirtyFiveTotal-=35;
+                                        }
+                                      },
+                                      child: Text("-",
+                                          style: TextStyle(
+                                            fontSize: 30,
+                                          )),
+                                    )
+                                )
+                            ),
+                            //current count sign in the middle
+                            Align(
+                                alignment: Alignment.center,
+                                child: Padding(
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Text(thirtyFiveCount.toString(),
+                                      style: TextStyle(
+                                        fontSize: 30,
+                                      )),
+                                )
+                            ),
+
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: Padding(
+                                    padding: EdgeInsets.all(20.0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        add(35);
+                                        thirtyFiveCount++;
+                                        thirtyFiveTotal+=35;
+                                      },
+                                      child: Text("+",
+                                          style: TextStyle(
+                                            fontSize: 30,
+                                          )),
+                                    )
+                                )
+                            ),
+                          ],
+                        )
+                    ),
+                  )
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  height: 100,
+                  child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Text(
+                          thirtyFiveTotal.toString(),
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),
+                        ),
+                      )
+                  )
                 ),
               ],
             ),
@@ -294,98 +328,112 @@ class plateCalculatorState extends State<plateCalculator> {
 
             /* TWENTY FIVE */
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //weight
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Text(
-                        "25",
-                        style: TextStyle(
-                          fontSize: 30,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  height: 100,
+                  child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Text(
+                          "25",
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),
                         ),
-                      ),
-                    )
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    //add box decoration here for the border
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.green,
-                            width: 6,
-                          )
-                      ),
-                      child: Row(
-                        children: [
-                          //minus sign align left
-                          Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                  padding: EdgeInsets.all(20.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      if(twentyFiveCount-1 >= 0)
-                                      {
-                                        subtract(25);
-                                        twentyFiveCount--;
-                                        twentyFiveTotal-=25;
-                                      }
-                                    },
-                                    child: Text("-",
-                                        style: TextStyle(
-                                          fontSize: 30,
-                                        )),
-                                  )
-                              )
-                          ),
-                          //current count sign in the middle
-                          Align(
-                              alignment: Alignment.center,
-                              child: Padding(
-                                padding: EdgeInsets.all(20.0),
-                                child: Text(twentyFiveCount.toString(),
-                                    style: TextStyle(
-                                      fontSize: 30,
-                                    )),
-                              )
-                          ),
-
-                          Align(
-                              alignment: Alignment.centerRight,
-                              child: Padding(
-                                  padding: EdgeInsets.all(20.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      add(25);
-                                      twentyFiveCount++;
-                                      twentyFiveTotal+=25;
-                                    },
-                                    child: Text("+",
-                                        style: TextStyle(
-                                          fontSize: 30,
-                                        )),
-                                  )
-                              )
-                          ),
-                        ],
                       )
-                  ),
+                  )
                 ),
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Text(
-                        twentyFiveTotal.toString(),
-                        style: TextStyle(
-                          fontSize: 30,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.50,
+                  height: 100,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      //add box decoration here for the border
+                        decoration: BoxDecoration(
+                            border: Border(
+                                top: BorderSide(width: 1.5, color: Colors.deepOrange[300]),
+                              bottom: BorderSide(width: 1.5, color: Colors.deepOrange[300]),
+
+                            )
                         ),
-                      ),
-                    )
+                        child: Row(
+                          children: [
+                            //minus sign align left
+                            Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                    padding: EdgeInsets.all(20.0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        if(twentyFiveCount-1 >= 0)
+                                        {
+                                          subtract(25);
+                                          twentyFiveCount--;
+                                          twentyFiveTotal-=25;
+                                        }
+                                      },
+                                      child: Text("-",
+                                          style: TextStyle(
+                                            fontSize: 30,
+                                          )),
+                                    )
+                                )
+                            ),
+                            //current count sign in the middle
+                            Align(
+                                alignment: Alignment.center,
+                                child: Padding(
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Text(twentyFiveCount.toString(),
+                                      style: TextStyle(
+                                        fontSize: 30,
+                                      )),
+                                )
+                            ),
+
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: Padding(
+                                    padding: EdgeInsets.all(20.0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        add(25);
+                                        twentyFiveCount++;
+                                        twentyFiveTotal+=25;
+                                      },
+                                      child: Text("+",
+                                          style: TextStyle(
+                                            fontSize: 30,
+                                          )),
+                                    )
+                                )
+                            ),
+                          ],
+                        )
+                    ),
+                  )
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  height: 100,
+                  child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Text(
+                          twentyFiveTotal.toString(),
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),
+                        ),
+                      )
+                  )
                 ),
               ],
             ),
@@ -393,98 +441,112 @@ class plateCalculatorState extends State<plateCalculator> {
 
             /* FIFTEEN */
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //weight
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Text(
-                        "15",
-                        style: TextStyle(
-                          fontSize: 30,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  height: 100,
+                  child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Text(
+                          "15",
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),
                         ),
-                      ),
-                    )
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    //add box decoration here for the border
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.green,
-                            width: 6,
-                          )
-                      ),
-                      child: Row(
-                        children: [
-                          //minus sign align left
-                          Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                  padding: EdgeInsets.all(20.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      if(fifteenCount-1 >= 0)
-                                      {
-                                        subtract(15);
-                                        fifteenCount--;
-                                        fifteenTotal-=15;
-                                      }
-                                    },
-                                    child: Text("-",
-                                        style: TextStyle(
-                                          fontSize: 30,
-                                        )),
-                                  )
-                              )
-                          ),
-                          //current count sign in the middle
-                          Align(
-                              alignment: Alignment.center,
-                              child: Padding(
-                                padding: EdgeInsets.all(20.0),
-                                child: Text(fifteenCount.toString(),
-                                    style: TextStyle(
-                                      fontSize: 30,
-                                    )),
-                              )
-                          ),
-
-                          Align(
-                              alignment: Alignment.centerRight,
-                              child: Padding(
-                                  padding: EdgeInsets.all(20.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      add(15);
-                                      fifteenCount++;
-                                      fifteenTotal+=15;
-                                    },
-                                    child: Text("+",
-                                        style: TextStyle(
-                                          fontSize: 30,
-                                        )),
-                                  )
-                              )
-                          ),
-                        ],
                       )
-                  ),
+                  )
                 ),
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Text(
-                        fifteenTotal.toString(),
-                        style: TextStyle(
-                          fontSize: 30,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.50,
+                  height: 100,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      //add box decoration here for the border
+                        decoration: BoxDecoration(
+                            border: Border(
+                                top: BorderSide(width: 1.5, color: Colors.deepOrange[300]),
+                              bottom: BorderSide(width: 1.5, color: Colors.deepOrange[300]),
+
+                            )
                         ),
-                      ),
-                    )
+                        child: Row(
+                          children: [
+                            //minus sign align left
+                            Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                    padding: EdgeInsets.all(20.0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        if(fifteenCount-1 >= 0)
+                                        {
+                                          subtract(15);
+                                          fifteenCount--;
+                                          fifteenTotal-=15;
+                                        }
+                                      },
+                                      child: Text("-",
+                                          style: TextStyle(
+                                            fontSize: 30,
+                                          )),
+                                    )
+                                )
+                            ),
+                            //current count sign in the middle
+                            Align(
+                                alignment: Alignment.center,
+                                child: Padding(
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Text(fifteenCount.toString(),
+                                      style: TextStyle(
+                                        fontSize: 30,
+                                      )),
+                                )
+                            ),
+
+                            Align(
+                                alignment: Alignment.centerRight,
+                                child: Padding(
+                                    padding: EdgeInsets.all(20.0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        add(15);
+                                        fifteenCount++;
+                                        fifteenTotal+=15;
+                                      },
+                                      child: Text("+",
+                                          style: TextStyle(
+                                            fontSize: 30,
+                                          )),
+                                    )
+                                )
+                            ),
+                          ],
+                        )
+                    ),
+                  )
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.25,
+                  height: 100,
+                  child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Text(
+                          fifteenTotal.toString(),
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),
+                        ),
+                      )
+                  )
                 ),
               ],
             ),
@@ -492,29 +554,150 @@ class plateCalculatorState extends State<plateCalculator> {
 
             /* TEN */
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.25,
+                        height: 100,
+                        child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.all(20.0),
+                              child: Text(
+                                "10",
+                                style: TextStyle(
+                                  fontSize: 30,
+                                ),
+                              ),
+                            )
+                        )
+                    ),
                     //weight
-                    Align(
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.50,
+                        height: 100,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Container(
+                            //add box decoration here for the border
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      top: BorderSide(width: 1.5, color: Colors.deepOrange[300]),
+                                    bottom: BorderSide(width: 1.5, color: Colors.deepOrange[300]),
+
+                                  )
+                              ),
+                              child: Row(
+                                children: [
+                                  //minus sign align left
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                          padding: EdgeInsets.all(20.0),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              if(tenCount-1 >= 0)
+                                              {
+                                                subtract(10);
+                                                tenCount--;
+                                                tenTotal-=10;
+                                              }
+                                            },
+                                            child: Text("-",
+                                                style: TextStyle(
+                                                  fontSize: 30,
+                                                )),
+                                          )
+                                      )
+                                  ),
+                                  //current count sign in the middle
+                                  Align(
+                                      alignment: Alignment.center,
+                                      child: Padding(
+                                        padding: EdgeInsets.all(20.0),
+                                        child: Text(tenCount.toString(),
+                                            style: TextStyle(
+                                              fontSize: 30,
+                                            )),
+                                      )
+                                  ),
+
+                                  Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Padding(
+                                          padding: EdgeInsets.all(20.0),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              add(10);
+                                              tenCount++;
+                                              tenTotal+=10;
+                                            },
+                                            child: Text("+",
+                                                style: TextStyle(
+                                                  fontSize: 30,
+                                                )),
+                                          )
+                                      )
+                                  ),
+                                ],
+                              )
+                          ),
+                        )
+                    ),
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.25,
+                        height: 100,
+                        child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding: EdgeInsets.all(20.0),
+                              child: Text(
+                                tenTotal.toString(),
+                                style: TextStyle(
+                                  fontSize: 30,
+                                ),
+                              ),
+                            )
+                        )
+                    ),
+                  ],
+                ),
+
+
+            /* FIVE */
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    height: 100,
+                    child: Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
                           padding: EdgeInsets.all(20.0),
                           child: Text(
-                            "10",
+                            "5",
                             style: TextStyle(
                               fontSize: 30,
                             ),
                           ),
                         )
-                    ),
-                    Align(
+                    )
+                ),
+                //weight
+                SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.50,
+                    height: 100,
+                    child: Align(
                       alignment: Alignment.center,
                       child: Container(
                         //add box decoration here for the border
                           decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.green,
-                                width: 6,
+                              border: Border(
+                                  top: BorderSide(width: 1.5, color: Colors.deepOrange[300]),
+                                bottom: BorderSide(width: 1.5, color: Colors.deepOrange[300]),
                               )
                           ),
                           child: Row(
@@ -526,11 +709,11 @@ class plateCalculatorState extends State<plateCalculator> {
                                       padding: EdgeInsets.all(20.0),
                                       child: GestureDetector(
                                         onTap: () {
-                                          if(tenCount-1 >= 0)
+                                          if(fiveCount-1 >= 0)
                                           {
-                                            subtract(10);
-                                            tenCount--;
-                                            tenTotal-=10;
+                                            subtract(5);
+                                            fiveCount--;
+                                            fiveTotal-=5;
                                           }
                                         },
                                         child: Text("-",
@@ -545,7 +728,7 @@ class plateCalculatorState extends State<plateCalculator> {
                                   alignment: Alignment.center,
                                   child: Padding(
                                     padding: EdgeInsets.all(20.0),
-                                    child: Text(tenCount.toString(),
+                                    child: Text(fiveCount.toString(),
                                         style: TextStyle(
                                           fontSize: 30,
                                         )),
@@ -558,9 +741,9 @@ class plateCalculatorState extends State<plateCalculator> {
                                       padding: EdgeInsets.all(20.0),
                                       child: GestureDetector(
                                         onTap: () {
-                                          add(10);
-                                          tenCount++;
-                                          tenTotal+=10;
+                                          add(5);
+                                          fiveCount++;
+                                          fiveTotal+=5;
                                         },
                                         child: Text("+",
                                             style: TextStyle(
@@ -572,116 +755,22 @@ class plateCalculatorState extends State<plateCalculator> {
                             ],
                           )
                       ),
-                    ),
-                    Align(
-                        alignment: Alignment.centerLeft,
+                    )
+                ),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    height: 100,
+                    child:Align(
+                        alignment: Alignment.centerRight,
                         child: Padding(
                           padding: EdgeInsets.all(20.0),
                           child: Text(
-                            tenTotal.toString(),
+                            fiveTotal.toString(),
                             style: TextStyle(
                               fontSize: 30,
                             ),
                           ),
                         )
-                    ),
-                  ],
-                ),
-
-
-            /* FIVE */
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                //weight
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Text(
-                        "5",
-                        style: TextStyle(
-                          fontSize: 30,
-                        ),
-                      ),
-                    )
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    //add box decoration here for the border
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.green,
-                            width: 6,
-                          )
-                      ),
-                      child: Row(
-                        children: [
-                          //minus sign align left
-                          Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                  padding: EdgeInsets.all(20.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      if(fiveCount-1 >= 0)
-                                      {
-                                        subtract(5);
-                                        fiveCount--;
-                                        fiveTotal-=5;
-                                      }
-                                    },
-                                    child: Text("-",
-                                        style: TextStyle(
-                                          fontSize: 30,
-                                        )),
-                                  )
-                              )
-                          ),
-                          //current count sign in the middle
-                          Align(
-                              alignment: Alignment.center,
-                              child: Padding(
-                                padding: EdgeInsets.all(20.0),
-                                child: Text(fiveCount.toString(),
-                                    style: TextStyle(
-                                      fontSize: 30,
-                                    )),
-                              )
-                          ),
-
-                          Align(
-                              alignment: Alignment.centerRight,
-                              child: Padding(
-                                  padding: EdgeInsets.all(20.0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      add(5);
-                                      fiveCount++;
-                                      fiveTotal+=5;
-                                    },
-                                    child: Text("+",
-                                        style: TextStyle(
-                                          fontSize: 30,
-                                        )),
-                                  )
-                              )
-                          ),
-                        ],
-                      )
-                  ),
-                ),
-                Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Text(
-                        fiveTotal.toString(),
-                        style: TextStyle(
-                          fontSize: 30,
-                        ),
-                      ),
                     )
                 ),
               ],
@@ -689,17 +778,18 @@ class plateCalculatorState extends State<plateCalculator> {
 
           /* TOTAL WEIGHT */
             Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Align(
-                      alignment: Alignment.centerLeft,
+                      alignment: Alignment.center,
                       child: Padding(
                           padding: EdgeInsets.only(
                             right: 60,
                             top: 20,
                           ),
                           child: Text(
-                            "Total Weight:",
+                            "Total:",
                             style: TextStyle(
                               fontSize: 20,
                             ),

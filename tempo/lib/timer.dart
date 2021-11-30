@@ -57,6 +57,10 @@ class timerState extends State<timer> with TickerProviderStateMixin {
         backgroundColor: Colors.grey.shade700,
         appBar: AppBar(
           toolbarHeight: 40,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(
+            color: Colors.deepOrange[300],
+          )
         ),
       body: Column(
         children: [
@@ -71,6 +75,7 @@ class timerState extends State<timer> with TickerProviderStateMixin {
                       backgroundColor: Colors.white,
                       value: progress,
                       strokeWidth: 6,
+                      color: Colors.deepOrange[300],
                     )
                   ),
                   GestureDetector(
@@ -99,6 +104,7 @@ class timerState extends State<timer> with TickerProviderStateMixin {
                             style: TextStyle(
                               fontSize: 60,
                               fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                           )
                       )
@@ -128,9 +134,16 @@ class timerState extends State<timer> with TickerProviderStateMixin {
                       });
                     }
                   },
-                  child: ElevatedButton(
-                    child: Icon(
-                      isPlaying == true ? Icons.pause : Icons.play_arrow,
+                  child: Container(
+                    margin: const EdgeInsets.only(right: 15),
+                    child: ElevatedButton(
+                      child: Icon(
+                        isPlaying == true ? Icons.pause : Icons.play_arrow,
+                        color: Colors.white,
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.deepOrange[300],
+                      ),
                     )
                   )
                 ),
@@ -141,10 +154,17 @@ class timerState extends State<timer> with TickerProviderStateMixin {
                         isPlaying = false;
                       });
                     },
-                    child: ElevatedButton(
+                    child: Container(
+                      margin: const EdgeInsets.only(left: 15),
+                      child: ElevatedButton(
                         child: Icon(
                           Icons.stop,
-                        )
+                          color: Colors.white,
+                        ),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.deepOrange[300]
+                        ),
+                      )
                     )
                 )
               ],

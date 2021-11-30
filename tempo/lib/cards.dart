@@ -127,6 +127,7 @@ class cardsHomeState extends State<cardsHome>
       //data hasn't been retrieved yet so return progress indicator
       return CircularProgressIndicator(
         backgroundColor: Color(0xFFE0F7FA),
+        color: Colors.deepOrange[300],
       );
     }
   }
