@@ -27,6 +27,7 @@ class timerState extends State<timer> with TickerProviderStateMixin {
       } else {
         setState(() {
           progress = 1.0;
+          isPlaying = false;
         });
       }
     });
@@ -39,9 +40,9 @@ class timerState extends State<timer> with TickerProviderStateMixin {
 
   String get countText {
     Duration count = controller.duration * controller.value;
-    return controller.isDismissed ?
-    '${controller.duration.inHours}:${(count.inMinutes % 60).toString().padLeft(2, '0')}:${(count.inSeconds % 60).toString().padLeft(2, '0')}' :
-    '${count.inHours}:${(count.inMinutes % 60).toString().padLeft(2, '0')}:${(count.inSeconds % 60).toString().padLeft(2, '0')}';
+    return controller.isDismissed
+        ? '${controller.duration.inHours}:${(controller.duration.inMinutes % 60).toString().padLeft(2, '0')}:${(controller.duration.inSeconds % 60).toString().padLeft(2, '0')}'
+        : '${count.inHours}:${(count.inMinutes % 60).toString().padLeft(2, '0')}:${(count.inSeconds % 60).toString().padLeft(2, '0')}';
   }
 
   void notify() {
@@ -53,6 +54,7 @@ class timerState extends State<timer> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey.shade700,
         appBar: AppBar(
           toolbarHeight: 40,
         ),
@@ -66,7 +68,7 @@ class timerState extends State<timer> with TickerProviderStateMixin {
                     width: 300,
                     height: 300,
                     child: CircularProgressIndicator(
-                      backgroundColor: Colors.grey.shade300,
+                      backgroundColor: Colors.white,
                       value: progress,
                       strokeWidth: 6,
                     )

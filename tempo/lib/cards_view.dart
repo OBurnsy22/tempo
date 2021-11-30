@@ -77,10 +77,7 @@ class cardsViewState extends State<cardsView> {
           automaticallyImplyLeading: false,
           leading: GestureDetector(
             onTap: navigateBack,
-            child: Icon(
-              Icons.arrow_back,
-                color: Colors.deepOrange[300]
-            ),
+            child: Icon(Icons.arrow_back, color: Colors.deepOrange[300]),
           ),
         ),
         body: Center(
@@ -99,30 +96,28 @@ class cardsViewState extends State<cardsView> {
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     color: Colors.deepOrange[300],
                   ),
-                  child: Row(children: <Widget>[
-                    Container(
-                      child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: GestureDetector(
-                              onDoubleTap: changeCardNameForm,
-                              child: Text(
-                                currentCardName,
-                                style: TextStyle(fontSize: 25),
-                              ))
-                      )
-                    ),
-                    Container(
-                      child: Align(
-                          alignment: Alignment.centerRight,
-                          child: GestureDetector(
-                              onTap: addWorkoutForm,
-                              child: Icon(
-                                Icons.add_outlined,
-                                size: 40,
-                              ))
-                      )
-                    )
-                  ])),
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                            child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: GestureDetector(
+                                    onDoubleTap: changeCardNameForm,
+                                    child: Text(
+                                      currentCardName,
+                                      style: TextStyle(fontSize: 25),
+                                    )))),
+                        Container(
+                            child: Align(
+                                alignment: Alignment.centerRight,
+                                child: GestureDetector(
+                                    onTap: addWorkoutForm,
+                                    child: Icon(
+                                      Icons.add_outlined,
+                                      size: 40,
+                                    ))))
+                      ])),
               Container(
                 width: MediaQuery.of(context).size.width * 0.90,
                 height: MediaQuery.of(context).size.height * 0.78,
@@ -140,56 +135,58 @@ class cardsViewState extends State<cardsView> {
                       print(workoutData);
                       return Card(
                           child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 2,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.black,
+                                    width: 2,
+                                  ),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(2))),
+                              child: ListTile(
+                                leading: GestureDetector(
+                                  child: Theme(
+                                      data: Theme.of(context).copyWith(
+                                        unselectedWidgetColor: Colors.blue,
+                                      ),
+                                      //make an array that each holds a bool value for the check status on each box
+                                      child: Checkbox(
+                                          activeColor: Colors.amberAccent,
+                                          checkColor: Colors.red,
+                                          value: checkboxStatus[index],
+                                          onChanged: (bool status) {
+                                            setState(() {
+                                              checkboxStatus[index] = status;
+                                            });
+                                          })),
                                 ),
-                                borderRadius: BorderRadius.all(Radius.circular(2))
-                            ),
-                            child: ListTile(
-                              leading: GestureDetector(
-                                child: Theme(
-                                    data: Theme.of(context).copyWith(
-                                      unselectedWidgetColor: Colors.blue,
-                                    ),
-                                    //make an array that each holds a bool value for the check status on each box
-                                    child: Checkbox(
-                                        activeColor: Colors.amberAccent,
-                                        checkColor: Colors.red,
-                                        value: checkboxStatus[index],
-                                        onChanged: (bool status) {
-                                          setState(() {
-                                            checkboxStatus[index] = status;
-                                          });
-                                        })),
-                              ),
-                              title: GestureDetector(
-                                child: Text(workouts[index]),
-                                onDoubleTap: () {
-                                  var idx = index.toString();
-                                  changeWorkoutName(idx);
-                                },
-                              ),
-                              subtitle: GestureDetector(
-                                child: Text(workoutsSetAndWeight[index][0]),
-                                onDoubleTap: () {
-                                  var idx = index.toString();
-                                  print(idx);
-                                  changeSetCount(idx);
-                                },
-                              ),
-                              trailing: GestureDetector(
-                                child: Text(workoutsSetAndWeight[index][1] + "lbs"),
-                                onDoubleTap: () {
-                                  var idx = index.toString();
-                                  print(idx);
-                                  changeWeight(idx);
-                                },
-                              ),
-                            )
-                          )
-                        );
+                                title: GestureDetector(
+                                  child: Text(workouts[index]),
+                                  onDoubleTap: () {
+                                    var idx = index.toString();
+                                    changeWorkoutName(idx);
+                                  },
+                                ),
+                                subtitle: GestureDetector(
+                                  child: Text(
+                                      workoutsSetAndWeight[index][0].trim() == "" ? "*Set Count*" : workoutsSetAndWeight[index][0].trim()
+                                  ),
+                                  onDoubleTap: () {
+                                    var idx = index.toString();
+                                    print(idx);
+                                    changeSetCount(idx);
+                                  },
+                                ),
+                                trailing: GestureDetector(
+                                  child: Text(
+                                      workoutsSetAndWeight[index][1].trim() == "" ? "*Weight*" : workoutsSetAndWeight[index][1].trim()
+                                  ),
+                                  onDoubleTap: () {
+                                    var idx = index.toString();
+                                    print(idx);
+                                    changeWeight(idx);
+                                  },
+                                ),
+                              )));
                     }),
               ),
               Row(
@@ -198,17 +195,17 @@ class cardsViewState extends State<cardsView> {
                   Container(
                     margin: EdgeInsets.only(left: 12.0),
                     child: GestureDetector(
-                      child: Icon(
-                        Icons.calculate,
+                        child: Icon(
+                          Icons.calculate,
                           color: Colors.deepOrange[300],
                           size: 50.0,
-                      ),
+                        ),
                         onTap: () {
-                        Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                        builder: (context) => plateCalculator()));
-                      }),
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => plateCalculator()));
+                        }),
                   ),
                   Container(
                     margin: EdgeInsets.only(right: 12.0),
@@ -238,16 +235,14 @@ class cardsViewState extends State<cardsView> {
           return AlertDialog(
               title: Text("Add Workout"),
               content: Container(
-                width: MediaQuery.of(context).size.width * 0.80,
-                height: MediaQuery.of(context).size.height * 0.35,
-                child: Form(
-                    key: add_workout_form,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: addWorkoutInput() + addWorkoutButtons(),
-                    ))
-              )
-            );
+                  width: MediaQuery.of(context).size.width * 0.80,
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  child: Form(
+                      key: add_workout_form,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: addWorkoutInput() + addWorkoutButtons(),
+                      ))));
         });
   }
 
@@ -355,16 +350,15 @@ class cardsViewState extends State<cardsView> {
           return AlertDialog(
               title: Text("Change Weight"),
               content: Container(
-                width: MediaQuery.of(context).size.width * 0.80,
-                height: MediaQuery.of(context).size.height * 0.20,
-                child: Form(
-                    key: change_weight_rename,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: changeWeightInput(idx) + changeWeightButtons(),
-                    ))
-              )
-          );
+                  width: MediaQuery.of(context).size.width * 0.80,
+                  height: MediaQuery.of(context).size.height * 0.20,
+                  child: Form(
+                      key: change_weight_rename,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children:
+                            changeWeightInput(idx) + changeWeightButtons(),
+                      ))));
         });
   }
 
@@ -456,17 +450,15 @@ class cardsViewState extends State<cardsView> {
           return AlertDialog(
               title: Text("Change Set Count"),
               content: Container(
-                width: MediaQuery.of(context).size.width * 0.80,
-                height: MediaQuery.of(context).size.height * 0.20,
-                child: Form(
-                    key: set_count_rename,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children:
-                      changeSetCountInput(idx) + changeSetCountButtons(),
-                    ))
-              )
-            );
+                  width: MediaQuery.of(context).size.width * 0.80,
+                  height: MediaQuery.of(context).size.height * 0.20,
+                  child: Form(
+                      key: set_count_rename,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children:
+                            changeSetCountInput(idx) + changeSetCountButtons(),
+                      ))));
         });
   }
 
@@ -554,16 +546,14 @@ class cardsViewState extends State<cardsView> {
           return AlertDialog(
               title: Text("Rename Workout"),
               content: Container(
-                width: MediaQuery.of(context).size.width * 0.80,
-                height: MediaQuery.of(context).size.height * 0.20,
-                child: Form(
-                    key: workout_rename_key,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: workoutNameInput(idx) + workoutNameButtons(),
-                    ))
-              )
-            );
+                  width: MediaQuery.of(context).size.width * 0.80,
+                  height: MediaQuery.of(context).size.height * 0.20,
+                  child: Form(
+                      key: workout_rename_key,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: workoutNameInput(idx) + workoutNameButtons(),
+                      ))));
         });
   }
 
@@ -654,16 +644,14 @@ class cardsViewState extends State<cardsView> {
           return AlertDialog(
               title: Text("Rename Card"),
               content: Container(
-                width: MediaQuery.of(context).size.width * 0.80,
-                height: MediaQuery.of(context).size.height * 0.20,
-                child:Form(
-                    key: rename_card_key,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: renameCardInput() + renameCardButtons(),
-                    ))
-              )
-            );
+                  width: MediaQuery.of(context).size.width * 0.80,
+                  height: MediaQuery.of(context).size.height * 0.20,
+                  child: Form(
+                      key: rename_card_key,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: renameCardInput() + renameCardButtons(),
+                      ))));
         });
   }
 
