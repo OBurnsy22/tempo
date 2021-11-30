@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 
 class analyticsHome extends StatefulWidget {
@@ -8,6 +9,9 @@ class analyticsHome extends StatefulWidget {
 }
 
 class analyticsHomeState extends State<analyticsHome> with AutomaticKeepAliveClientMixin<analyticsHome>{
+  //https://google.github.io/charts/flutter/gallery.html
+
+
 
   @override
   Widget build(BuildContext context) {

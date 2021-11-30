@@ -58,6 +58,43 @@ class plateCalculatorState extends State<plateCalculator> {
               }
             ),*/
 
+            /* LABELS */
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        right: 60,
+                        bottom: 20,
+                    ),
+                    child: Text(
+                      "Weight:",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    )
+                  )
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: 80,
+                      bottom: 20,
+                    ),
+                    child: Text(
+                      "Weight Count:",
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    )
+                  ),
+                )
+              ]
+            ),
+
             /* FOURTY FIVE */
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -650,6 +687,42 @@ class plateCalculatorState extends State<plateCalculator> {
               ],
             ),
 
+          /* TOTAL WEIGHT */
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                          padding: EdgeInsets.only(
+                            right: 60,
+                            top: 20,
+                          ),
+                          child: Text(
+                            "Total Weight:",
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          )
+                      )
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                        padding: EdgeInsets.only(
+                          left: 80,
+                          top: 20,
+                        ),
+                        child: Text(
+                          weight.toString(),
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        )
+                    ),
+                  )
+                ]
+            ),
 
           ]
         )

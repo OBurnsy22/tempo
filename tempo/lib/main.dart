@@ -7,6 +7,7 @@ import 'login.dart';
 import 'globals.dart' as globals;
 import 'package:firebase_core/firebase_core.dart';
 import 'google_auth.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 
 
 void main() async {
@@ -19,11 +20,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'tempo',
-      themeMode: ThemeMode.dark,
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-      ),
+      //darkTheme: ThemeData.dark(),
+      /*theme: ThemeData(
+        primaryColor: Colors.grey,
+        secondaryHeaderColor: Colors.amber,
+      ),*/
       home: globals.signedIn == false ? login() : navigator(),
     );
   }

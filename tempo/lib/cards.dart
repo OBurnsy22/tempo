@@ -76,7 +76,7 @@ class cardsHomeState extends State<cardsHome>
                       width: 3,
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(5)),
-                    color: Colors.green,
+                    color: Colors.deepOrange[600],
                   ),
                   child: Row(
                     children: <Widget>[
