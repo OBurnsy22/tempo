@@ -7,35 +7,82 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'main.dart';
 import 'google_auth.dart';
 
-
 class login extends StatefulWidget {
-
   @override
   loginState createState() => loginState();
 }
 
 class loginState extends State<login> {
-
   @override
   void initState() {
     initCurrentUser();
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
+      backgroundColor: Colors.grey.shade700,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            MaterialButton(
-              onPressed: () => singInErrorCatcher(),
-              color: Colors.white,
-              textColor: Colors.black,
-              child: Text('Login with Google'),
+            CircleAvatar(
+              backgroundColor: Colors.black,
+              radius: 105,
+              child: CircleAvatar(
+                  backgroundColor: Colors.deepOrange[300],
+                  radius: 100,
+                  child: Stack(
+                    children: <Widget>[
+                      Icon(
+                        Icons.fitness_center_outlined,
+                        size: 180,
+                        color: Colors.black,
+                      ),
+                      Icon(
+                        Icons.fitness_center_outlined,
+                        size: 170,
+                        color: Colors.white,
+                      )
+                    ],
+                  )
+              ),
+            ),
+            Container(
+              child: Stack(children: <Widget>[
+                Container(
+                    child: Text(
+                      "tempo",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                        fontSize: 55,
+                      ),
+                    )),
+                Container(
+                    child: Text(
+                      "tempo",
+                      style: TextStyle(
+                        color: Colors.deepOrange[300],
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                        fontSize: 50,
+                      ),
+                    ))
+              ]),
+            ),
+            Container(
+              margin: EdgeInsets.only(
+                top: 80.0
+              ),
+              child: MaterialButton(
+                onPressed: () => singInErrorCatcher(),
+                color: Colors.white,
+                textColor: Colors.black,
+                child: Text('Login with Google'),
+              )
             ),
           ],
         ),
@@ -44,9 +91,7 @@ class loginState extends State<login> {
   }
 
   void initCurrentUser() {
-    FirebaseAuth.instance
-        .authStateChanges()
-        .listen((User user) {
+    FirebaseAuth.instance.authStateChanges().listen((User user) {
       if (user != null) {
         print(user.uid);
         setState(() {
@@ -61,14 +106,14 @@ class loginState extends State<login> {
   //function called before google sign in, to catch
   //any potential sign in erros
   Future<void> singInErrorCatcher() async {
-    try{
+    try {
       await googleAuth().googleSignIn();
       globals.signedIn = true;
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => navigator()),
       );
-    } catch(error) {
+    } catch (error) {
       print(error);
     }
   }
