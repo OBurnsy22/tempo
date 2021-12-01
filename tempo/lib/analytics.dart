@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
+
+//class to track workouts and their timestamps
+class _WorkoutTimestamps {
+  _WorkoutTimestamps(this.weight, this.date);
+
+  final String weight;
+  final double date;
+}
 
 class analyticsHome extends StatefulWidget {
 
@@ -9,13 +18,22 @@ class analyticsHome extends StatefulWidget {
 }
 
 class analyticsHomeState extends State<analyticsHome> with AutomaticKeepAliveClientMixin<analyticsHome>{
-  //https://google.github.io/charts/flutter/gallery.html
+  //https://pub.dev/packages/syncfusion_flutter_charts/example
   final graph_form_key = GlobalKey<FormState>();
   String graph_type = 'Time Series';
+  bool animate;
+
+  List<_WorkoutTimestamps> chartData = [
+    _WorkoutTimestamps('100', 0),
+    _WorkoutTimestamps('200', 1),
+    _WorkoutTimestamps('300', 2),
+    _WorkoutTimestamps('400', 3),
+  ];
 
   @override
   void initState() {
     super.initState();
+    animate = false;
   }
 
   @override
@@ -26,7 +44,33 @@ class analyticsHomeState extends State<analyticsHome> with AutomaticKeepAliveCli
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SfCartesianChart(
+              primaryXAxis: CategoryAxis(),
+              // Chart title
+              title: ChartTitle(text: 'Weight increase over time'),
+              // Enable legend
+              legend: Legend(isVisible: true),
+              tooltipBehavior: TooltipBehavior(enable: true),
+              series: <ChartSeries<_WorkoutTimestamps, String>> [
+                LineSeries<_WorkoutTimestamps, String>(
+                  dataSource: chartData,
+                  xValueMapper: (_WorkoutTimestamps lift, _) => lift.weight,
+                  yValueMapper: (_WorkoutTimestamps lift, _) => lift.date,
+                  name: 'Sales',
+                  // Enable data label
+                  dataLabelSettings: DataLabelSettings(isVisible: true))
+                )
+              ]
+            )
+          ],
+        ),
+      ),
+
+    );
+  }
+
+  /*
+              Container(
               alignment: Alignment.center,
               child: GestureDetector(
                 onTap: AddGraphForm,
@@ -36,12 +80,7 @@ class analyticsHomeState extends State<analyticsHome> with AutomaticKeepAliveCli
                 )
               )
             )
-          ],
-        ),
-      ),
-
-    );
-  }
+   */
 
 
   //form to add a new graph
