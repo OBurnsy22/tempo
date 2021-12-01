@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bordered_text/bordered_text.dart';
 
 class plateCalculator extends StatefulWidget {
   @override
@@ -75,12 +76,24 @@ class plateCalculatorState extends State<plateCalculator> {
                         right: 60,
                         bottom: 20,
                     ),
-                    child: Text(
-                      "Weight:",
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
+                    child: BorderedText(
+                      strokeWidth: 3.0,
+                      strokeColor: Colors.black,
+                      child: Text(
+                        "Weight:",
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
+                          /*
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 2
+                          ..color = Colors.black*/
+
+                        ),
+                      )
                     )
+
                   )
                 ),
                 Align(
@@ -90,11 +103,16 @@ class plateCalculatorState extends State<plateCalculator> {
                       left: 80,
                       bottom: 20,
                     ),
-                    child: Text(
-                      "Count:",
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
+                    child: BorderedText(
+                      strokeWidth: 3.0,
+                      strokeColor: Colors.black,
+                      child: Text(
+                        "Count:",
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
+                        ),
+                      )
                     )
                   ),
                 )
@@ -109,23 +127,28 @@ class plateCalculatorState extends State<plateCalculator> {
                 //weight
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.25,
-                  height: 100,
+                  height: 90,
                   child: Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
                         padding: EdgeInsets.all(20.0),
-                        child: Text(
-                          "45",
-                          style: TextStyle(
-                            fontSize: 30,
+                        child: BorderedText(
+                          strokeWidth: 3.0,
+                          strokeColor: Colors.black,
+                          child: Text(
+                            "45",
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
+                        )
                       )
                   )
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.50,
-                  height: 100,
+                  height: 90,
                   child: Align(
                     alignment: Alignment.center,
                     child: Container(
@@ -152,10 +175,15 @@ class plateCalculatorState extends State<plateCalculator> {
                                           fourtyFiveTotal-=45;
                                         }
                                       },
-                                      child: Text("-",
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                          )),
+                                      child: BorderedText(
+                                        strokeWidth: 3.0,
+                                        strokeColor: Colors.black,
+                                        child: Text("-",
+                                            style: TextStyle(
+                                              fontSize: 30,
+                                              color: Colors.white,
+                                            ))
+                                      ),
                                     )
                                 )
                             ),
@@ -164,11 +192,16 @@ class plateCalculatorState extends State<plateCalculator> {
                                 alignment: Alignment.center,
                                 child: Padding(
                                   padding: EdgeInsets.all(20.0),
-                                  child: Text(
-                                      fourtyFiveCount.toString(),
-                                      style: TextStyle(
-                                        fontSize: 30,
-                                      )),
+                                  child: BorderedText(
+                                    strokeWidth: 3.0,
+                                    strokeColor: Colors.black,
+                                    child: Text(
+                                        fourtyFiveCount.toString(),
+                                        style: TextStyle(
+                                          fontSize: 30,
+                                          color: Colors.white,
+                                        ))
+                                  ),
                                 )
                             ),
 
@@ -182,10 +215,15 @@ class plateCalculatorState extends State<plateCalculator> {
                                         fourtyFiveCount++;
                                         fourtyFiveTotal+=45;
                                       },
-                                      child: Text("+",
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                          )),
+                                      child: BorderedText(
+                                        strokeWidth: 3.0,
+                                        strokeColor: Colors.black,
+                                        child: Text("+",
+                                            style: TextStyle(
+                                              fontSize: 30,
+                                              color: Colors.white,
+                                            ))
+                                      ),
                                     )
                                 )
                             ),
@@ -196,16 +234,21 @@ class plateCalculatorState extends State<plateCalculator> {
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.25,
-                  height: 100,
+                  height: 90,
                   child: Align(
                       alignment: Alignment.centerRight,
                       child: Padding(
                         padding: EdgeInsets.all(20.0),
-                        child: Text(
-                          fourtyFiveTotal.toString(),
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),
+                        child: BorderedText(
+                          strokeWidth: 3.0,
+                          strokeColor: Colors.black,
+                          child: Text(
+                            fourtyFiveTotal.toString(),
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.white,
+                            ),
+                          )
                         ),
                       )
                   ),
@@ -221,23 +264,28 @@ class plateCalculatorState extends State<plateCalculator> {
                 //weight
                 SizedBox(
                     width: MediaQuery.of(context).size.width * 0.25,
-                    height: 100,
+                    height: 90,
                     child: Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
                           padding: EdgeInsets.all(20.0),
-                          child: Text(
-                            "35",
-                            style: TextStyle(
-                              fontSize: 30,
-                            ),
+                          child: BorderedText(
+                            strokeWidth: 3.0,
+                            strokeColor: Colors.black,
+                            child: Text(
+                              "35",
+                              style: TextStyle(
+                                fontSize: 30,
+                                color: Colors.white,
+                              ),
+                            )
                           ),
                         )
                     ),
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.50,
-                  height: 100,
+                  height: 90,
                   child: Align(
                     alignment: Alignment.center,
                     child: Container(
@@ -265,10 +313,15 @@ class plateCalculatorState extends State<plateCalculator> {
                                           thirtyFiveTotal-=35;
                                         }
                                       },
-                                      child: Text("-",
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                          )),
+                                      child: BorderedText(
+                                        strokeWidth: 3.0,
+                                        strokeColor: Colors.black,
+                                        child: Text("-",
+                                            style: TextStyle(
+                                              fontSize: 30,
+                                              color: Colors.white,
+                                            ))
+                                      ),
                                     )
                                 )
                             ),
@@ -277,10 +330,15 @@ class plateCalculatorState extends State<plateCalculator> {
                                 alignment: Alignment.center,
                                 child: Padding(
                                   padding: EdgeInsets.all(20.0),
-                                  child: Text(thirtyFiveCount.toString(),
-                                      style: TextStyle(
-                                        fontSize: 30,
-                                      )),
+                                  child: BorderedText(
+                                    strokeWidth: 3.0,
+                                    strokeColor: Colors.black,
+                                    child: Text(thirtyFiveCount.toString(),
+                                        style: TextStyle(
+                                          fontSize: 30,
+                                          color: Colors.white,
+                                        ))
+                                  ),
                                 )
                             ),
 
@@ -294,10 +352,15 @@ class plateCalculatorState extends State<plateCalculator> {
                                         thirtyFiveCount++;
                                         thirtyFiveTotal+=35;
                                       },
-                                      child: Text("+",
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                          )),
+                                      child: BorderedText(
+                                        strokeWidth: 3.0,
+                                        strokeColor: Colors.black,
+                                        child: Text("+",
+                                            style: TextStyle(
+                                              fontSize: 30,
+                                              color: Colors.white,
+                                            ))
+                                      ),
                                     )
                                 )
                             ),
@@ -308,16 +371,21 @@ class plateCalculatorState extends State<plateCalculator> {
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.25,
-                  height: 100,
+                  height: 90,
                   child: Align(
                       alignment: Alignment.centerRight,
                       child: Padding(
                         padding: EdgeInsets.all(20.0),
-                        child: Text(
-                          thirtyFiveTotal.toString(),
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),
+                        child: BorderedText(
+                          strokeWidth: 3.0,
+                          strokeColor: Colors.black,
+                          child: Text(
+                            thirtyFiveTotal.toString(),
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.white,
+                            ),
+                          )
                         ),
                       )
                   )
@@ -334,23 +402,28 @@ class plateCalculatorState extends State<plateCalculator> {
                 //weight
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.25,
-                  height: 100,
+                  height: 90,
                   child: Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
                         padding: EdgeInsets.all(20.0),
-                        child: Text(
-                          "25",
-                          style: TextStyle(
-                            fontSize: 30,
+                        child: BorderedText(
+                          strokeWidth: 3.0,
+                          strokeColor: Colors.black,
+                          child: Text(
+                            "25",
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
+                        )
                       )
                   )
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.50,
-                  height: 100,
+                  height: 90,
                   child: Align(
                     alignment: Alignment.center,
                     child: Container(
@@ -378,10 +451,15 @@ class plateCalculatorState extends State<plateCalculator> {
                                           twentyFiveTotal-=25;
                                         }
                                       },
-                                      child: Text("-",
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                          )),
+                                      child: BorderedText(
+                                        strokeWidth: 3.0,
+                                        strokeColor: Colors.black,
+                                        child: Text("-",
+                                            style: TextStyle(
+                                              fontSize: 30,
+                                              color: Colors.white,
+                                            ))
+                                      ),
                                     )
                                 )
                             ),
@@ -390,10 +468,15 @@ class plateCalculatorState extends State<plateCalculator> {
                                 alignment: Alignment.center,
                                 child: Padding(
                                   padding: EdgeInsets.all(20.0),
-                                  child: Text(twentyFiveCount.toString(),
-                                      style: TextStyle(
-                                        fontSize: 30,
-                                      )),
+                                  child: BorderedText(
+                                    strokeWidth: 3.0,
+                                    strokeColor: Colors.black,
+                                    child: Text(twentyFiveCount.toString(),
+                                        style: TextStyle(
+                                          fontSize: 30,
+                                          color: Colors.white,
+                                        ))
+                                  ),
                                 )
                             ),
 
@@ -407,10 +490,15 @@ class plateCalculatorState extends State<plateCalculator> {
                                         twentyFiveCount++;
                                         twentyFiveTotal+=25;
                                       },
-                                      child: Text("+",
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                          )),
+                                      child: BorderedText(
+                                        strokeWidth: 3.0,
+                                        strokeColor: Colors.black,
+                                        child: Text("+",
+                                            style: TextStyle(
+                                              fontSize: 30,
+                                              color: Colors.white,
+                                            ))
+                                      ),
                                     )
                                 )
                             ),
@@ -421,16 +509,21 @@ class plateCalculatorState extends State<plateCalculator> {
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.25,
-                  height: 100,
+                  height: 90,
                   child: Align(
                       alignment: Alignment.centerRight,
                       child: Padding(
                         padding: EdgeInsets.all(20.0),
-                        child: Text(
-                          twentyFiveTotal.toString(),
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),
+                        child: BorderedText(
+                          strokeWidth: 3.0,
+                          strokeColor: Colors.black,
+                          child: Text(
+                            twentyFiveTotal.toString(),
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.white,
+                            ),
+                          )
                         ),
                       )
                   )
@@ -447,23 +540,28 @@ class plateCalculatorState extends State<plateCalculator> {
                 //weight
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.25,
-                  height: 100,
+                  height: 90,
                   child: Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
                         padding: EdgeInsets.all(20.0),
-                        child: Text(
-                          "15",
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),
+                        child: BorderedText(
+                          strokeWidth: 3.0,
+                          strokeColor: Colors.black,
+                          child: Text(
+                            "15",
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.white,
+                            ),
+                          )
                         ),
                       )
                   )
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.50,
-                  height: 100,
+                  height: 90,
                   child: Align(
                     alignment: Alignment.center,
                     child: Container(
@@ -491,10 +589,15 @@ class plateCalculatorState extends State<plateCalculator> {
                                           fifteenTotal-=15;
                                         }
                                       },
-                                      child: Text("-",
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                          )),
+                                      child: BorderedText(
+                                        strokeWidth: 3.0,
+                                        strokeColor: Colors.black,
+                                        child: Text("-",
+                                            style: TextStyle(
+                                              fontSize: 30,
+                                              color: Colors.white,
+                                            ))
+                                      ),
                                     )
                                 )
                             ),
@@ -503,10 +606,15 @@ class plateCalculatorState extends State<plateCalculator> {
                                 alignment: Alignment.center,
                                 child: Padding(
                                   padding: EdgeInsets.all(20.0),
-                                  child: Text(fifteenCount.toString(),
-                                      style: TextStyle(
-                                        fontSize: 30,
-                                      )),
+                                  child: BorderedText(
+                                    strokeWidth: 3.0,
+                                    strokeColor: Colors.black,
+                                    child: Text(fifteenCount.toString(),
+                                        style: TextStyle(
+                                          fontSize: 30,
+                                          color: Colors.white,
+                                        ))
+                                  ),
                                 )
                             ),
 
@@ -520,10 +628,15 @@ class plateCalculatorState extends State<plateCalculator> {
                                         fifteenCount++;
                                         fifteenTotal+=15;
                                       },
-                                      child: Text("+",
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                          )),
+                                      child: BorderedText(
+                                        strokeWidth: 3.0,
+                                        strokeColor: Colors.black,
+                                        child: Text("+",
+                                            style: TextStyle(
+                                              fontSize: 30,
+                                              color: Colors.white,
+                                            ))
+                                      ),
                                     )
                                 )
                             ),
@@ -534,16 +647,21 @@ class plateCalculatorState extends State<plateCalculator> {
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.25,
-                  height: 100,
+                  height: 90,
                   child: Align(
                       alignment: Alignment.centerRight,
                       child: Padding(
                         padding: EdgeInsets.all(20.0),
-                        child: Text(
-                          fifteenTotal.toString(),
-                          style: TextStyle(
-                            fontSize: 30,
-                          ),
+                        child: BorderedText(
+                          strokeWidth: 3.0,
+                          strokeColor: Colors.black,
+                          child: Text(
+                            fifteenTotal.toString(),
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.white,
+                            ),
+                          )
                         ),
                       )
                   )
@@ -559,16 +677,21 @@ class plateCalculatorState extends State<plateCalculator> {
                   children: [
                     SizedBox(
                         width: MediaQuery.of(context).size.width * 0.25,
-                        height: 100,
+                        height: 90,
                         child: Align(
                             alignment: Alignment.centerLeft,
                             child: Padding(
                               padding: EdgeInsets.all(20.0),
-                              child: Text(
-                                "10",
-                                style: TextStyle(
-                                  fontSize: 30,
-                                ),
+                              child: BorderedText(
+                                strokeWidth: 3.0,
+                                strokeColor: Colors.black,
+                                child: Text(
+                                  "10",
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    color: Colors.white,
+                                  ),
+                                )
                               ),
                             )
                         )
@@ -576,7 +699,7 @@ class plateCalculatorState extends State<plateCalculator> {
                     //weight
                     SizedBox(
                         width: MediaQuery.of(context).size.width * 0.50,
-                        height: 100,
+                        height: 90,
                         child: Align(
                           alignment: Alignment.center,
                           child: Container(
@@ -604,10 +727,15 @@ class plateCalculatorState extends State<plateCalculator> {
                                                 tenTotal-=10;
                                               }
                                             },
-                                            child: Text("-",
-                                                style: TextStyle(
-                                                  fontSize: 30,
-                                                )),
+                                            child: BorderedText(
+                                              strokeWidth: 3.0,
+                                              strokeColor: Colors.black,
+                                              child: Text("-",
+                                                  style: TextStyle(
+                                                    fontSize: 30,
+                                                    color: Colors.white,
+                                                  ))
+                                            ),
                                           )
                                       )
                                   ),
@@ -616,10 +744,15 @@ class plateCalculatorState extends State<plateCalculator> {
                                       alignment: Alignment.center,
                                       child: Padding(
                                         padding: EdgeInsets.all(20.0),
-                                        child: Text(tenCount.toString(),
-                                            style: TextStyle(
-                                              fontSize: 30,
-                                            )),
+                                        child: BorderedText(
+                                          strokeWidth: 3.0,
+                                          strokeColor: Colors.black,
+                                          child: Text(tenCount.toString(),
+                                              style: TextStyle(
+                                                fontSize: 30,
+                                                color: Colors.white,
+                                              ))
+                                        ),
                                       )
                                   ),
 
@@ -633,10 +766,15 @@ class plateCalculatorState extends State<plateCalculator> {
                                               tenCount++;
                                               tenTotal+=10;
                                             },
-                                            child: Text("+",
-                                                style: TextStyle(
-                                                  fontSize: 30,
-                                                )),
+                                            child: BorderedText(
+                                              strokeWidth: 3.0,
+                                              strokeColor: Colors.black,
+                                              child: Text("+",
+                                                  style: TextStyle(
+                                                    fontSize: 30,
+                                                    color: Colors.white,
+                                                  ))
+                                            ),
                                           )
                                       )
                                   ),
@@ -647,16 +785,21 @@ class plateCalculatorState extends State<plateCalculator> {
                     ),
                     SizedBox(
                         width: MediaQuery.of(context).size.width * 0.25,
-                        height: 100,
+                        height: 90,
                         child: Align(
                             alignment: Alignment.centerRight,
                             child: Padding(
                               padding: EdgeInsets.all(20.0),
-                              child: Text(
-                                tenTotal.toString(),
-                                style: TextStyle(
-                                  fontSize: 30,
-                                ),
+                              child: BorderedText(
+                                strokeWidth: 3.0,
+                                strokeColor: Colors.black,
+                                child: Text(
+                                  tenTotal.toString(),
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    color: Colors.white,
+                                  ),
+                                )
                               ),
                             )
                         )
@@ -672,16 +815,21 @@ class plateCalculatorState extends State<plateCalculator> {
               children: [
                 SizedBox(
                     width: MediaQuery.of(context).size.width * 0.25,
-                    height: 100,
+                    height: 90,
                     child: Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
                           padding: EdgeInsets.all(20.0),
-                          child: Text(
-                            "5",
-                            style: TextStyle(
-                              fontSize: 30,
-                            ),
+                          child: BorderedText(
+                            strokeWidth: 3.0,
+                            strokeColor: Colors.black,
+                            child: Text(
+                              "5",
+                              style: TextStyle(
+                                fontSize: 30,
+                                color: Colors.white,
+                              ),
+                            )
                           ),
                         )
                     )
@@ -689,7 +837,7 @@ class plateCalculatorState extends State<plateCalculator> {
                 //weight
                 SizedBox(
                     width: MediaQuery.of(context).size.width * 0.50,
-                    height: 100,
+                    height: 90,
                     child: Align(
                       alignment: Alignment.center,
                       child: Container(
@@ -697,7 +845,7 @@ class plateCalculatorState extends State<plateCalculator> {
                           decoration: BoxDecoration(
                               border: Border(
                                   top: BorderSide(width: 1.5, color: Colors.deepOrange[300]),
-                                bottom: BorderSide(width: 1.5, color: Colors.deepOrange[300]),
+                                bottom: BorderSide(width: 3, color: Colors.deepOrange[300]),
                               )
                           ),
                           child: Row(
@@ -716,10 +864,15 @@ class plateCalculatorState extends State<plateCalculator> {
                                             fiveTotal-=5;
                                           }
                                         },
-                                        child: Text("-",
-                                            style: TextStyle(
-                                              fontSize: 30,
-                                            )),
+                                        child: BorderedText(
+                                          strokeWidth: 3.0,
+                                          strokeColor: Colors.black,
+                                          child: Text("-",
+                                              style: TextStyle(
+                                                fontSize: 30,
+                                                color: Colors.white,
+                                              ))
+                                        ),
                                       )
                                   )
                               ),
@@ -728,10 +881,15 @@ class plateCalculatorState extends State<plateCalculator> {
                                   alignment: Alignment.center,
                                   child: Padding(
                                     padding: EdgeInsets.all(20.0),
-                                    child: Text(fiveCount.toString(),
-                                        style: TextStyle(
-                                          fontSize: 30,
-                                        )),
+                                    child: BorderedText(
+                                      strokeWidth: 3.0,
+                                      strokeColor: Colors.black,
+                                      child: Text(fiveCount.toString(),
+                                          style: TextStyle(
+                                            fontSize: 30,
+                                            color: Colors.white,
+                                          ))
+                                    ),
                                   )
                               ),
 
@@ -745,10 +903,15 @@ class plateCalculatorState extends State<plateCalculator> {
                                           fiveCount++;
                                           fiveTotal+=5;
                                         },
-                                        child: Text("+",
-                                            style: TextStyle(
-                                              fontSize: 30,
-                                            )),
+                                        child: BorderedText(
+                                          strokeWidth: 3.0,
+                                          strokeColor: Colors.black,
+                                          child: Text("+",
+                                              style: TextStyle(
+                                                fontSize: 30,
+                                                color: Colors.white,
+                                              ))
+                                        ),
                                       )
                                   )
                               ),
@@ -759,16 +922,21 @@ class plateCalculatorState extends State<plateCalculator> {
                 ),
                 SizedBox(
                     width: MediaQuery.of(context).size.width * 0.25,
-                    height: 100,
+                    height: 90,
                     child:Align(
                         alignment: Alignment.centerRight,
                         child: Padding(
                           padding: EdgeInsets.all(20.0),
-                          child: Text(
-                            fiveTotal.toString(),
-                            style: TextStyle(
-                              fontSize: 30,
-                            ),
+                          child: BorderedText(
+                            strokeWidth: 3.0,
+                            strokeColor: Colors.black,
+                            child: Text(
+                              fiveTotal.toString(),
+                              style: TextStyle(
+                                fontSize: 30,
+                                color: Colors.white,
+                              ),
+                            )
                           ),
                         )
                     )
@@ -788,11 +956,16 @@ class plateCalculatorState extends State<plateCalculator> {
                             right: 60,
                             top: 20,
                           ),
-                          child: Text(
-                            "Total:",
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
+                          child: BorderedText(
+                            strokeWidth: 3.0,
+                            strokeColor: Colors.black,
+                            child: Text(
+                              "Total:",
+                              style: TextStyle(
+                                fontSize: 30,
+                                color: Colors.white,
+                              ),
+                            )
                           )
                       )
                   ),
@@ -803,11 +976,16 @@ class plateCalculatorState extends State<plateCalculator> {
                           left: 80,
                           top: 20,
                         ),
-                        child: Text(
-                          weight.toString(),
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
+                        child: BorderedText(
+                          strokeWidth: 3.0,
+                          strokeColor: Colors.black,
+                          child: Text(
+                            weight.toString(),
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.white,
+                            ),
+                          )
                         )
                     ),
                   )
@@ -899,6 +1077,7 @@ class plateCalculatorState extends State<plateCalculator> {
               "Change Weight",
               style: TextStyle(
                 fontSize: 22,
+                color: Colors.white,
               ),
             ),
           )),

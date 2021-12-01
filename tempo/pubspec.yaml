@@ -43,6 +43,8 @@ dependencies:
 
   flex_color_scheme: ^4.1.1
 
+  bordered_text: ^2.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
