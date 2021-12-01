@@ -178,7 +178,9 @@ class cardsViewState extends State<cardsView> {
                                 ),
                                 trailing: GestureDetector(
                                   child: Text(
-                                      workoutsSetAndWeight[index][workoutsSetAndWeight[index].length-1].trim() == "" ? "*Weight*" : workoutsSetAndWeight[index][workoutsSetAndWeight[index].length-1].trim()
+                                      workoutsSetAndWeight[index][workoutsSetAndWeight[index].length-1].trim() == ""
+                                          ? "*Weight*"
+                                          : workoutsSetAndWeight[index][workoutsSetAndWeight[index].length-1].trim().split(" ")[0]
                                   ),
                                   onDoubleTap: () {
                                     var idx = index.toString();
@@ -424,11 +426,19 @@ class cardsViewState extends State<cardsView> {
         //get the value array for this key
         var value_holder = workoutData[workouts[int.parse(currentIdx)]];
 
-        //add the new weight to the end of the list
-        value_holder.add(updatedValue);
+        //get current date
+        DateTime now = new DateTime.now();
+        DateTime date = new DateTime(now.year, now.month, now.day);
 
-        //weights are in index 1 so change that value
-        //value_holder[1] = updatedValue;
+        //set count is held in index 1 so ensure not to overwrite that
+        if(value_holder.length == 0)
+          {
+            value_holder[1] = updatedValue + " " + date.toString().split(" ")[0];
+          }
+        else
+          {
+            value_holder.add(updatedValue + " " + date.toString().split(" ")[0]);
+          }
 
         //update the key/value pair in the map
         workoutData[workouts[int.parse(currentIdx)]] = value_holder;
