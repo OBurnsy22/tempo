@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
-
 //class to track workouts and their timestamps
 class _WorkoutTimestamps {
   _WorkoutTimestamps(this.weight, this.date);
@@ -12,16 +11,17 @@ class _WorkoutTimestamps {
 }
 
 class analyticsHome extends StatefulWidget {
-
   @override
   analyticsHomeState createState() => analyticsHomeState();
 }
 
-class analyticsHomeState extends State<analyticsHome> with AutomaticKeepAliveClientMixin<analyticsHome>{
+class analyticsHomeState extends State<analyticsHome>
+    with AutomaticKeepAliveClientMixin<analyticsHome> {
   //https://pub.dev/packages/syncfusion_flutter_charts/example
   final graph_form_key = GlobalKey<FormState>();
   String graph_type = 'Time Series';
-  bool animate;
+  bool generated = true;
+  List graphs = [];
 
   List<_WorkoutTimestamps> chartData = [
     _WorkoutTimestamps('100', 0),
@@ -33,40 +33,106 @@ class analyticsHomeState extends State<analyticsHome> with AutomaticKeepAliveCli
   @override
   void initState() {
     super.initState();
-    animate = false;
+    //generateGraphs();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.grey.shade700,
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget> [
-              SfCartesianChart(
-                primaryXAxis: CategoryAxis(),
-                // Chart title
-                title: ChartTitle(text: 'Half yearly sales analysis'),
-                // Enable legend
-                legend: Legend(isVisible: true),
-                // Enable tooltip
-                tooltipBehavior: TooltipBehavior(enable: true),
-                series: <ChartSeries<_WorkoutTimestamps, String>>[
-                  LineSeries<_WorkoutTimestamps, String>(
-                    dataSource: chartData,
-                    xValueMapper: (_WorkoutTimestamps workout, _) => workout.weight,
-                    yValueMapper: (_WorkoutTimestamps workout, _) => workout.date,
-                    name: 'Workout Weight',
-                    dataLabelSettings: DataLabelSettings(isVisible: true)
-                  )
-                ],
+    if (generated) {
+      return Scaffold(
+          backgroundColor: Colors.grey.shade700,
+          body: Center(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  /*width: MediaQuery.of(context).size.width * 0.90,
+                  height: MediaQuery.of(context).size.height * 0.90,*/
+                  children: <Widget>[
+                   Container(
+                      color: Colors.white,
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      height: MediaQuery.of(context).size.height * 0.50,
+                      child: SfCartesianChart(
+                        primaryXAxis: CategoryAxis(),
+                        // Chart title
+                        title: ChartTitle(text: 'Half yearly sales analysis'),
+                        // Enable legend
+                        legend: Legend(isVisible: true),
+                        // Enable tooltip
+                        tooltipBehavior: TooltipBehavior(enable: true),
+                        series: <ChartSeries<_WorkoutTimestamps, String>>[
+                          LineSeries<_WorkoutTimestamps, String>(
+                              dataSource: chartData,
+                              xValueMapper: (_WorkoutTimestamps workout, _) =>
+                              workout.weight,
+                              yValueMapper: (_WorkoutTimestamps workout, _) =>
+                              workout.date,
+                              name: 'Workout Weight',
+                              dataLabelSettings:
+                              DataLabelSettings(isVisible: true))
+                        ],
+                      )),
+                    Container(
+                        color: Colors.white,
+                        width: MediaQuery.of(context).size.width * 0.85,
+                        height: MediaQuery.of(context).size.height * 0.50,
+                        child: SfCartesianChart(
+                          primaryXAxis: CategoryAxis(),
+                          // Chart title
+                          title: ChartTitle(text: 'Half yearly sales analysis'),
+                          // Enable legend
+                          legend: Legend(isVisible: true),
+                          // Enable tooltip
+                          tooltipBehavior: TooltipBehavior(enable: true),
+                          series: <ChartSeries<_WorkoutTimestamps, String>>[
+                            LineSeries<_WorkoutTimestamps, String>(
+                                dataSource: chartData,
+                                xValueMapper: (_WorkoutTimestamps workout, _) =>
+                                workout.weight,
+                                yValueMapper: (_WorkoutTimestamps workout, _) =>
+                                workout.date,
+                                name: 'Workout Weight',
+                                dataLabelSettings:
+                                DataLabelSettings(isVisible: true))
+                          ],
+                        )),
+                    Container(
+                        color: Colors.white,
+                        width: MediaQuery.of(context).size.width * 0.85,
+                        height: MediaQuery.of(context).size.height * 0.50,
+                        child: SfCartesianChart(
+                          primaryXAxis: CategoryAxis(),
+                          // Chart title
+                          title: ChartTitle(text: 'Half yearly sales analysis'),
+                          // Enable legend
+                          legend: Legend(isVisible: true),
+                          // Enable tooltip
+                          tooltipBehavior: TooltipBehavior(enable: true),
+                          series: <ChartSeries<_WorkoutTimestamps, String>>[
+                            LineSeries<_WorkoutTimestamps, String>(
+                                dataSource: chartData,
+                                xValueMapper: (_WorkoutTimestamps workout, _) =>
+                                workout.weight,
+                                yValueMapper: (_WorkoutTimestamps workout, _) =>
+                                workout.date,
+                                name: 'Workout Weight',
+                                dataLabelSettings:
+                                DataLabelSettings(isVisible: true))
+                          ],
+                        )),
+                ]
+                )
               )
-            ]
-          )
-        )
-      );
 
+
+              ));
+    } else {
+      //data hasn't been retrieved yet so return progress indicator
+      return CircularProgressIndicator(
+        backgroundColor: Colors.grey.shade700,
+        color: Colors.deepOrange[300],
+      );
+    }
   }
 
   /*
@@ -82,6 +148,38 @@ class analyticsHomeState extends State<analyticsHome> with AutomaticKeepAliveCli
             )
    */
 
+  Future<void> generateGraphs() async {
+    for (int i = 0; i < 5; i++) {
+      graphs.add(Container(
+          color: Colors.white,
+          //width: MediaQuery.of(context).size.width * 0.85,
+          //height: MediaQuery.of(context).size.height * 0.50,
+          width: 200,
+          height: 200,
+          child: SfCartesianChart(
+            primaryXAxis: CategoryAxis(),
+            // Chart title
+            title: ChartTitle(text: 'Half yearly sales analysis'),
+            // Enable legend
+            legend: Legend(isVisible: true),
+            // Enable tooltip
+            tooltipBehavior: TooltipBehavior(enable: true),
+            series: <ChartSeries<_WorkoutTimestamps, String>>[
+              LineSeries<_WorkoutTimestamps, String>(
+                  dataSource: chartData,
+                  xValueMapper: (_WorkoutTimestamps workout, _) =>
+                      workout.weight,
+                  yValueMapper: (_WorkoutTimestamps workout, _) => workout.date,
+                  name: 'Workout Weight',
+                  dataLabelSettings: DataLabelSettings(isVisible: true))
+            ],
+          )));
+    }
+    setState(() {
+      print("Graphs generated");
+      generated = true;
+    });
+  }
 
   //form to add a new graph
   Future<void> AddGraphForm() {
@@ -98,12 +196,9 @@ class analyticsHomeState extends State<analyticsHome> with AutomaticKeepAliveCli
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: graphInput() + graphButtons())),
-              )
-
-          );
+              ));
         });
   }
-
 
   //input for adding a new graph
   List<Widget> graphInput() {
@@ -124,26 +219,19 @@ class analyticsHomeState extends State<analyticsHome> with AutomaticKeepAliveCli
       ),
       DropdownButton<String>(
         value: graph_type,
-        underline: Container(
-          height: 2,
-          color: Colors.deepPurpleAccent
-        ),
+        underline: Container(height: 2, color: Colors.deepPurpleAccent),
         onChanged: (String newValue) {
           setState(() {
             graph_type = newValue;
           });
         },
-        items: <String> ['Time Series', 'Bar']
-          .map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value)
-            );
+        items: <String>['Time Series', 'Bar']
+            .map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(value: value, child: Text(value));
         }).toList(),
       )
     ];
   }
-
 
   //buttons for adding a new graph
   List<Widget> graphButtons() {
