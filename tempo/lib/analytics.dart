@@ -39,34 +39,34 @@ class analyticsHomeState extends State<analyticsHome> with AutomaticKeepAliveCli
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade700,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SfCartesianChart(
-              primaryXAxis: CategoryAxis(),
-              // Chart title
-              title: ChartTitle(text: 'Weight increase over time'),
-              // Enable legend
-              legend: Legend(isVisible: true),
-              tooltipBehavior: TooltipBehavior(enable: true),
-              series: <ChartSeries<_WorkoutTimestamps, String>> [
-                LineSeries<_WorkoutTimestamps, String>(
-                  dataSource: chartData,
-                  xValueMapper: (_WorkoutTimestamps lift, _) => lift.weight,
-                  yValueMapper: (_WorkoutTimestamps lift, _) => lift.date,
-                  name: 'Sales',
-                  // Enable data label
-                  dataLabelSettings: DataLabelSettings(isVisible: true))
-                )
-              ]
-            )
-          ],
-        ),
-      ),
+        backgroundColor: Colors.grey.shade700,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget> [
+              SfCartesianChart(
+                primaryXAxis: CategoryAxis(),
+                // Chart title
+                title: ChartTitle(text: 'Half yearly sales analysis'),
+                // Enable legend
+                legend: Legend(isVisible: true),
+                // Enable tooltip
+                tooltipBehavior: TooltipBehavior(enable: true),
+                series: <ChartSeries<_WorkoutTimestamps, String>>[
+                  LineSeries<_WorkoutTimestamps, String>(
+                    dataSource: chartData,
+                    xValueMapper: (_WorkoutTimestamps workout, _) => workout.weight,
+                    yValueMapper: (_WorkoutTimestamps workout, _) => workout.date,
+                    name: 'Workout Weight',
+                    dataLabelSettings: DataLabelSettings(isVisible: true)
+                  )
+                ],
+              )
+            ]
+          )
+        )
+      );
 
-    );
   }
 
   /*
