@@ -40,15 +40,12 @@ class analyticsHomeState extends State<analyticsHome>
   Widget build(BuildContext context) {
     if (generated) {
       return Scaffold(
-          backgroundColor: Colors.grey.shade700,
-          body: Center(
-              child: SingleChildScrollView(
+        backgroundColor: Colors.grey.shade700,
+        body: Center(
+            child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
-                child: Column(
-                  /*width: MediaQuery.of(context).size.width * 0.90,
-                  height: MediaQuery.of(context).size.height * 0.90,*/
-                  children: <Widget>[
-                   Container(
+                child: Column(children: <Widget>[
+                  Container(
                       color: Colors.white,
                       width: MediaQuery.of(context).size.width * 0.85,
                       height: MediaQuery.of(context).size.height * 0.50,
@@ -64,68 +61,25 @@ class analyticsHomeState extends State<analyticsHome>
                           LineSeries<_WorkoutTimestamps, String>(
                               dataSource: chartData,
                               xValueMapper: (_WorkoutTimestamps workout, _) =>
-                              workout.weight,
+                                  workout.weight,
                               yValueMapper: (_WorkoutTimestamps workout, _) =>
-                              workout.date,
+                                  workout.date,
                               name: 'Workout Weight',
                               dataLabelSettings:
-                              DataLabelSettings(isVisible: true))
+                                  DataLabelSettings(isVisible: true))
                         ],
                       )),
-                    Container(
-                        color: Colors.white,
-                        width: MediaQuery.of(context).size.width * 0.85,
-                        height: MediaQuery.of(context).size.height * 0.50,
-                        child: SfCartesianChart(
-                          primaryXAxis: CategoryAxis(),
-                          // Chart title
-                          title: ChartTitle(text: 'Half yearly sales analysis'),
-                          // Enable legend
-                          legend: Legend(isVisible: true),
-                          // Enable tooltip
-                          tooltipBehavior: TooltipBehavior(enable: true),
-                          series: <ChartSeries<_WorkoutTimestamps, String>>[
-                            LineSeries<_WorkoutTimestamps, String>(
-                                dataSource: chartData,
-                                xValueMapper: (_WorkoutTimestamps workout, _) =>
-                                workout.weight,
-                                yValueMapper: (_WorkoutTimestamps workout, _) =>
-                                workout.date,
-                                name: 'Workout Weight',
-                                dataLabelSettings:
-                                DataLabelSettings(isVisible: true))
-                          ],
-                        )),
-                    Container(
-                        color: Colors.white,
-                        width: MediaQuery.of(context).size.width * 0.85,
-                        height: MediaQuery.of(context).size.height * 0.50,
-                        child: SfCartesianChart(
-                          primaryXAxis: CategoryAxis(),
-                          // Chart title
-                          title: ChartTitle(text: 'Half yearly sales analysis'),
-                          // Enable legend
-                          legend: Legend(isVisible: true),
-                          // Enable tooltip
-                          tooltipBehavior: TooltipBehavior(enable: true),
-                          series: <ChartSeries<_WorkoutTimestamps, String>>[
-                            LineSeries<_WorkoutTimestamps, String>(
-                                dataSource: chartData,
-                                xValueMapper: (_WorkoutTimestamps workout, _) =>
-                                workout.weight,
-                                yValueMapper: (_WorkoutTimestamps workout, _) =>
-                                workout.date,
-                                name: 'Workout Weight',
-                                dataLabelSettings:
-                                DataLabelSettings(isVisible: true))
-                          ],
-                        )),
-                ]
-                )
-              )
-
-
-              ));
+                ]))),
+            floatingActionButton: FloatingActionButton(
+                onPressed: AddGraphForm,
+                child: Icon(
+                  Icons.auto_graph,
+                  size: 30,
+                  color: Colors.deepOrange[300],
+                ),
+                backgroundColor: Colors.white,
+            ),
+      );
     } else {
       //data hasn't been retrieved yet so return progress indicator
       return CircularProgressIndicator(
@@ -134,19 +88,6 @@ class analyticsHomeState extends State<analyticsHome>
       );
     }
   }
-
-  /*
-              Container(
-              alignment: Alignment.center,
-              child: GestureDetector(
-                onTap: AddGraphForm,
-                child: Icon(
-                  Icons.auto_graph,
-                  size: 30,
-                )
-              )
-            )
-   */
 
   Future<void> generateGraphs() async {
     for (int i = 0; i < 5; i++) {
