@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'firebase.dart' as fb;
+import 'package:dropdown_formfield/dropdown_formfield.dart';
+
 
 //class to track workouts and their timestamps
 class _WorkoutTimestamps {
@@ -19,9 +22,13 @@ class analyticsHomeState extends State<analyticsHome>
     with AutomaticKeepAliveClientMixin<analyticsHome> {
   //https://pub.dev/packages/syncfusion_flutter_charts/example
   final graph_form_key = GlobalKey<FormState>();
-  String graph_type = 'Time Series';
   bool generated = true;
   List graphs = [];
+  bool data_retrieved = false;
+  List<QueryDocumentSnapshot> user_data = [];
+
+  String calculateChoice;
+  String fromChoice;
 
   List<_WorkoutTimestamps> chartData = [
     _WorkoutTimestamps('100', 0),
@@ -34,11 +41,20 @@ class analyticsHomeState extends State<analyticsHome>
   void initState() {
     super.initState();
     //generateGraphs();
+    retrieveData();
+  }
+
+  Future<void> retrieveData() async {
+    user_data = await fb.fireDatabase().retrieveUserData();
+    print(user_data.length);
+    setState(() {
+      data_retrieved = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (generated) {
+    if (data_retrieved) {
       return Scaffold(
         backgroundColor: Colors.grey.shade700,
         body: Center(
@@ -144,32 +160,32 @@ class analyticsHomeState extends State<analyticsHome>
   //input for adding a new graph
   List<Widget> graphInput() {
     return [
-      TextFormField(
-        key: Key("input_key"),
-        onSaved: (String graphName) {
-          //save here
-          //_folder = folderName;
-        },
-        validator: (String graphName) {
-          //ensure a folder name was entered
-          if ((graphName.isEmpty)) {
-            return 'Please enter text';
-          }
-          return null;
-        },
-      ),
-      DropdownButton<String>(
-        value: graph_type,
-        underline: Container(height: 2, color: Colors.deepPurpleAccent),
-        onChanged: (String newValue) {
+      DropDownFormField(
+        titleText: 'Calculate:',
+        hintText: 'Please choose one',
+        value: calculateChoice,
+        onSaved: (value) {
           setState(() {
-            graph_type = newValue;
+            calculateChoice = value;
           });
         },
-        items: <String>['Time Series', 'Bar']
-            .map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(value: value, child: Text(value));
-        }).toList(),
+        onChanged: (value) {
+          setState(() {
+            calculateChoice = value;
+          });
+        },
+        dataSource: [ //this just needs to be a list
+          {
+            "display": "hi",
+            "value": "hi"
+          },
+          {
+            "display": "there",
+            "value": "there"
+          },
+        ],
+        textField: "display",
+        valueField: "value",
       )
     ];
   }
