@@ -85,146 +85,146 @@ class cardsViewState extends State<cardsView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-              Container(
-                  width: MediaQuery.of(context).size.width * 0.90,
-                  //height: MediaQuery.of(context).size.height * 0.10,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 3,
+                  Container(
+                      width: MediaQuery.of(context).size.width * 0.90,
+                      //height: MediaQuery.of(context).size.height * 0.10,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 3,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                        color: Colors.deepOrange[300],
+                      ),
+                      child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                                child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: GestureDetector(
+                                        onDoubleTap: changeCardNameForm,
+                                        child: Text(
+                                          currentCardName,
+                                          style: TextStyle(fontSize: 25),
+                                        )))),
+                            Container(
+                                child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: GestureDetector(
+                                        onTap: addWorkoutForm,
+                                        child: Icon(
+                                          Icons.add_outlined,
+                                          size: 40,
+                                        ))))
+                          ])),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.90,
+                    height: MediaQuery.of(context).size.height * 0.78,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 3,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      color: Colors.deepOrange[300],
                     ),
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    color: Colors.deepOrange[300],
-                  ),
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                            child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: GestureDetector(
-                                    onDoubleTap: changeCardNameForm,
-                                    child: Text(
-                                      currentCardName,
-                                      style: TextStyle(fontSize: 25),
-                                    )))),
-                        Container(
-                            child: Align(
-                                alignment: Alignment.centerRight,
-                                child: GestureDetector(
-                                    onTap: addWorkoutForm,
-                                    child: Icon(
-                                      Icons.add_outlined,
-                                      size: 40,
-                                    ))))
-                      ])),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.90,
-                height: MediaQuery.of(context).size.height * 0.78,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 3,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                  color: Colors.deepOrange[300],
-                ),
-                child: ListView.builder(
-                    itemCount: workoutData.length,
-                    itemBuilder: (context, index) {
-                      print(workoutData);
-                      return Card(
-                          child: Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: 2,
-                                  ),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(2))),
-                              child: ListTile(
-                                leading: GestureDetector(
-                                  child: Theme(
-                                      data: Theme.of(context).copyWith(
-                                        unselectedWidgetColor: Colors.blue,
+                    child: ListView.builder(
+                        itemCount: workoutData.length,
+                        itemBuilder: (context, index) {
+                          print(workoutData);
+                          return Card(
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.black,
+                                        width: 2,
                                       ),
-                                      //make an array that each holds a bool value for the check status on each box
-                                      child: Checkbox(
-                                          activeColor: Colors.amberAccent,
-                                          checkColor: Colors.red,
-                                          value: checkboxStatus[index],
-                                          onChanged: (bool status) {
-                                            setState(() {
-                                              checkboxStatus[index] = status;
-                                            });
-                                          })),
-                                ),
-                                title: GestureDetector(
-                                  child: Text(workouts[index]),
-                                  onDoubleTap: () {
-                                    var idx = index.toString();
-                                    changeWorkoutName(idx);
-                                  },
-                                ),
-                                subtitle: GestureDetector(
-                                  child: Text(
-                                      workoutsSetAndWeight[index][0].trim() == "" ? "*Set Count*" : workoutsSetAndWeight[index][0].trim()
-                                  ),
-                                  onDoubleTap: () {
-                                    var idx = index.toString();
-                                    print(idx);
-                                    changeSetCount(idx);
-                                  },
-                                ),
-                                trailing: GestureDetector(
-                                  child: Text(
-                                      workoutsSetAndWeight[index][workoutsSetAndWeight[index].length-1].trim() == ""
-                                          ? "*Weight*"
-                                          : workoutsSetAndWeight[index][workoutsSetAndWeight[index].length-1].trim().split(" ")[0]
-                                  ),
-                                  onDoubleTap: () {
-                                    var idx = index.toString();
-                                    print(idx);
-                                    changeWeight(idx);
-                                  },
-                                ),
-                              )));
-                    }),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 12.0),
-                    child: GestureDetector(
-                        child: Icon(
-                          Icons.calculate,
-                          color: Colors.deepOrange[300],
-                          size: 50.0,
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => plateCalculator()));
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(2))),
+                                  child: ListTile(
+                                    leading: GestureDetector(
+                                      child: Theme(
+                                          data: Theme.of(context).copyWith(
+                                            unselectedWidgetColor: Colors.blue,
+                                          ),
+                                          //make an array that each holds a bool value for the check status on each box
+                                          child: Checkbox(
+                                              activeColor: Colors.amberAccent,
+                                              checkColor: Colors.red,
+                                              value: checkboxStatus[index],
+                                              onChanged: (bool status) {
+                                                setState(() {
+                                                  checkboxStatus[index] = status;
+                                                });
+                                              })),
+                                    ),
+                                    title: GestureDetector(
+                                      child: Text(workouts[index]),
+                                      onDoubleTap: () {
+                                        var idx = index.toString();
+                                        changeWorkoutName(idx);
+                                      },
+                                    ),
+                                    subtitle: GestureDetector(
+                                      child: Text(
+                                          workoutsSetAndWeight[index][0].trim() == "" ? "*Set Count*" : workoutsSetAndWeight[index][0].trim()
+                                      ),
+                                      onDoubleTap: () {
+                                        var idx = index.toString();
+                                        print(idx);
+                                        changeSetCount(idx);
+                                      },
+                                    ),
+                                    trailing: GestureDetector(
+                                      child: Text(
+                                          workoutsSetAndWeight[index][workoutsSetAndWeight[index].length-1] == null
+                                              ? "*Weight*"
+                                              : workoutsSetAndWeight[index][workoutsSetAndWeight[index].length-1].trim().split(" ")[0]
+                                      ),
+                                      onDoubleTap: () {
+                                        var idx = index.toString();
+                                        print(idx);
+                                        changeWeight(idx);
+                                      },
+                                    ),
+                                  )));
                         }),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(right: 12.0),
-                    child: GestureDetector(
-                        child: Icon(
-                          Icons.timer,
-                          color: Colors.deepOrange[300],
-                          size: 50.0,
-                        ),
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => timer()));
-                        }),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 12.0),
+                        child: GestureDetector(
+                            child: Icon(
+                              Icons.calculate,
+                              color: Colors.deepOrange[300],
+                              size: 50.0,
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => plateCalculator()));
+                            }),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 12.0),
+                        child: GestureDetector(
+                            child: Icon(
+                              Icons.timer,
+                              color: Colors.deepOrange[300],
+                              size: 50.0,
+                            ),
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) => timer()));
+                            }),
+                      )
+                    ],
                   )
-                ],
-              )
-            ])));
+                ])));
   }
 
   /**************** FORM FUNCTIONS FOR ADDING A WORKOUT ****************/
@@ -326,6 +326,12 @@ class cardsViewState extends State<cardsView> {
     if (form.validate()) {
       form.save();
       setState(() {
+        //get current date
+        DateTime now = new DateTime.now();
+        DateTime date = new DateTime(now.year, now.month, now.day);
+
+        newWorkoutWeight = newWorkoutWeight + " " + date.toString().split(" ")[0];
+
         // create the value array
         List value_holder = [newWorkoutSetCount, newWorkoutWeight];
 
@@ -359,7 +365,7 @@ class cardsViewState extends State<cardsView> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children:
-                            changeWeightInput(idx) + changeWeightButtons(),
+                        changeWeightInput(idx) + changeWeightButtons(),
                       ))));
         });
   }
@@ -432,13 +438,13 @@ class cardsViewState extends State<cardsView> {
 
         //set count is held in index 1 so ensure not to overwrite that
         if(value_holder.length == 0)
-          {
-            value_holder[1] = updatedValue + " " + date.toString().split(" ")[0];
-          }
+        {
+          value_holder[1] = updatedValue + " " + date.toString().split(" ")[0];
+        }
         else
-          {
-            value_holder.add(updatedValue + " " + date.toString().split(" ")[0]);
-          }
+        {
+          value_holder.add(updatedValue + " " + date.toString().split(" ")[0]);
+        }
 
         //update the key/value pair in the map
         workoutData[workouts[int.parse(currentIdx)]] = value_holder;
@@ -470,7 +476,7 @@ class cardsViewState extends State<cardsView> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children:
-                            changeSetCountInput(idx) + changeSetCountButtons(),
+                        changeSetCountInput(idx) + changeSetCountButtons(),
                       ))));
         });
   }

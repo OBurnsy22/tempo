@@ -18,8 +18,7 @@ class analyticsHome extends StatefulWidget {
   analyticsHomeState createState() => analyticsHomeState();
 }
 
-class analyticsHomeState extends State<analyticsHome>
-    with AutomaticKeepAliveClientMixin<analyticsHome> {
+class analyticsHomeState extends State<analyticsHome> {
   //https://pub.dev/packages/syncfusion_flutter_charts/example
   final graph_form_key = GlobalKey<FormState>();
   bool generated = true;
@@ -47,17 +46,17 @@ class analyticsHomeState extends State<analyticsHome>
     //generateGraphs();
     retrieveData();
 
+  }
+
+  Future<void> retrieveData() async {
+    user_data = await fb.fireDatabase().retrieveUserData();
+    print(user_data.length);
     for(int i=0; i<user_data.length; i++)
     {
       workoutNameData.add(user_data[i].id.substring(2, user_data[i].id.length-5).toString());
     }
     workoutNameData.length > 0 ? selectedCard = workoutNameData[0] : selectedCard = "*No Available Cards*";
     print(workoutNameData);
-  }
-
-  Future<void> retrieveData() async {
-    user_data = await fb.fireDatabase().retrieveUserData();
-    print(user_data.length);
     setState(() {
       data_retrieved = true;
     });
@@ -232,6 +231,9 @@ class analyticsHomeState extends State<analyticsHome>
       form.save();
       setState(() {
         print(selectedCard);
+        /*
+          Create new graphs with workouts from the selected card
+         */
 
       });
       return true;
@@ -239,6 +241,4 @@ class analyticsHomeState extends State<analyticsHome>
     return false;
   }
 
-  @override
-  bool get wantKeepAlive => true;
 }
