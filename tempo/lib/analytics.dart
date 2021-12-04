@@ -32,9 +32,9 @@ class analyticsHomeState extends State<analyticsHome>
 
   List<_WorkoutTimestamps> chartData = [
     _WorkoutTimestamps('100', 0),
-    _WorkoutTimestamps('200', 1),
-    _WorkoutTimestamps('300', 2),
-    _WorkoutTimestamps('400', 3),
+    _WorkoutTimestamps('90', 2),
+    _WorkoutTimestamps('300', 3),
+    _WorkoutTimestamps('20', 1),
   ];
 
   @override
@@ -67,7 +67,7 @@ class analyticsHomeState extends State<analyticsHome>
                       height: MediaQuery.of(context).size.height * 0.50,
                       child: SfCartesianChart(
                         primaryXAxis: CategoryAxis(),
-                        // Chart title
+                        // Chart titles
                         title: ChartTitle(text: 'Half yearly sales analysis'),
                         // Enable legend
                         legend: Legend(isVisible: true),
@@ -147,7 +147,7 @@ class analyticsHomeState extends State<analyticsHome>
               title: Text("Add A Graph"),
               content: Container(
                 width: MediaQuery.of(context).size.width * 0.80,
-                height: MediaQuery.of(context).size.height * 0.20,
+                height: MediaQuery.of(context).size.height * 0.50,
                 child: Form(
                     key: graph_form_key,
                     child: Column(
@@ -161,8 +161,8 @@ class analyticsHomeState extends State<analyticsHome>
   List<Widget> graphInput() {
     return [
       DropDownFormField(
-        titleText: 'Calculate:',
-        hintText: 'Please choose one',
+        titleText: 'Track Workout Weight:',
+        hintText: 'Select a card:',
         value: calculateChoice,
         onSaved: (value) {
           setState(() {
@@ -176,8 +176,8 @@ class analyticsHomeState extends State<analyticsHome>
         },
         dataSource: [ //this just needs to be a list
           {
-            "display": "hi",
-            "value": "hi"
+            "display": user_data[0].id.toString().substring(2, user_data[0].id.length-5),
+            "value": user_data[0].id.toString().substring(2, user_data[0].id.length-5)
           },
           {
             "display": "there",
