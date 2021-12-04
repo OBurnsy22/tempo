@@ -27,7 +27,7 @@ class analyticsHomeState extends State<analyticsHome>
   bool data_retrieved = false;
 
   List<QueryDocumentSnapshot> user_data = [];
-  var workoutNameData = ["Test", "Test2"];
+  List<String> workoutNameData = [];
 
   String calculateChoice;
   String fromChoice;
@@ -47,7 +47,12 @@ class analyticsHomeState extends State<analyticsHome>
     //generateGraphs();
     retrieveData();
 
-    workoutNameData.length > 0 ? selectedCard = workoutNameData[0] : selectedCard = "No Cards";
+    for(int i=0; i<user_data.length; i++)
+    {
+      workoutNameData.add(user_data[i].id.substring(2, user_data[i].id.length-5).toString());
+    }
+    workoutNameData.length > 0 ? selectedCard = workoutNameData[0] : selectedCard = "*No Available Cards*";
+    print(workoutNameData);
   }
 
   Future<void> retrieveData() async {
@@ -226,12 +231,8 @@ class analyticsHomeState extends State<analyticsHome>
     if (form.validate()) {
       form.save();
       setState(() {
-        /*
-        //add new folder to firebase
-        fb.fireDatabase().firebaseCreate(_folder, "f");
-        data_retrieved = false;
-        retrieveData();
-        */
+        print(selectedCard);
+
       });
       return true;
     }
