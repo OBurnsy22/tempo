@@ -25,10 +25,14 @@ class analyticsHomeState extends State<analyticsHome>
   bool generated = true;
   List graphs = [];
   bool data_retrieved = false;
+
   List<QueryDocumentSnapshot> user_data = [];
+  var workoutNameData = ["Test", "Test2"];
 
   String calculateChoice;
   String fromChoice;
+
+  String selectedCard;
 
   List<_WorkoutTimestamps> chartData = [
     _WorkoutTimestamps('100', 0),
@@ -42,6 +46,8 @@ class analyticsHomeState extends State<analyticsHome>
     super.initState();
     //generateGraphs();
     retrieveData();
+
+    workoutNameData.length > 0 ? selectedCard = workoutNameData[0] : selectedCard = "No Cards";
   }
 
   Future<void> retrieveData() async {
@@ -160,33 +166,24 @@ class analyticsHomeState extends State<analyticsHome>
   //input for adding a new graph
   List<Widget> graphInput() {
     return [
-      DropDownFormField(
-        titleText: 'Track Workout Weight:',
-        hintText: 'Select a card:',
-        value: calculateChoice,
-        onSaved: (value) {
-          setState(() {
-            calculateChoice = value;
-          });
-        },
-        onChanged: (value) {
-          setState(() {
-            calculateChoice = value;
-          });
-        },
-        dataSource: [ //this just needs to be a list
-          {
-            "display": user_data[0].id.toString().substring(2, user_data[0].id.length-5),
-            "value": user_data[0].id.toString().substring(2, user_data[0].id.length-5)
-          },
-          {
-            "display": "there",
-            "value": "there"
-          },
-        ],
-        textField: "display",
-        valueField: "value",
-      )
+      Text("Track workout weight data from selected card: "),
+      DropdownButton(
+        value: selectedCard,
+        hint: Text("Select a card:"),
+        items: workoutNameData.map<DropdownMenuItem<String>>((String items) {
+          return DropdownMenuItem(
+            value: items,
+            child: Text(items)
+          );
+        }
+        ).toList(),
+          onChanged: (String newValue) {
+            setState(() {
+              selectedCard = newValue;
+            });
+          }
+      ),
+
     ];
   }
 
