@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase.dart' as fb;
 import 'cards_view.dart';
+import 'google_auth.dart';
+import 'main.dart';
+import 'login.dart';
 
 class cardsHome extends StatefulWidget {
   @override
@@ -62,7 +65,12 @@ class cardsHomeState extends State<cardsHome>
                             child: GestureDetector(
                                 onTap: AddCardForm,
                                 child: Icon(Icons.add_outlined,
-                                    size: 40, color: Colors.deepOrange[300])))
+                                    size: 40, color: Colors.deepOrange[300]))),
+                        Spacer(),
+                      GestureDetector(
+                      onTap: signOutWarning,
+                      child: Icon(Icons.logout,
+                          size: 40, color: Colors.deepOrange[300]))
                       ],
                     ),
                   )),
@@ -163,6 +171,43 @@ class cardsHomeState extends State<cardsHome>
                   setState(() {
                     data_retrieved = false;
                     retrieveData();
+                  });
+                },
+              ),
+              TextButton(
+                child: Text('No'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+  /**************** FORM FUNCTIONS FOR SIGNING OUT ****************/
+  Future<void> signOutWarning() {
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Sign Out:'),
+            content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Text('Sign out?'),
+                  ],
+                )),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Yes'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    googleAuth().googleSignOut(context);
+                    //MyApp();
+                    login();
                   });
                 },
               ),

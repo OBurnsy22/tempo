@@ -32,17 +32,10 @@ class googleAuth {
 
   //signs out current user and returns them to homepage
   Future<void> googleSignOut(BuildContext context) async {
-    print("in google sign out");
     await FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
-    //setState(() {
-      print("In set state for google sign out");
-      globals.user = null;
-      globals.signedIn = false;
-      Navigator.pop(context);
-      Navigator.pop(context);
-    //}); //might have to call setState() on the widget tree from whereever
-          //this is being called */
+    globals.user = null;
+    globals.signedIn = false;
   }
 
 }
