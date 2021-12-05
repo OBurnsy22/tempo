@@ -36,7 +36,7 @@ class analyticsHomeState extends State<analyticsHome> {
 
   String selectedCard;
 
-  List<_WorkoutTimestamps> chartData = [];
+  //List<_WorkoutTimestamps> chartData = [];
 
   @override
   void initState() {
@@ -96,21 +96,26 @@ class analyticsHomeState extends State<analyticsHome> {
     /* Append the time values and workout weight as x y values to chartData */
     if(workoutData != null)
       {
-        chartData.clear();
+        //chartData.clear();
         List workoutNames = workoutData.keys.toList();
         List workoutWeightAndTime = workoutData.values.toList();
+
+        List<List<_WorkoutTimestamps>> allData = [];
         for(int i=0; i<workoutWeightAndTime.length; i++)
         {
+          List<_WorkoutTimestamps> chartData = [];
           for(int x=0; x<workoutWeightAndTime[i].length; x++)
           {
             if(x != 0 && workoutWeightAndTime[i][x] != null)
             {
               var data = workoutWeightAndTime[i][x].toString().split(" ");
               var date_data = data[1].split("-");
-              print(date_data);
               chartData.add(_WorkoutTimestamps(data[0], DateTime(int.parse(date_data[0]), int.parse(date_data[1]), int.parse(date_data[2]))));
             }
           }
+
+          allData.add(chartData);
+
           //add divider
           graphs.add(Divider(
             height: 20,
@@ -140,7 +145,7 @@ class analyticsHomeState extends State<analyticsHome> {
                 series: <ChartSeries<_WorkoutTimestamps, String>>[
                   LineSeries<_WorkoutTimestamps, String>(
                       color: Colors.deepOrange[300],
-                      dataSource: chartData,
+                      dataSource: allData[i],
                       xValueMapper: (_WorkoutTimestamps workout, _) =>
                       workout.date.millisecondsSinceEpoch.toString(),
                       yValueMapper: (_WorkoutTimestamps workout, _) =>

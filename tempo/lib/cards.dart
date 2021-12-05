@@ -38,9 +38,9 @@ class cardsHomeState extends State<cardsHome>
   Widget build(BuildContext context) {
     if (data_retrieved) {
       return Scaffold(
-        resizeToAvoidBottomInset:
+        /*resizeToAvoidBottomInset:
             false, //attempt to make the keyboard stop overflowing pixels
-
+        */
         backgroundColor: Colors.grey.shade700,
         body: Center(
           child: Column(
