@@ -71,7 +71,7 @@ class analyticsHomeState extends State<analyticsHome> {
             floatingActionButton: FloatingActionButton(
                 onPressed: AddGraphForm,
                 child: Icon(
-                  Icons.auto_graph,
+                  Icons.add,
                   size: 30,
                   color: Colors.deepOrange[300],
                 ),
@@ -127,8 +127,8 @@ class analyticsHomeState extends State<analyticsHome> {
                   borderRadius: BorderRadius.all(Radius.circular(30))
               ),
               //color: Colors.white,
-              width: MediaQuery.of(context).size.width * 0.85,
-              height: MediaQuery.of(context).size.height * 0.50,
+              width: MediaQuery.of(context).size.width * 0.90,
+              height: MediaQuery.of(context).size.height * 0.5,
               child: SfCartesianChart(
                 primaryXAxis: CategoryAxis(),
                 // Chart titles
@@ -139,15 +139,33 @@ class analyticsHomeState extends State<analyticsHome> {
                 tooltipBehavior: TooltipBehavior(enable: true),
                 series: <ChartSeries<_WorkoutTimestamps, String>>[
                   LineSeries<_WorkoutTimestamps, String>(
+                      color: Colors.deepOrange[300],
                       dataSource: chartData,
                       xValueMapper: (_WorkoutTimestamps workout, _) =>
-                      workout.weight,
+                      workout.date.millisecondsSinceEpoch.toString(),
                       yValueMapper: (_WorkoutTimestamps workout, _) =>
-                      workout.date.day,
+                      int.parse(workout.weight),
                       name: 'Workout Weight',
                       dataLabelSettings:
                       DataLabelSettings(isVisible: true))
                 ],
+                axisLabelFormatter: (AxisLabelRenderDetails args) {
+                  String text;
+                  if (args.axisName == 'primaryXAxis') {
+                    print(args.value);
+                    text = DateTime.fromMillisecondsSinceEpoch(
+                        args.value.toInt())
+                        .month
+                        .toString() +
+                        '-' +
+                        DateTime.fromMillisecondsSinceEpoch(args.value.toInt())
+                            .day
+                            .toString();
+                  } else {
+                    text = args.text;
+                  }
+                  return ChartAxisLabel(text, args.textStyle);
+                },
               )));
           //add divider
           graphs.add(Divider(
@@ -240,7 +258,7 @@ class analyticsHomeState extends State<analyticsHome> {
             key: Key("submit_key"),
             onPressed: graphValidation,
             child: Text(
-              "Create Graph",
+              "Create Graphs",
               style: TextStyle(
                 fontSize: 22,
               ),
