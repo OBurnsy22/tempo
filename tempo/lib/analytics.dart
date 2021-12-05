@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase.dart' as fb;
-import 'package:dropdown_formfield/dropdown_formfield.dart';
+import 'package:bordered_text/bordered_text.dart';
+
 
 
 //class to track workouts and their timestamps
@@ -107,15 +108,28 @@ class analyticsHomeState extends State<analyticsHome> {
               chartData.add(_WorkoutTimestamps(data[0], DateTime(int.parse(date_data[0]), int.parse(date_data[1]), int.parse(date_data[2]))));
             }
           }
+          //add divider
+          graphs.add(Divider(
+            height: 20,
+            thickness: 20,
+            color: Colors.grey.shade700,
+          ));
           //create a new chart with the data
           graphs.add(Container(
-              color: Colors.white,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                  border: Border.all(
+                    color: Colors.deepOrange[300],
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(30))
+              ),
+              //color: Colors.white,
               width: MediaQuery.of(context).size.width * 0.85,
               height: MediaQuery.of(context).size.height * 0.50,
               child: SfCartesianChart(
                 primaryXAxis: CategoryAxis(),
                 // Chart titles
-                title: ChartTitle(text: 'Half yearly sales analysis'),
+                title: ChartTitle(text: workoutNames[i]),
                 // Enable legend
                 legend: Legend(isVisible: true),
                 // Enable tooltip
@@ -132,10 +146,25 @@ class analyticsHomeState extends State<analyticsHome> {
                       DataLabelSettings(isVisible: true))
                 ],
               )));
+          //add divider
+          graphs.add(Divider(
+            height: 20,
+            thickness: 20,
+            color: Colors.grey.shade700,
+          ));
         }
 
       } else {
-      graphs.add(Text("Create a graph!"));
+      graphs.add(BorderedText(
+          strokeWidth: 3.0,
+          strokeColor: Colors.black,
+          child: Text(
+            "No Graphs",
+            style: TextStyle(
+              fontSize: 30,
+              color: Colors.white,
+            ),
+          )));
     }
     return graphs;
   }
