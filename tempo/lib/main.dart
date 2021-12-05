@@ -1,6 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:tempo/search.dart';
 import 'analytics.dart';
 import 'cards.dart';
 import 'login.dart';
@@ -20,11 +19,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //darkTheme: ThemeData.dark(),
-      /*theme: ThemeData(
-        primaryColor: Colors.grey,
-        secondaryHeaderColor: Colors.amber,
-      ),*/
       home: globals.signedIn == false ? login() : navigator(),
     );
   }
@@ -52,7 +46,6 @@ class navigatorState extends State<navigator>{
     _pages = [
       cardsHome(),
       analyticsHome(),
-      searchHome(),
     ];
 
     _controller = PageController(initialPage: _selectedPageIndex);
@@ -82,8 +75,7 @@ class navigatorState extends State<navigator>{
         index: _selectedPageIndex,
         items: <Widget> [
           Icon(Icons.open_with, size: 30, color: Colors.deepOrange[300],),
-          Icon(Icons.add, size: 30, color: Colors.deepOrange[300],),
-          Icon(Icons.search, size: 30, color: Colors.deepOrange[300],),
+          Icon(Icons.auto_graph_sharp, size: 30, color: Colors.deepOrange[300],),
         ],
         onTap: (index) {
           setState(() {

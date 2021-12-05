@@ -80,9 +80,12 @@ class analyticsHomeState extends State<analyticsHome> {
       );
     } else {
       //data hasn't been retrieved yet so return progress indicator
-      return CircularProgressIndicator(
-        backgroundColor: Colors.grey.shade700,
-        color: Colors.deepOrange[300],
+      return Container(
+        color: Colors.grey.shade700,
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.grey.shade700,
+          color: Colors.deepOrange[300],
+        ),
       );
     }
   }
