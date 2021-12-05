@@ -108,6 +108,7 @@ class cardsViewState extends State<cardsView> {
                                           currentCardName,
                                           style: TextStyle(fontSize: 25),
                                         )))),
+                            Spacer(),
                             Container(
                                 child: Align(
                                     alignment: Alignment.centerRight,
@@ -116,7 +117,7 @@ class cardsViewState extends State<cardsView> {
                                         child: Icon(
                                           Icons.add_outlined,
                                           size: 40,
-                                        ))))
+                                        )))),
                           ])),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.90,
@@ -226,6 +227,7 @@ class cardsViewState extends State<cardsView> {
                   )
                 ])));
   }
+
 
   /**************** FORM FUNCTIONS FOR ADDING A WORKOUT ****************/
 

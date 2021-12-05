@@ -35,7 +35,8 @@ class cardsHomeState extends State<cardsHome>
   Widget build(BuildContext context) {
     if (data_retrieved) {
       return Scaffold(
-        resizeToAvoidBottomInset: false, //attempt to make the keyboard stop overflowing pixels
+        resizeToAvoidBottomInset:
+            false, //attempt to make the keyboard stop overflowing pixels
 
         backgroundColor: Colors.grey.shade700,
         body: Center(
@@ -53,21 +54,15 @@ class cardsHomeState extends State<cardsHome>
                             alignment: Alignment.centerRight,
                             child: GestureDetector(
                               onTap: AddFolderForm,
-                              child: Icon(
-                                Icons.create_new_folder_outlined,
-                                size: 40,
-                                color: Colors.deepOrange[300]
-                              ),
+                              child: Icon(Icons.create_new_folder_outlined,
+                                  size: 40, color: Colors.deepOrange[300]),
                             )),
                         Align(
                             alignment: Alignment.centerRight,
                             child: GestureDetector(
                                 onTap: AddCardForm,
-                                child: Icon(
-                                  Icons.add_outlined,
-                                  size: 40,
-                                    color: Colors.deepOrange[300]
-                                )))
+                                child: Icon(Icons.add_outlined,
+                                    size: 40, color: Colors.deepOrange[300])))
                       ],
                     ),
                   )),
@@ -93,28 +88,39 @@ class cardsHomeState extends State<cardsHome>
                                 QueryDocumentSnapshot data = user_data[index];
                                 return Card(
                                     child: Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: Colors.black,
-                                          width: 2,
-                                        ),
-                                        borderRadius: BorderRadius.all(Radius.circular(2))
-                                      ),
-                                      child: ListTile(
-                                          title: Text(data.id.substring(2, data.id.length-5)),
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(builder: (context) => cardsView(card_: user_data[index]))
-                                            ).then((value)  {
-                                              setState(() {
-                                                data_retrieved = false;
-                                                retrieveData();
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.black,
+                                              width: 2,
+                                            ),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(2))),
+                                        child: ListTile(
+                                            title: Text(data.id.substring(
+                                                2, data.id.length - 5)),
+                                            trailing: GestureDetector(
+                                              child: Icon(
+                                                  Icons.restore_from_trash
+                                              ),
+                                              onTap: () {
+                                                deleteWorkoutCard(context, data.id);
+                                              },
+                                            ),
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          cardsView(
+                                                              card_: user_data[
+                                                                  index]))).then(
+                                                  (value) {
+                                                setState(() {
+                                                  data_retrieved = false;
+                                                  retrieveData();
+                                                });
                                               });
-                                            });
-                                          })
-                                    )
-                                  );
+                                            })));
                               }))
                     ],
                   )),
@@ -134,24 +140,59 @@ class cardsHomeState extends State<cardsHome>
     }
   }
 
+  /**************** FORM FUNCTIONS FOR DELETING A CARD ****************/
+  Future<void> deleteWorkoutCard(BuildContext context, String cardName) {
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Delete Workout Card:'),
+            content: SingleChildScrollView(
+                child: ListBody(
+              children: <Widget>[
+                Text('Are you sure you want to delete this card?'),
+              ],
+            )),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Yes'),
+                onPressed: () {
+                  Navigator.pop(context);
+                  fb.fireDatabase().deleteWorkoutCard(cardName);
+                  setState(() {
+                    data_retrieved = false;
+                    retrieveData();
+                  });
+                },
+              ),
+              TextButton(
+                child: Text('No'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
+  }
+
   // form for adding folders
   Future<void> AddFolderForm() {
     return showDialog<void>(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Add A Folder"),
-            content: Container(
-              width: MediaQuery.of(context).size.width * 0.80,
-              height: MediaQuery.of(context).size.height * 0.20,
-              child: Form(
-                  key: folder_form_key,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: folderInput() + folderButtons())),
-            )
-
-          );
+              title: Text("Add A Folder"),
+              content: Container(
+                width: MediaQuery.of(context).size.width * 0.80,
+                height: MediaQuery.of(context).size.height * 0.20,
+                child: Form(
+                    key: folder_form_key,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: folderInput() + folderButtons())),
+              ));
         });
   }
 
@@ -232,14 +273,13 @@ class cardsHomeState extends State<cardsHome>
           return AlertDialog(
             title: Text("Add A Card"),
             content: Container(
-              width: MediaQuery.of(context).size.width * 0.80,
-              height: MediaQuery.of(context).size.height * 0.20,
-              child: Form(
-                  key: card_form_key,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: cardInput() + cardButtons()))
-            ),
+                width: MediaQuery.of(context).size.width * 0.80,
+                height: MediaQuery.of(context).size.height * 0.20,
+                child: Form(
+                    key: card_form_key,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: cardInput() + cardButtons()))),
           );
         });
   }

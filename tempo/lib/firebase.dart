@@ -80,20 +80,9 @@ class fireDatabase {
   }
 
 
-  //use this function to retrieve all data from firebase
-  /*
-  Future<void> retrieveClasses() async{
-    QuerySnapshot snap = await FirebaseFirestore.instance.collection(globals.user.email).get();
-    //loops through all documents, appending their names to the myDocs list
-    snap.docs.forEach((element) {
-      var icon = element.get("classIcon");
-      //allClassesIcons.add(icon);
-      allClasses.add(element);
-    });
-    print(allClasses.length);
-    setState(() {
-      classesRetrieved = true;
-    });
-  }*/
+  Future<void> deleteWorkoutCard(String cardName) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    firestore.collection(globals.user.email).doc(cardName).delete();
+  }
 
 }
