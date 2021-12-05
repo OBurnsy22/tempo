@@ -20,6 +20,8 @@ class analyticsHome extends StatefulWidget {
 
 class analyticsHomeState extends State<analyticsHome> {
   //https://pub.dev/packages/syncfusion_flutter_charts/example
+  Map<String, dynamic> workoutData;
+
   final graph_form_key = GlobalKey<FormState>();
   bool generated = true;
   List graphs = [];
@@ -34,10 +36,10 @@ class analyticsHomeState extends State<analyticsHome> {
   String selectedCard;
 
   List<_WorkoutTimestamps> chartData = [
-    _WorkoutTimestamps('100', 0),
+    /*_WorkoutTimestamps('100', 0),
     _WorkoutTimestamps('90', 2),
     _WorkoutTimestamps('300', 3),
-    _WorkoutTimestamps('20', 1),
+    _WorkoutTimestamps('20', 1),*/
   ];
 
   @override
@@ -45,7 +47,6 @@ class analyticsHomeState extends State<analyticsHome> {
     super.initState();
     //generateGraphs();
     retrieveData();
-
   }
 
   Future<void> retrieveData() async {
@@ -56,7 +57,6 @@ class analyticsHomeState extends State<analyticsHome> {
       workoutNameData.add(user_data[i].id.substring(2, user_data[i].id.length-5).toString());
     }
     workoutNameData.length > 0 ? selectedCard = workoutNameData[0] : selectedCard = "*No Available Cards*";
-    print(workoutNameData);
     setState(() {
       data_retrieved = true;
     });
@@ -71,7 +71,8 @@ class analyticsHomeState extends State<analyticsHome> {
             child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Column(children: <Widget>[
-                  Container(
+                  generateGraph()
+                  /*Container(
                       color: Colors.white,
                       width: MediaQuery.of(context).size.width * 0.85,
                       height: MediaQuery.of(context).size.height * 0.50,
@@ -94,7 +95,7 @@ class analyticsHomeState extends State<analyticsHome> {
                               dataLabelSettings:
                                   DataLabelSettings(isVisible: true))
                         ],
-                      )),
+                      ))*/,
                 ]))),
             floatingActionButton: FloatingActionButton(
                 onPressed: AddGraphForm,
@@ -115,38 +116,55 @@ class analyticsHomeState extends State<analyticsHome> {
     }
   }
 
-  Future<void> generateGraphs() async {
-    for (int i = 0; i < 5; i++) {
-      graphs.add(Container(
-          color: Colors.white,
-          //width: MediaQuery.of(context).size.width * 0.85,
-          //height: MediaQuery.of(context).size.height * 0.50,
-          width: 200,
-          height: 200,
-          child: SfCartesianChart(
-            primaryXAxis: CategoryAxis(),
-            // Chart title
-            title: ChartTitle(text: 'Half yearly sales analysis'),
-            // Enable legend
-            legend: Legend(isVisible: true),
-            // Enable tooltip
-            tooltipBehavior: TooltipBehavior(enable: true),
-            series: <ChartSeries<_WorkoutTimestamps, String>>[
-              LineSeries<_WorkoutTimestamps, String>(
-                  dataSource: chartData,
-                  xValueMapper: (_WorkoutTimestamps workout, _) =>
-                      workout.weight,
-                  yValueMapper: (_WorkoutTimestamps workout, _) => workout.date,
-                  name: 'Workout Weight',
-                  dataLabelSettings: DataLabelSettings(isVisible: true))
-            ],
-          )));
+
+  Widget generateGraph() {
+    /* Append the time values and workout weight as x y values to chartData */
+    if(workoutData != null)
+      {
+        chartData.clear();
+        List workoutNames = workoutData.keys.toList();
+        List workoutWeightAndTime = workoutData.values.toList();
+        for(int i=0; i<workoutWeightAndTime.length; i++)
+        {
+          for(int x=0; x<workoutWeightAndTime[i].length; x++)
+          {
+            if(x != 0 && workoutWeightAndTime[i][x] != null)
+            {
+              var data = workoutWeightAndTime[i][x].toString().split(" ");
+              chartData.add(_WorkoutTimestamps(data[0], 50));
+            }
+          }
+        }
+
+        return Container(
+            color: Colors.white,
+            width: MediaQuery.of(context).size.width * 0.85,
+            height: MediaQuery.of(context).size.height * 0.50,
+            child: SfCartesianChart(
+              primaryXAxis: CategoryAxis(),
+              // Chart titles
+              title: ChartTitle(text: 'Half yearly sales analysis'),
+              // Enable legend
+              legend: Legend(isVisible: true),
+              // Enable tooltip
+              tooltipBehavior: TooltipBehavior(enable: true),
+              series: <ChartSeries<_WorkoutTimestamps, String>>[
+                LineSeries<_WorkoutTimestamps, String>(
+                    dataSource: chartData,
+                    xValueMapper: (_WorkoutTimestamps workout, _) =>
+                    workout.weight,
+                    yValueMapper: (_WorkoutTimestamps workout, _) =>
+                    workout.date,
+                    name: 'Workout Weight',
+                    dataLabelSettings:
+                    DataLabelSettings(isVisible: true))
+              ],
+            ));
+      } else {
+      return Text("Create a graph!");
     }
-    setState(() {
-      print("Graphs generated");
-      generated = true;
-    });
   }
+
 
   //form to add a new graph
   Future<void> AddGraphForm() {
@@ -229,13 +247,24 @@ class analyticsHomeState extends State<analyticsHome> {
     final form = graph_form_key.currentState;
     if (form.validate()) {
       form.save();
-      setState(() {
-        print(selectedCard);
-        /*
-          Create new graphs with workouts from the selected card
-         */
-
-      });
+      /*
+          1. Get the workout data for the selected workout
+          2. Seperate the data into an x and y list
+          3. Dynamically generate a graph with said lists
+      */
+      for(int i=0; i<user_data.length; i++)
+      {
+        if(user_data[i].id.contains(selectedCard))
+        {
+          /*setState(() {
+            workoutData = user_data[i].data();
+          });*/
+          workoutData = user_data[i].data();
+          setState(() {
+            generateGraph();
+          });
+        }
+      }
       return true;
     }
     return false;

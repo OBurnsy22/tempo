@@ -26,7 +26,6 @@ class cardsHomeState extends State<cardsHome>
 
   Future<void> retrieveData() async {
     user_data = await fb.fireDatabase().retrieveUserData();
-    print(user_data.length);
     setState(() {
       data_retrieved = true;
     });
