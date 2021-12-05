@@ -10,7 +10,7 @@ class _WorkoutTimestamps {
   _WorkoutTimestamps(this.weight, this.date);
 
   final String weight;
-  final double date;
+  final DateTime date;
 }
 
 class analyticsHome extends StatefulWidget {
@@ -35,17 +35,11 @@ class analyticsHomeState extends State<analyticsHome> {
 
   String selectedCard;
 
-  List<_WorkoutTimestamps> chartData = [
-    /*_WorkoutTimestamps('100', 0),
-    _WorkoutTimestamps('90', 2),
-    _WorkoutTimestamps('300', 3),
-    _WorkoutTimestamps('20', 1),*/
-  ];
+  List<_WorkoutTimestamps> chartData = [];
 
   @override
   void initState() {
     super.initState();
-    //generateGraphs();
     retrieveData();
   }
 
@@ -131,7 +125,9 @@ class analyticsHomeState extends State<analyticsHome> {
             if(x != 0 && workoutWeightAndTime[i][x] != null)
             {
               var data = workoutWeightAndTime[i][x].toString().split(" ");
-              chartData.add(_WorkoutTimestamps(data[0], 50));
+              var date_data = data[1].split("-");
+              print(date_data);
+              chartData.add(_WorkoutTimestamps(data[0], DateTime(int.parse(date_data[0]), int.parse(date_data[1]), int.parse(date_data[2]))));
             }
           }
         }
@@ -154,7 +150,7 @@ class analyticsHomeState extends State<analyticsHome> {
                     xValueMapper: (_WorkoutTimestamps workout, _) =>
                     workout.weight,
                     yValueMapper: (_WorkoutTimestamps workout, _) =>
-                    workout.date,
+                    workout.date.day,
                     name: 'Workout Weight',
                     dataLabelSettings:
                     DataLabelSettings(isVisible: true))
