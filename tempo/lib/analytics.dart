@@ -64,33 +64,9 @@ class analyticsHomeState extends State<analyticsHome> {
         body: Center(
             child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
-                child: Column(children: <Widget>[
-                  generateGraph()
-                  /*Container(
-                      color: Colors.white,
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.height * 0.50,
-                      child: SfCartesianChart(
-                        primaryXAxis: CategoryAxis(),
-                        // Chart titles
-                        title: ChartTitle(text: 'Half yearly sales analysis'),
-                        // Enable legend
-                        legend: Legend(isVisible: true),
-                        // Enable tooltip
-                        tooltipBehavior: TooltipBehavior(enable: true),
-                        series: <ChartSeries<_WorkoutTimestamps, String>>[
-                          LineSeries<_WorkoutTimestamps, String>(
-                              dataSource: chartData,
-                              xValueMapper: (_WorkoutTimestamps workout, _) =>
-                                  workout.weight,
-                              yValueMapper: (_WorkoutTimestamps workout, _) =>
-                                  workout.date,
-                              name: 'Workout Weight',
-                              dataLabelSettings:
-                                  DataLabelSettings(isVisible: true))
-                        ],
-                      ))*/,
-                ]))),
+                child: Column(
+                    children: generateGraph()
+                ))),
             floatingActionButton: FloatingActionButton(
                 onPressed: AddGraphForm,
                 child: Icon(
@@ -111,7 +87,8 @@ class analyticsHomeState extends State<analyticsHome> {
   }
 
 
-  Widget generateGraph() {
+  List<Widget> generateGraph() {
+    List<Widget> graphs = [];
     /* Append the time values and workout weight as x y values to chartData */
     if(workoutData != null)
       {
@@ -130,35 +107,37 @@ class analyticsHomeState extends State<analyticsHome> {
               chartData.add(_WorkoutTimestamps(data[0], DateTime(int.parse(date_data[0]), int.parse(date_data[1]), int.parse(date_data[2]))));
             }
           }
+          //create a new chart with the data
+          graphs.add(Container(
+              color: Colors.white,
+              width: MediaQuery.of(context).size.width * 0.85,
+              height: MediaQuery.of(context).size.height * 0.50,
+              child: SfCartesianChart(
+                primaryXAxis: CategoryAxis(),
+                // Chart titles
+                title: ChartTitle(text: 'Half yearly sales analysis'),
+                // Enable legend
+                legend: Legend(isVisible: true),
+                // Enable tooltip
+                tooltipBehavior: TooltipBehavior(enable: true),
+                series: <ChartSeries<_WorkoutTimestamps, String>>[
+                  LineSeries<_WorkoutTimestamps, String>(
+                      dataSource: chartData,
+                      xValueMapper: (_WorkoutTimestamps workout, _) =>
+                      workout.weight,
+                      yValueMapper: (_WorkoutTimestamps workout, _) =>
+                      workout.date.day,
+                      name: 'Workout Weight',
+                      dataLabelSettings:
+                      DataLabelSettings(isVisible: true))
+                ],
+              )));
         }
 
-        return Container(
-            color: Colors.white,
-            width: MediaQuery.of(context).size.width * 0.85,
-            height: MediaQuery.of(context).size.height * 0.50,
-            child: SfCartesianChart(
-              primaryXAxis: CategoryAxis(),
-              // Chart titles
-              title: ChartTitle(text: 'Half yearly sales analysis'),
-              // Enable legend
-              legend: Legend(isVisible: true),
-              // Enable tooltip
-              tooltipBehavior: TooltipBehavior(enable: true),
-              series: <ChartSeries<_WorkoutTimestamps, String>>[
-                LineSeries<_WorkoutTimestamps, String>(
-                    dataSource: chartData,
-                    xValueMapper: (_WorkoutTimestamps workout, _) =>
-                    workout.weight,
-                    yValueMapper: (_WorkoutTimestamps workout, _) =>
-                    workout.date.day,
-                    name: 'Workout Weight',
-                    dataLabelSettings:
-                    DataLabelSettings(isVisible: true))
-              ],
-            ));
       } else {
-      return Text("Create a graph!");
+      graphs.add(Text("Create a graph!"));
     }
+    return graphs;
   }
 
 
