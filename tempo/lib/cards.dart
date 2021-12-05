@@ -163,22 +163,47 @@ class cardsHomeState extends State<cardsHome>
               ],
             )),
             actions: <Widget>[
-              TextButton(
-                child: Text('Yes'),
-                onPressed: () {
-                  Navigator.pop(context);
-                  fb.fireDatabase().deleteWorkoutCard(cardName);
-                  setState(() {
-                    data_retrieved = false;
-                    retrieveData();
-                  });
-                },
-              ),
-              TextButton(
-                child: Text('No'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.deepOrange[300],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32.0),
+                      ),
+                      side: BorderSide(
+                        width: 3,
+                        color: Colors.black,
+                      ),
+                    ),
+                    child: Text('No'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.deepOrange[300],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32.0),
+                      ),
+                      side: BorderSide(
+                        width: 3,
+                        color: Colors.black,
+                      ),
+                    ),
+                    child: Text('Yes'),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      fb.fireDatabase().deleteWorkoutCard(cardName);
+                      setState(() {
+                        data_retrieved = false;
+                        retrieveData();
+                      });
+                    },
+                  ),
+                ],
               ),
             ],
           );
@@ -193,29 +218,48 @@ class cardsHomeState extends State<cardsHome>
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Sign Out:'),
-            content: SingleChildScrollView(
-                child: ListBody(
-                  children: <Widget>[
-                    Text('Sign out?'),
-                  ],
-                )),
             actions: <Widget>[
-              TextButton(
-                child: Text('Yes'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  setState(() {
-                    googleAuth().googleSignOut(context);
-                    //MyApp();
-                    login();
-                  });
-                },
-              ),
-              TextButton(
-                child: Text('No'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.deepOrange[300],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32.0),
+                      ),
+                      side: BorderSide(
+                        width: 3,
+                        color: Colors.black,
+                      ),
+                    ),
+                    child: Text('No'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.deepOrange[300],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32.0),
+                      ),
+                      side: BorderSide(
+                        width: 3,
+                        color: Colors.black,
+                      ),
+                    ),
+                    child: Text('Yes'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      setState(() {
+                        googleAuth().googleSignOut(context);
+                        //MyApp();
+                        login();
+                      });
+                    },
+                  ),
+                ],
               ),
             ],
           );
